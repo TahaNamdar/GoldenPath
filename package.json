@@ -1,0 +1,37 @@
+{
+  "name": "auth-project",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "sync:db": "npx prisma db push"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@mui/material": "^5.14.7",
+    "@prisma/client": "^5.2.0",
+    "@tanstack/react-query": "^4.33.0",
+    "@trpc/client": "^10.38.1",
+    "@trpc/next": "^10.38.1",
+    "@trpc/react": "^9.27.4",
+    "@trpc/react-query": "^10.38.1",
+    "@trpc/server": "^10.38.1",
+    "@types/node": "^20.5.7",
+    "@types/react": "^18.2.21",
+    "@types/react-dom": "^18.2.7",
+    "argon2": "^0.31.0",
+    "next": "^13.4.19",
+    "next-auth": "^4.23.1",
+    "prisma": "^5.2.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-query": "^3.39.3",
+    "superjson": "^1.13.1",
+    "typescript": "^5.2.2",
+    "zod": "^3.22.2"
+  }
+}
