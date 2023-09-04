@@ -2,7 +2,6 @@ import { initTRPC, TRPCError } from "@trpc/server";
 import superjson from "superjson";
 import { z } from "zod";
 import { hash } from "argon2";
-import { Context } from "@/app/server/context";
 
 const t = initTRPC.create({
   transformer: superjson,
@@ -18,6 +17,9 @@ export const appRouter = t.router({
     )
     .mutation(async ({ input, ctx }) => {
       const { email, password } = input;
+      console.log((ctx as any).session);
+      
+
       const exists = await (ctx as any).prisma.user.findFirst({
         where: { email },
       });
@@ -51,9 +53,6 @@ export const appRouter = t.router({
   // setYearlyGoals:t.procedure.mutation()
 
   // getYearlyGoals:t.procedure.query()
-
-
-  
 });
 
 export type AppRouter = typeof appRouter;
