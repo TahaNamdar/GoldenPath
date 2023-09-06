@@ -17,7 +17,6 @@ export const appRouter = t.router({
     )
     .mutation(async ({ input, ctx }) => {
       const { email, password } = input;
-      console.log((ctx as any).session);
       
 
       const exists = await (ctx as any).prisma.user.findFirst({
