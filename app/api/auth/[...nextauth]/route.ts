@@ -10,14 +10,15 @@ import NextAuth from "next-auth";
 const prisma = new PrismaClient();
 
 export const authOptions: NextAuthOptions = {
+  secret: process.env.NEXTAUTH_SECRET,
   providers: [
     Credentials({
-      name: "credentials",
+      name: "SignIn",
       credentials: {
         email: {
           label: "Email",
           type: "email",
-          placeholder: "jsmith@gmail.com",
+          placeholder: "golden@gmail.com",
         },
         password: { label: "Password", type: "password" },
       },
@@ -32,7 +33,7 @@ export const authOptions: NextAuthOptions = {
           return null;
         }
 
-        const isValidPassword = await verify(user.password, creds.password);
+        const isValidPassword = verify(user.password, creds.password);
 
         if (!isValidPassword) {
           return null;
@@ -41,12 +42,32 @@ export const authOptions: NextAuthOptions = {
         return {
           id: user.id,
           email: user.email,
-          username: user.password,
+          password: user.password,
         };
       },
     }),
   ],
   // ...
+  logger: {
+    error(code, metadata) {
+      console.error(code, metadata);
+    },
+    warn(code) {
+      console.warn(code);
+    },
+    debug(code, metadata) {
+      console.debug(code, metadata);
+    },
+  },
+
+  jwt: {
+    secret: "super-secret",
+    maxAge: 15 * 24 * 30 * 60, // 15 days
+  },
+  session: {
+    strategy: "jwt",
+  },
+
   callbacks: {
     jwt: async ({ token, user }) => {
       if (user) {
@@ -56,6 +77,7 @@ export const authOptions: NextAuthOptions = {
 
       return token;
     },
+
     session: async ({ session, token }) => {
       if (token) {
         (session as any).id = token.id;
@@ -66,14 +88,12 @@ export const authOptions: NextAuthOptions = {
   },
 
   //...
-  jwt: {
-    secret: "super-secret",
-    maxAge: 15 * 24 * 30 * 60, // 15 days
-  },
+
   pages: {
     signIn: "/",
     newUser: "/register",
   },
 };
 
-export default NextAuth(authOptions);
+const handler = NextAuth(authOptions);
+export { handler as GET, handler as POST };

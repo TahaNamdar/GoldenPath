@@ -2,7 +2,9 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { TrpcProvider } from "@/utils/trpc-provider";
-import { Providers } from "./Providers";
+import { getServerSession } from "next-auth";
+import SessionProvider from "./SessionProvider";
+import { authOptions } from "./api/auth/[...nextauth]/route";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -11,16 +13,18 @@ export const metadata: Metadata = {
   description: "T3 stack app",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const session = await getServerSession(authOptions);
+
   return (
     <html lang="en">
       <body className={inter.className}>
         <TrpcProvider>
-          <Providers>{children}</Providers>
+          <SessionProvider session={session}>{children}</SessionProvider>
         </TrpcProvider>
       </body>
     </html>
