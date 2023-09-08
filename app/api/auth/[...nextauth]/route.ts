@@ -30,13 +30,13 @@ export const authOptions: NextAuthOptions = {
         });
 
         if (!user) {
-          return null;
+          throw new Error("user or password is wrong");
         }
 
-        const isValidPassword = verify(user.password, creds.password);
+        const isValidPassword = await verify(user.password, creds.password);
 
         if (!isValidPassword) {
-          return null;
+          throw new Error("user or password is wrong");
         }
 
         return {
@@ -77,11 +77,6 @@ export const authOptions: NextAuthOptions = {
   },
 
   //...
-
-  pages: {
-    signIn: "/",
-    newUser: "/register",
-  },
 };
 
 const handler = NextAuth(authOptions);
