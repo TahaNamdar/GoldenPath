@@ -14,6 +14,7 @@ module.exports = {
       lightBlue: "#7344FF",
       lavender: "#8B44FF",
       blueViolet: "#56418C",
+      smoke: "#F9F7FF",
     },
   },
   plugins: [],
