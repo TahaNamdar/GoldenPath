@@ -14,7 +14,6 @@ export default function Register() {
   return (
     <div>
       <button onClick={() => registerHandler()}>SignUp</button>
-      <p>{mutation && JSON.stringify((mutation as any).data)}</p>
     </div>
   );
 }
