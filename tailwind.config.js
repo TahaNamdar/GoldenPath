@@ -27,6 +27,7 @@ module.exports = {
       Crayola: "#31353E",
     },
     fontSize: {
+      sm: "1.2rem",
       base: "1.4rem",
       xl: "1.5rem",
       "2xl": "1.6rem",
@@ -38,7 +39,7 @@ module.exports = {
       none: "0",
       sm: "18px",
       md: "20px",
-      lg: "0.5rem",
+      lg: "22px",
       full: "9999px",
       large: "12px",
     },
