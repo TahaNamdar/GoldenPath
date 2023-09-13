@@ -27,6 +27,7 @@ module.exports = {
       darkGunmetal: "#1D212A",
       CharlestonGreen: "#242831",
       Crayola: "#31353E",
+      light: "#ffffff14",
     },
     fontSize: {
       sm: "1.2rem",
