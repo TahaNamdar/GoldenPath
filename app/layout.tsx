@@ -1,17 +1,37 @@
 import "../dist/output.css";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import { TrpcProvider } from "@/utils/trpc-provider";
 import { getServerSession } from "next-auth";
-import SessionProvider from "./SessionProvider";
 import { authOptions } from "./api/auth/[...nextauth]/route";
+import SessionProvider from "./SessionProvider";
 import Providers from "@/utils/themeProvider";
-const inter = Inter({ subsets: ["latin"] });
+import localFont from "@next/font/local";
 
 export const metadata: Metadata = {
-  title: "Golden App",
-  description: "T3 stack app",
+  title: "Golden Path ",
+  description: "Golden Path Website ",
+  icons: {
+    icon: "/assets/logo.svg",
+  },
 };
+
+const TOMMY = localFont({
+  src: [
+    {
+      path: "../public/font/MADE TOMMY Thin_PERSONAL USE.otf",
+      weight: "300",
+    },
+    {
+      path: "../public/font/MADE TOMMY Regular_PERSONAL USE.otf",
+      weight: "400",
+    },
+    {
+      path: "../public/font/MADE TOMMY Medium_PERSONAL USE.otf",
+      weight: "500",
+    },
+  ],
+  variable: "--font-TOMMY",
+});
 
 export default async function RootLayout({
   children,
@@ -22,7 +42,10 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
-      <body className={inter.className} suppressHydrationWarning={true}>
+      <body
+        className={`${TOMMY.variable} font-sans`}
+        suppressHydrationWarning={true}
+      >
         <Providers>
           <TrpcProvider>
             <SessionProvider session={session}>{children}</SessionProvider>

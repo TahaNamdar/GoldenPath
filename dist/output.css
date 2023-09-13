@@ -44,7 +44,7 @@ html {
   -o-tab-size: 4;
      tab-size: 4;
   /* 3 */
-  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-family: var(--font-TOMMY);
   /* 4 */
   font-feature-settings: normal;
   /* 5 */
@@ -619,9 +619,9 @@ html {
   border-color: rgb(139 68 255 / var(--tw-border-opacity));
 }
 
-.bg-lightBlue {
+.bg-electricIndigo {
   --tw-bg-opacity: 1;
-  background-color: rgb(115 68 255 / var(--tw-bg-opacity));
+  background-color: rgb(108 2 243 / var(--tw-bg-opacity));
 }
 
 .bg-smoke {
@@ -682,6 +682,10 @@ html {
   padding-top: 2rem;
 }
 
+.font-sans {
+  font-family: var(--font-TOMMY);
+}
+
 .text-2xl {
   font-size: 1.6rem;
 }
@@ -690,20 +694,25 @@ html {
   font-size: 2rem;
 }
 
-.text-base {
-  font-size: 1.4rem;
+.text-sm {
+  font-size: 1.2rem;
 }
 
 .text-xl {
   font-size: 1.5rem;
 }
 
-.text-sm {
-  font-size: 1.2rem;
-}
-
 .font-medium {
   font-weight: 500;
+}
+
+.font-normal {
+  font-weight: 400;
+}
+
+.text-black {
+  --tw-text-opacity: 1;
+  color: rgb(0 0 1 / var(--tw-text-opacity));
 }
 
 .text-blueViolet {
@@ -729,6 +738,10 @@ html {
 .text-white {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+
+.text-lightBlack {
+  color: #000000a8;
 }
 
 :is(.dark .dark\:bg-darkGunmetal) {

@@ -20,6 +20,8 @@ module.exports = {
       lavender: "#8B44FF",
       blueViolet: "#56418C",
       smoke: "#F9F7FF",
+      electricIndigo: "#6C02F3",
+      lightBlack: "#000000a8",
       // darkMode
       deepViolet: { 100: "#300051", 200: "#3B0065" },
       darkGunmetal: "#1D212A",
@@ -42,6 +44,9 @@ module.exports = {
       lg: "22px",
       full: "9999px",
       large: "12px",
+    },
+    fontFamily: {
+      sans: ["var(--font-TOMMY)"],
     },
   },
 
