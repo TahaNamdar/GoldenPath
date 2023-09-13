@@ -9,12 +9,14 @@ import UsersVector from "../../public/assets/Users.svg";
 import Vector from "../../public/assets/Vector.svg";
 // import LogOut from "../../public/assets/Logout.svg";
 import { usePathname } from "next/navigation";
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo } from "react";
 import Link from "next/link";
 
 export default function YearlyGoals() {
   const pathname = usePathname();
-  const [flag, setFlag] = useState({ yearlyGoals: true });
+  const [flag, setFlag] = useState(false);
+
+  console.log(flag, "life");
 
   return (
     <div className="bg-electricIndigo md:flex p-1">
@@ -27,7 +29,7 @@ export default function YearlyGoals() {
           <div className="divide-y ">
             <details className="group" open>
               <summary className="flex md:mb-[5.2rem] font-medium rounded-md bg-light md:pt-[2.2rem] md:pb-[2.2rem] md:pr-[3.8rem] md:pl-[3.8rem] cursor-pointer list-none items-center  text-3xl text-white  ">
-                Jymy Marston
+                Jymy Marston2
                 <div className="md:ml-[2.6rem]">
                   <Down />
                 </div>
@@ -38,7 +40,7 @@ export default function YearlyGoals() {
                   pathname === "/lifeGoals"
                     ? useMemo(
                         () =>
-                          setFlag((prevState) => ({
+                          setFlag((prevState: any) => ({
                             ...prevState,
                             lifeGoals: true,
                           })),
@@ -46,7 +48,7 @@ export default function YearlyGoals() {
                       )
                     : useMemo(
                         () =>
-                          setFlag((prevState) => ({
+                          setFlag((prevState: any) => ({
                             ...prevState,
                             lifeGoals: false,
                           })),
@@ -60,7 +62,7 @@ export default function YearlyGoals() {
                   <></>
                 )}
                 <div className="md:mr-[1.5rem] ml-[2.4rem]">
-                  <Vector />
+                  <ArcherVector />
                 </div>
                 Life Goals
               </Link>
@@ -71,7 +73,7 @@ export default function YearlyGoals() {
                   pathname === "/yearlyGoals"
                     ? useMemo(
                         () =>
-                          setFlag((prevState) => ({
+                          setFlag((prevState: any) => ({
                             ...prevState,
                             YearlyGoals: true,
                           })),
@@ -79,7 +81,7 @@ export default function YearlyGoals() {
                       )
                     : useMemo(
                         () =>
-                          setFlag((prevState) => ({
+                          setFlag((prevState: any) => ({
                             ...prevState,
                             YearlyGoals: false,
                           })),

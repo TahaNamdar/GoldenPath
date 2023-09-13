@@ -747,6 +747,10 @@ html {
   margin-bottom: 22rem;
 }
 
+.ml-\[-5\.6rem\] {
+  margin-left: -5.6rem;
+}
+
 .flex {
   display: flex;
 }
