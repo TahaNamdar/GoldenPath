@@ -559,6 +559,10 @@ html {
   margin-bottom: 1.5rem;
 }
 
+.mb-\[1\.4rem\] {
+  margin-bottom: 1.4rem;
+}
+
 .mb-\[1\.6rem\] {
   margin-bottom: 1.6rem;
 }
@@ -579,6 +583,10 @@ html {
   margin-left: -5.6rem;
 }
 
+.ml-\[1\.1rem\] {
+  margin-left: 1.1rem;
+}
+
 .ml-\[1\.6rem\] {
   margin-left: 1.6rem;
 }
@@ -595,12 +603,64 @@ html {
   margin-left: 2rem;
 }
 
+.mr-\[1\.1rem\] {
+  margin-right: 1.1rem;
+}
+
+.mr-\[2\.6rem\] {
+  margin-right: 2.6rem;
+}
+
 .mt-\[4\.5rem\] {
   margin-top: 4.5rem;
 }
 
+.mb-\[47\] {
+  margin-bottom: 47;
+}
+
+.mb-\[4\.7\] {
+  margin-bottom: 4.7;
+}
+
+.mb-\[4\.7rem\] {
+  margin-bottom: 4.7rem;
+}
+
+.mr-\[1\.6rem\] {
+  margin-right: 1.6rem;
+}
+
+.mr-\[0\.6rem\] {
+  margin-right: 0.6rem;
+}
+
+.mr-\[\] {
+  margin-right: ;
+}
+
+.mr-\[2rem\] {
+  margin-right: 2rem;
+}
+
+.mr-\[2\.2rem\] {
+  margin-right: 2.2rem;
+}
+
+.mr-\[2\.1rem\] {
+  margin-right: 2.1rem;
+}
+
 .flex {
   display: flex;
+}
+
+.h-\[2\.4rem\] {
+  height: 2.4rem;
+}
+
+.h-\[29\.9rem\] {
+  height: 29.9rem;
 }
 
 .h-\[6\.6rem\] {
@@ -615,8 +675,36 @@ html {
   width: 1.2rem;
 }
 
+.w-\[2\.4rem\] {
+  width: 2.4rem;
+}
+
 .w-\[20rem\] {
   width: 20rem;
+}
+
+.w-\[34rem\] {
+  width: 34rem;
+}
+
+.w-\[34\] {
+  width: 34;
+}
+
+.w-1\/3 {
+  width: 33.333333%;
+}
+
+.w-1\/4 {
+  width: 25%;
+}
+
+.w-\[35rem\] {
+  width: 35rem;
+}
+
+.w-\[36rem\] {
+  width: 36rem;
 }
 
 .max-w-lg {
@@ -635,8 +723,20 @@ html {
   list-style-type: none;
 }
 
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+.flex-nowrap {
+  flex-wrap: nowrap;
+}
+
 .items-center {
   align-items: center;
+}
+
+.justify-center {
+  justify-content: center;
 }
 
 .justify-between {
@@ -649,6 +749,10 @@ html {
   border-bottom-width: calc(1px * var(--tw-divide-y-reverse));
 }
 
+.overflow-auto {
+  overflow: auto;
+}
+
 .overflow-hidden {
   overflow: hidden;
 }
@@ -659,6 +763,14 @@ html {
 
 .whitespace-nowrap {
   white-space: nowrap;
+}
+
+.rounded {
+  border-radius: 10px;
+}
+
+.rounded-\[1\.5rem\] {
+  border-radius: 1.5rem;
 }
 
 .rounded-lg {
@@ -726,6 +838,10 @@ html {
   padding-bottom: 1.8rem;
 }
 
+.pb-\[2\.4rem\] {
+  padding-bottom: 2.4rem;
+}
+
 .pb-\[2rem\] {
   padding-bottom: 2rem;
 }
@@ -734,12 +850,28 @@ html {
   padding-left: 2.3rem;
 }
 
+.pl-\[2\.4rem\] {
+  padding-left: 2.4rem;
+}
+
 .pl-\[3\.7rem\] {
   padding-left: 3.7rem;
 }
 
+.pl-\[4\.6rem\] {
+  padding-left: 4.6rem;
+}
+
 .pl-\[4rem\] {
   padding-left: 4rem;
+}
+
+.pl-\[5\.6rem\] {
+  padding-left: 5.6rem;
+}
+
+.pr-\[1\.3rem\] {
+  padding-right: 1.3rem;
 }
 
 .pr-\[2\.3rem\] {
@@ -762,6 +894,10 @@ html {
   padding-top: 1.2rem;
 }
 
+.pt-\[1\.5rem\] {
+  padding-top: 1.5rem;
+}
+
 .pt-\[1\.7rem\] {
   padding-top: 1.7rem;
 }
@@ -780,6 +916,10 @@ html {
 
 .text-3xl {
   font-size: 2rem;
+}
+
+.text-\[1\.6rem\] {
+  font-size: 1.6rem;
 }
 
 .text-sm {
@@ -825,6 +965,12 @@ html {
 .text-white {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+
+.focus\:ring-2:focus {
+  --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+  --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+  box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
 }
 
 :is(.dark .dark\:bg-darkGunmetal) {

@@ -3,6 +3,9 @@
 import GroupVector from "../../public/assets/group.svg";
 import EditVector from "../../public/assets/Edit.svg";
 import SideBar from "../components/sideBar";
+import NotionCard from "../components/notionCard/notionCard";
+import NotionTitle from "../components/notionCard/notionTitle";
+import NotionTask from "../components/notionCard/notionTask";
 
 export default function YearlyGoals() {
   return (
@@ -26,7 +29,6 @@ export default function YearlyGoals() {
           </div>
         </div>
         {/* Priorities */}
-
         <div className="bg-white p-10 mb-[4rem] md:pl-[3.6rem] md:pb-[7.9rem] md:pt-[3.2rem] rounded-md">
           <p className="text-3xl md:text-4xl font-medium md:mb-[0.1rem] text-blueViolet">
             Priorities
@@ -54,10 +56,8 @@ export default function YearlyGoals() {
             </p>
           </div>
         </div>
-
         {/* Activities */}
-
-        <div className="md:flex items-center justify-between mb-[3.7rem] mt-[4.5rem]">
+        <div className="md:flex items-center justify-between mb-[1.6rem] mt-[4.5rem]">
           <p className="text-3xl md:text-4xl text-blueViolet font-medium mb-4 md:mb-2">
             Activities
           </p>
@@ -70,6 +70,29 @@ export default function YearlyGoals() {
               show all
             </button>
           </div>
+        </div>
+        {/* notion */}
+        <div className="flex items-center flex-wrap ">
+          <NotionCard cardName="Health">
+            <NotionTitle>do my home work</NotionTitle>
+            <NotionTask>Reading </NotionTask> <NotionTask>Reading </NotionTask>{" "}
+            <NotionTask>Reading </NotionTask>
+          </NotionCard>{" "}
+          <NotionCard cardName="Health">
+            <NotionTitle>do my home work</NotionTitle>
+            <NotionTask>Reading </NotionTask> <NotionTask>Reading </NotionTask>{" "}
+            <NotionTask>Reading </NotionTask>
+          </NotionCard>{" "}
+          <NotionCard cardName="Health">
+            <NotionTitle>do my home work</NotionTitle>
+            <NotionTask>Reading </NotionTask> <NotionTask>Reading </NotionTask>{" "}
+            <NotionTask>Reading </NotionTask>
+          </NotionCard>{" "}
+          <NotionCard cardName="Health">
+            <NotionTitle>do my home work</NotionTitle>
+            <NotionTask>Reading </NotionTask> <NotionTask>Reading </NotionTask>{" "}
+            <NotionTask>Reading </NotionTask>
+          </NotionCard>
         </div>
       </div>
     </div>
