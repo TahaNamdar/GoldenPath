@@ -28,6 +28,8 @@ module.exports = {
       CharlestonGreen: "#242831",
       Crayola: "#31353E",
       light: "#ffffff14",
+      gold: "#FFB400",
+      drawerColor: "#1D212AD6",
     },
     fontSize: {
       sm: "1.2rem",
