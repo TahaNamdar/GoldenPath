@@ -30,6 +30,7 @@ module.exports = {
       light: "#ffffff14",
       gold: "#FFB400",
       drawerColor: "#1D212AD6",
+      lightText: "#FFFFFF80",
     },
     fontSize: {
       sm: "1.2rem",
