@@ -10,7 +10,7 @@ export default function YearlyGoals() {
   return (
     <div className="bg-CharlestonGreen lg:bg-darkGunmetal lg:flex md:p-1">
       {/* SideBar */}
-      <SideBar sideBarName="yearly Page" />
+      <SideBar />
       {/* Yearly Goals */}
 
       <div className="flex-1 p-10  bg-CharlestonGreen rounded-md pl-[2rem] pr-[2rem] md:pl-[3.7rem] md:pr-[4.6rem] h-screen lg:h-auto">
