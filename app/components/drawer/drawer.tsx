@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Burger from "/public/assets/Burger.svg";
 import GoldenText from "/public/assets/logoText.svg";
 import ArcherVector from "/public/assets/archer.svg";
@@ -14,6 +14,7 @@ import useDetectClickOut from "@/app/hooks/useDetectClickOut";
 
 export default function Drawer() {
   const { show, nodeRef, triggerRef } = useDetectClickOut(false);
+  const [openSetting, setOpenSetting] = useState<boolean>(false);
 
   return (
     <div>
@@ -63,7 +64,9 @@ export default function Drawer() {
             productivity tool
           </Link>
           <div className="absolute bottom-[6.4rem] left-0 right-0">
-            <div className="bg-Crayola  rounded-[1.4rem] w-4/5 m-auto cursor-pointer mb-[1.6rem]">
+            <div
+              className={`bg-Crayola  rounded-[1.4rem] w-4/5 m-auto cursor-pointer mb-[1.6rem]`}
+            >
               <div className="pt-[1.2rem] pb-[1.2rem] pr-[2.8rem] pl-[2.8rem] flex items-center">
                 <Setting />
                 <p className="ml-[1.5rem] text-2xl text-white">Settings</p>
