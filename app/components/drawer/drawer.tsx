@@ -19,7 +19,7 @@ export default function Drawer() {
   return (
     <div>
       <div className="lg:hidden relative">
-        <div className="absolute right-6 top-6" ref={triggerRef}>
+        <div className="absolute right-6 top-6 cursor-pointer" ref={triggerRef}>
           <Burger />
         </div>
         <div className="flex justify-center pt-[2.1rem]">
@@ -28,14 +28,15 @@ export default function Drawer() {
       </div>
 
       <div
-        className={`top-0 right-0 w-[80vw] sm:w-[40vw] md:w-[40vw] lg:hidden bg-drawerColor backdrop-blur-lg	 p-10  text-white fixed h-full z-40  ease-in-out duration-300 ${
+        className={`top-0 right-0 w-[80vw] sm:w-[40vw] overflow-auto flex flex-col md:w-[40vw] lg:hidden bg-drawerColor backdrop-blur-lg	 p-10  text-white fixed h-full z-40  ease-in-out duration-300 ${
           show ? "translate-x-0 " : "translate-x-full"
         }`}
+        ref={nodeRef}
       >
-        <div ref={nodeRef}>
-          <div className="flex justify-center mb-[7.4rem]">
-            <GoldenLogo />
-          </div>{" "}
+        <div className="flex justify-center mb-[7.4rem]">
+          <GoldenLogo />
+        </div>{" "}
+        <div className="m-auto">
           <Link
             href={"/lifeGoals"}
             className="flex mb-[4.3rem] items-center cursor-pointer text-white  text-3xl md:pl-[3.8rem] md:mb-[4rem]"
@@ -63,20 +64,20 @@ export default function Drawer() {
             </div>
             productivity tool
           </Link>
-          <div className="absolute bottom-[6.4rem] left-0 right-0">
-            <div
-              className={`bg-Crayola  rounded-[1.4rem] w-4/5 m-auto cursor-pointer mb-[1.6rem]`}
-            >
-              <div className="pt-[1.2rem] pb-[1.2rem] pr-[2.8rem] pl-[2.8rem] flex items-center">
-                <Setting />
-                <p className="ml-[1.5rem] text-2xl text-white">Settings</p>
-              </div>
+        </div>
+        <div className="bottom-[6.4rem]">
+          <div
+            className={`bg-Crayola  rounded-[1.4rem] w-4/5 m-auto cursor-pointer mb-[1.6rem]`}
+          >
+            <div className="pt-[1.2rem] pb-[1.2rem] pr-[2.8rem] pl-[2.8rem] flex items-center">
+              <Setting />
+              <p className="ml-[1.5rem] text-2xl text-white">Settings</p>
             </div>
-            <div className="bg-Crayola  rounded-[1.4rem] w-4/5 m-auto cursor-pointer">
-              <div className="pt-[1.2rem] pb-[1.2rem] pr-[2.8rem] pl-[2.8rem] flex items-center">
-                <LogOut />
-                <p className="ml-[1.5rem] text-2xl text-white">logout</p>
-              </div>
+          </div>
+          <div className="bg-Crayola  rounded-[1.4rem] w-4/5 m-auto cursor-pointer">
+            <div className="pt-[1.2rem] pb-[1.2rem] pr-[2.8rem] pl-[2.8rem] flex items-center">
+              <LogOut />
+              <p className="ml-[1.5rem] text-2xl text-white">logout</p>
             </div>
           </div>
         </div>

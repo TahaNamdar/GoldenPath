@@ -789,6 +789,10 @@ html {
   justify-content: space-between;
 }
 
+.overflow-auto {
+  overflow: auto;
+}
+
 .rounded {
   border-radius: 10px;
 }
@@ -1118,14 +1122,6 @@ html {
 }
 
 @media (min-width: 768px) {
-  .md\:absolute {
-    position: absolute;
-  }
-
-  .md\:bottom-\[4\.4rem\] {
-    bottom: 4.4rem;
-  }
-
   .md\:left-0 {
     left: 0px;
   }
@@ -1140,6 +1136,10 @@ html {
 
   .md\:mb-\[0\.1rem\] {
     margin-bottom: 0.1rem;
+  }
+
+  .md\:mb-\[40rem\] {
+    margin-bottom: 40rem;
   }
 
   .md\:mb-\[4rem\] {
@@ -1176,22 +1176,6 @@ html {
 
   .md\:mt-\[4\.5rem\] {
     margin-top: 4.5rem;
-  }
-
-  .md\:mb-\[\] {
-    margin-bottom: ;
-  }
-
-  .md\:mb-\[50rem\] {
-    margin-bottom: 50rem;
-  }
-
-  .md\:mb-\[40rem\] {
-    margin-bottom: 40rem;
-  }
-
-  .md\:mb-\[30rem\] {
-    margin-bottom: 30rem;
   }
 
   .md\:flex {
