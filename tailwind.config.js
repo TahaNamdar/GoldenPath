@@ -31,6 +31,8 @@ module.exports = {
       gold: "#FFB400",
       drawerColor: "#1D212AD6",
       lightText: "#FFFFFF80",
+      chipColor: "#C5A2FF",
+      placeholder: "#ffffff26",
     },
     fontSize: {
       sm: "1.2rem",

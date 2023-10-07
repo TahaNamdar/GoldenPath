@@ -78,7 +78,9 @@ export default function YearlyGoals() {
                       <div>
                         <DragSvg />{" "}
                       </div>
-                    ) : null}
+                    ) : (
+                      <div className="w-[1.1rem]"></div>
+                    )}
                     <p className="text-gold font-normal text-[1.3rem] md:text-2xl pt-[1.3rem] ml-[2.1rem] pb-[1.3rem] sm:pr-[16rem] md:pt-[1.8rem] md:ml-[1.7rem] md:pb-[1.5rem] md:pr-[0.4rem] lg:pt-[2rem] lg:ml-[2.1rem] lg:pb-[2.1rem] lg:pr-[0]">
                       transform 2232$ to usdt
                     </p>
