@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import SideBar from "../components/sideBar/sideBar";
+import BirthDayModal from "@/app/components/modals/birthDayModals";
 
 export default function LifeGoals() {
   const [tags, setTags] = useState<any[]>([""]);
@@ -16,6 +17,7 @@ export default function LifeGoals() {
   return (
     <div className=" bg-CharlestonGreen lg:bg-darkGunmetal lg:flex md:p-1">
       <SideBar />
+
       <div className="flex-1  bg-CharlestonGreen rounded-md md:pl-[3.7rem] md:pr-[4.6rem] h-screen lg:h-auto">
         <div className="lg:flex items-center justify-between mb-[1rem] lg:mb-[3.7rem] mt-[4.5rem] pl-[2rem] pr-[2rem]">
           <div className="lg:mb-[3.7rem]">

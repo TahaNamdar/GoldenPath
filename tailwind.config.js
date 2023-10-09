@@ -1,6 +1,7 @@
 const plugin = require("tailwindcss/plugin");
+const withMT = require("@material-tailwind/react/utils/withMT");
 
-module.exports = {
+module.exports = withMT({
   darkMode: "class",
 
   content: [
@@ -55,6 +56,7 @@ module.exports = {
     fontFamily: {
       sans: ["var(--font-TOMMY)"],
     },
+    boxShadow: { "3xl": "0px 4px 4px 0px rgba(0, 0, 0, 0.25)" },
   },
 
   plugins: [
@@ -64,4 +66,4 @@ module.exports = {
       });
     }),
   ],
-};
+});

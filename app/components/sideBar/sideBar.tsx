@@ -1,6 +1,5 @@
 "use client";
 
-import { usePathname } from "next/navigation";
 import { useState } from "react";
 import GoldenLogo from "/public/assets/goldenPath.svg";
 import ArcherVector from "/public/assets/archer.svg";
@@ -13,13 +12,21 @@ import ChangePass from "/public/assets/changePass.svg";
 import Birthday from "/public/assets/birthday.svg";
 import Link from "next/link";
 import Drawer from "../drawer/drawer";
+import BirthDayModal from "../modals/birthDayModals";
 
 export default function SideBar() {
-  const pathname = usePathname();
   const [openSetting, setOpenSetting] = useState<boolean>(false);
+
+  const [showModal, setShowModal] = useState<boolean>(false);
+
+  const handleOnClose = () => {
+    setShowModal(false);
+  };
 
   return (
     <div>
+      <BirthDayModal onClose={handleOnClose} visible={showModal} />
+      {/* modal */}
       <Drawer />
       {/* drawer */}
       <div className="hidden lg:flex lg:flex-col lg:justify-between lg:h-full md:h-screen md:w-[28.6rem] bg-darkGunmetal relative ">
@@ -68,24 +75,32 @@ export default function SideBar() {
         {/* buttons section */}
         <div className="md:mb-[4rem] md:left-0 md:right-0">
           <div
-            className={`bg-Crayola transition ease-in-out delay-1000  rounded-[1.4rem] ${
+            className={`bg-Crayola  transition-all duration-300  
+            ease-out rounded-[1.4rem] ${
               openSetting ? "w-[22rem] " : "w-[18rem]  "
             }  m-auto cursor-pointer mb-[1.6rem]`}
             onClick={() => setOpenSetting(!openSetting)}
           >
             <div>
               <div className={`${openSetting ? "block pt-6" : "hidden"}`}>
-                <div className="flex items-center bg-darkGunmetal w-4/5 m-auto rounded-[1.4rem] pt-[1.5rem] pb-[1.3rem] cursor-pointer justify-center mb-[1.4rem]">
+                <div
+                  onClick={() => setShowModal(true)}
+                  className="flex items-center bg-darkGunmetal w-4/5 m-auto rounded-[1.4rem] pt-[1.5rem] pb-[1.3rem] cursor-pointer justify-center mb-[1.4rem]"
+                >
                   <Birthday />
-                  <p className="ml-[1rem] text-sm">Change Birthday</p>
+                  <p className="ml-[1rem] text-sm text-white">
+                    Change Birthday
+                  </p>
                 </div>
                 <div className="flex items-center bg-darkGunmetal w-4/5 m-auto rounded-[1.4rem] pt-[1.5rem] pb-[1.3rem] cursor-pointer justify-center mb-[1.4rem]">
                   <ChangeEmail />
-                  <p className="ml-[1rem] text-sm">Change Email</p>
+                  <p className="ml-[1rem] text-sm text-white">Change Email</p>
                 </div>
                 <div className="flex items-center bg-darkGunmetal w-4/5 m-auto rounded-[1.4rem] pt-[1.5rem] pb-[1.3rem] cursor-pointer justify-center">
                   <ChangePass />
-                  <p className="ml-[1rem] text-sm">Change Password</p>
+                  <p className="ml-[1rem] text-sm text-white">
+                    Change Password
+                  </p>
                 </div>
               </div>
 
