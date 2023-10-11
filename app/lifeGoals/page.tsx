@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import SideBar from "../components/sideBar/sideBar";
-import BirthDayModal from "@/app/components/modals/birthDayModals";
 
 export default function LifeGoals() {
   const [tags, setTags] = useState<any[]>([""]);
@@ -11,6 +10,11 @@ export default function LifeGoals() {
     if (event.key === "Enter" && event.target.value !== "") {
       setTags([...tags, event.target.value]);
       event.target.value = "";
+    }
+    if (event.key === "Backspace" && event.target.value == "") {
+      const copyArr = [...tags];
+      copyArr.pop();
+      setTags(copyArr);
     }
   };
 

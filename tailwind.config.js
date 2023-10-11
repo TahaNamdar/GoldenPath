@@ -34,6 +34,8 @@ module.exports = withMT({
       lightText: "#FFFFFF80",
       chipColor: "#C5A2FF",
       placeholder: "#ffffff26",
+      navLine: "#fdfdfd4d",
+      borderColor: "#ffffff8f",
     },
     fontSize: {
       sm: "1.2rem",

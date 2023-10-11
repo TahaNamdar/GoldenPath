@@ -1,21 +1,32 @@
 "use client";
-import { useTheme } from "next-themes";
+
+import { useDispatch, useSelector } from "react-redux";
+import type { RootState } from "./Redux/store/store";
+import { openAction, closeAction } from "./Redux/featrues/toggle/toggleSlice";
+
+// test redux
 
 export default function Home() {
-  const { theme, setTheme } = useTheme();
+  const active = useSelector((state: RootState) => state.toggle.active);
+  const dispatch = useDispatch();
+
+  console.log(active, "status");
 
   return (
-    <div className="bg-white dark:bg-darkGunmetal h-screen p-10">
-      <p className="text-lightBlue mb-6 text-2xl dark:text-white">
-        I'm working on
-        <span className="text-3xl text-mango">YearlyGoals page</span>
-      </p>
+    <div className="bg-darkGunmetal h-screen p-10">
+      <p className="text-white mb-6 text-3xl">Golden path</p>
 
       <button
-        className=" bg-white text-blueViolet dark:bg-darkGunmetal dark:text-white rounded-lg "
-        onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+        className="bg-green-600 p-8 text-white mr-5"
+        onClick={() => dispatch(openAction())}
       >
-        {theme === "dark" ? "Light" : "Dark"}
+        open
+      </button>
+      <button
+        className="bg-red-600 text-white p-8"
+        onClick={() => dispatch(closeAction())}
+      >
+        close
       </button>
     </div>
   );

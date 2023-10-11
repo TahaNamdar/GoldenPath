@@ -6,6 +6,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "./api/auth/[...nextauth]/route";
 import SessionProvider from "./SessionProvider";
 import localFont from "@next/font/local";
+import { Providers } from "@/utils/globalRedux";
 
 export const metadata: Metadata = {
   title: "Golden Path ",
@@ -42,16 +43,18 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
-      <ThemeProvider>
-        <body
-          className={`${TOMMY.variable} font-sans`}
-          suppressHydrationWarning={true}
-        >
-          <TrpcProvider>
-            <SessionProvider session={session}>{children}</SessionProvider>
-          </TrpcProvider>
-        </body>
-      </ThemeProvider>
+      <Providers>
+        <ThemeProvider>
+          <body
+            className={`${TOMMY.variable} font-sans`}
+            suppressHydrationWarning={true}
+          >
+            <TrpcProvider>
+              <SessionProvider session={session}>{children}</SessionProvider>
+            </TrpcProvider>
+          </body>
+        </ThemeProvider>
+      </Providers>
     </html>
   );
 }
