@@ -19,6 +19,7 @@ import {
   openAction,
   openDrawerAction,
   closeDrawerAction,
+  setModalNameAction,
 } from "@/app/Redux/featrues/toggle/toggleSlice";
 import OutsideClickHandler from "react-outside-click-handler";
 
@@ -39,10 +40,18 @@ export default function MobileSideBar() {
     }
   }, [active]);
 
-  const actionHandler = () => {
+  const changeBirthDayActionHandler = () => {
     dispatch(openAction());
+    dispatch(setModalNameAction("changeBirthday"));
   };
-
+  const changeEmailActionHandler = () => {
+    dispatch(openAction());
+    dispatch(setModalNameAction("changeEmail"));
+  };
+  const changePasswordActionHandler = () => {
+    dispatch(openAction());
+    dispatch(setModalNameAction("changePassword"));
+  };
   return (
     <div>
       <div className="lg:hidden relative">
@@ -107,7 +116,7 @@ export default function MobileSideBar() {
               <div>
                 <div className={`${openSetting ? "block pt-6" : "hidden"}`}>
                   <div
-                    onClick={() => actionHandler()}
+                    onClick={() => changeBirthDayActionHandler()}
                     className="flex items-center bg-darkGunmetal w-4/5 m-auto rounded-[1.4rem] pt-[1.5rem] pb-[1.3rem] cursor-pointer justify-center mb-[1.4rem]"
                   >
                     <Birthday />
@@ -115,11 +124,17 @@ export default function MobileSideBar() {
                       Change Birthday
                     </p>
                   </div>
-                  <div className="flex items-center bg-darkGunmetal w-4/5 m-auto rounded-[1.4rem] pt-[1.5rem] pb-[1.3rem] cursor-pointer justify-center mb-[1.4rem]">
+                  <div
+                    onClick={() => changeEmailActionHandler()}
+                    className="flex items-center bg-darkGunmetal w-4/5 m-auto rounded-[1.4rem] pt-[1.5rem] pb-[1.3rem] cursor-pointer justify-center mb-[1.4rem]"
+                  >
                     <ChangeEmail />
                     <p className="ml-[1rem] text-sm text-white">Change Email</p>
                   </div>
-                  <div className="flex items-center bg-darkGunmetal w-4/5 m-auto rounded-[1.4rem] pt-[1.5rem] pb-[1.3rem] cursor-pointer justify-center">
+                  <div
+                    onClick={() => changePasswordActionHandler()}
+                    className="flex items-center bg-darkGunmetal w-4/5 m-auto rounded-[1.4rem] pt-[1.5rem] pb-[1.3rem] cursor-pointer justify-center"
+                  >
                     <ChangePass />
                     <p className="ml-[1rem] text-sm text-white">
                       Change Password

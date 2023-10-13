@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialStateValue = {
+  name: "",
   active: false,
   drawerActive: false,
   largeScreenSizeFlag: false,
@@ -28,6 +29,9 @@ const toggleSlice = createSlice({
     moreThanMobileSizeAction: (state = initialStateValue) => {
       state.largeScreenSizeFlag = true;
     },
+    setModalNameAction: (state = initialStateValue, action) => {
+      state.name = action.payload;
+    },
   },
 });
 
@@ -38,5 +42,6 @@ export const {
   closeDrawerAction,
   lessThanModalSizeAction,
   moreThanMobileSizeAction,
+  setModalNameAction,
 } = toggleSlice.actions;
 export default toggleSlice.reducer;

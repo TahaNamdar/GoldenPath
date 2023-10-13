@@ -1,23 +1,17 @@
 "use client";
 
 import React, { useCallback, useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import {
   moreThanMobileSizeAction,
   lessThanModalSizeAction,
 } from "@/app/Redux/featrues/toggle/toggleSlice";
-import type { RootState } from "@/app/Redux/store/store";
 
 export default function ActionSizeProvider({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const largeScreenSize = useSelector(
-    (state: RootState) => state.toggle.largeScreenSizeFlag
-  );
-  const active = useSelector((state: RootState) => state.toggle.active);
-
   const windowInnerWidth =
     typeof window !== "undefined" ? window.innerWidth : null;
 
@@ -35,16 +29,14 @@ export default function ActionSizeProvider({
     };
   }, [handleWindowResize]);
 
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      if (windowSize && windowSize < 540) {
-        dispatch(lessThanModalSizeAction());
-      }
-      if (windowSize && windowSize > 540) {
-        dispatch(moreThanMobileSizeAction());
-      }
+  if (typeof window !== "undefined") {
+    if (windowSize && windowSize < 540) {
+      dispatch(lessThanModalSizeAction());
     }
-  }, [largeScreenSize, active]);
+    if (windowSize && windowSize > 540) {
+      dispatch(moreThanMobileSizeAction());
+    }
+  }
 
   return <div>{children}</div>;
 }
