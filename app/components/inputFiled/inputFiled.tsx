@@ -19,16 +19,18 @@ export default function InputFiled({
 }: Props) {
   return (
     <div>
-      <p className="text-white text-2xl md:text-3xl mb-[1rem] md:mb-[1.2rem]">
+      <p className="text-white text-[1.8rem] pl-[2rem] sm:text-2xl md:text-3xl mb-[0.9rem] sm:mb-[1rem] md:mb-[1.2rem]">
         {label}
       </p>
       <div className="relative flex items-center">
-        <div className="absolute pl-[1.8rem] md:pl-[2rem]">{children}</div>
+        <div className="absolute pl-[1.6rem] sm:pl-[1.8rem] md:pl-[2rem]">
+          {children}
+        </div>
         <input
           type={type}
           placeholder={placeholder}
           onChange={onChange}
-          className={`bg-darkGunmetal ${width} pl-[6rem] md:pl-[6rem] text-3xl md:text-[2.8rem] border-none focus:outline-none rounded-[1.4rem] text-white pt-[1.4rem] pb-[1.4rem] md:pt-[1.8rem] md:pb-[1.8rem]`}
+          className={`bg-input ${width} pl-[5.2rem] sm:pl-[6rem] md:pl-[6rem] text-3xl md:text-[2.8rem] border-none focus:outline-none rounded-[1.4rem] text-white pt-[1.4rem] pb-[1.4rem] sm:pt-[1.4rem] sm:pb-[1.4rem] md:pt-[1.8rem] md:pb-[1.8rem]`}
         />
       </div>
     </div>

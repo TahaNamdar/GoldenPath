@@ -45,7 +45,21 @@ export default function SideBar() {
   return (
     <div>
       <MobileNavigation title="Change BirthDay" name="changeBirthday">
-        <p className="text-white">Hero mobile navigation</p>
+        <div className="mb-[2.8rem] md:mb-[1.2rem]">
+          <InputFiled
+            width="w-full"
+            type="text"
+            label="Birthday"
+            placeholder="type..."
+          >
+            <Email />
+          </InputFiled>
+        </div>{" "}
+        <div className="text-right">
+          <button className="bg-chipColor mb-[6rem] w-full rounded-[1.4rem] text-center text-black text-2xl md:text-3xl pl-[10rem] pr-[10rem] pt-[1.2rem] pb-[1.2rem] md:pl-[11rem] md:pr-[11rem] md:pt-[1.8rem] md:pb-[1.8rem]">
+            Save
+          </button>
+        </div>{" "}
       </MobileNavigation>
       <Modal title="Change BirthDay" name="changeBirthday">
         <div className="mb-[2.8rem] md:mb-[3.8rem]">
@@ -66,7 +80,31 @@ export default function SideBar() {
       </Modal>
 
       <MobileNavigation title="Change Email" name="changeEmail">
-        <p className="text-white">Hero mobile navigation</p>
+        <div className="mb-[2.8rem] md:mb-[1.2rem]">
+          <InputFiled
+            width="w-full"
+            type="text"
+            label="New Email"
+            placeholder="type..."
+          >
+            <Email />
+          </InputFiled>
+        </div>{" "}
+        <div className="mb-[2.8rem] md:mb-[3.8rem]">
+          <InputFiled
+            width="w-full"
+            type="password"
+            label="Repeat Password"
+            placeholder="type..."
+          >
+            <Key />
+          </InputFiled>
+        </div>
+        <div className="text-right">
+          <button className="bg-chipColor mb-[6rem] w-full rounded-[1.4rem] text-center text-black text-2xl md:text-3xl pl-[10rem] pr-[10rem] pt-[1.2rem] pb-[1.2rem] md:pl-[11rem] md:pr-[11rem] md:pt-[1.8rem] md:pb-[1.8rem]">
+            Save
+          </button>
+        </div>{" "}
       </MobileNavigation>
       <Modal title="Change Email" name="changeEmail">
         <div className="mb-[2.8rem] md:mb-[1.2rem]">
@@ -97,7 +135,41 @@ export default function SideBar() {
       </Modal>
 
       <MobileNavigation title="Change Password" name="changePassword">
-        <p className="text-white">Hero mobile navigation</p>
+        <div className="mb-[2.8rem] md:mb-[1.2rem]">
+          <InputFiled
+            width="w-full"
+            type="password"
+            label="Old Password"
+            placeholder="type..."
+          >
+            <Email />
+          </InputFiled>
+        </div>{" "}
+        <div className="mb-[2.8rem] md:mb-[3.8rem]">
+          <InputFiled
+            width="w-full"
+            type="password"
+            label="New Password"
+            placeholder="type..."
+          >
+            <Key />
+          </InputFiled>
+        </div>{" "}
+        <div className="mb-[2.8rem] md:mb-[3.8rem]">
+          <InputFiled
+            width="w-full"
+            type="password"
+            label="Repeat Password"
+            placeholder="type..."
+          >
+            <Key />
+          </InputFiled>
+        </div>
+        <div className="text-right">
+          <button className="bg-chipColor mb-[6rem] w-full rounded-[1.4rem] text-center text-black text-2xl md:text-3xl pl-[10rem] pr-[10rem] pt-[1.2rem] pb-[1.2rem] md:pl-[11rem] md:pr-[11rem] md:pt-[1.8rem] md:pb-[1.8rem]">
+            Save
+          </button>
+        </div>{" "}
       </MobileNavigation>
       <Modal title="Change Password" name="changePassword">
         <div className="mb-[2.8rem] md:mb-[1.2rem]">
