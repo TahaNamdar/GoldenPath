@@ -19,7 +19,6 @@ import {
   openAction,
   openDrawerAction,
   closeDrawerAction,
-  openModalAction,
 } from "@/app/Redux/featrues/toggle/toggleSlice";
 import OutsideClickHandler from "react-outside-click-handler";
 
@@ -43,10 +42,6 @@ export default function MobileSideBar() {
   const actionHandler = () => {
     dispatch(openAction());
   };
-
-  if (window.innerWidth > 540) {
-    dispatch(openModalAction());
-  }
 
   return (
     <div>

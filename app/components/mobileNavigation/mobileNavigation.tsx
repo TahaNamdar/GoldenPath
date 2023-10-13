@@ -6,20 +6,20 @@ import { closeAction } from "@/app/Redux/featrues/toggle/toggleSlice";
 
 type Props = {
   title?: String;
-  children: any;
+  children: React.ReactNode;
 };
 
 export default function MobileNavigation({ title, children }: Props) {
   const dispatch = useDispatch();
   const active = useSelector((state: RootState) => state.toggle.active);
-  const modalActive = useSelector(
-    (state: RootState) => state.toggle.modalActive
+  const largeScreenSize = useSelector(
+    (state: RootState) => state.toggle.largeScreenSizeFlag
   );
 
   if (!active) return null;
 
   const outSideHandler = () => {
-    if (!modalActive) {
+    if (!largeScreenSize) {
       dispatch(closeAction());
     }
   };

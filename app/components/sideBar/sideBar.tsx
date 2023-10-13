@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useCallback, useEffect } from "react";
 import GoldenLogo from "/public/assets/goldenPath.svg";
 import ArcherVector from "/public/assets/archer.svg";
 import Tool from "/public/assets/Tool.svg";
@@ -15,10 +15,7 @@ import MobileSideBar from "../mobileSidebar/mobileSideBar";
 import Modal from "../modal/modal";
 import MobileNavigation from "../mobileNavigation/mobileNavigation";
 import { useDispatch } from "react-redux";
-import {
-  openAction,
-  openModalAction,
-} from "@/app/Redux/featrues/toggle/toggleSlice";
+import { openAction } from "@/app/Redux/featrues/toggle/toggleSlice";
 
 export default function SideBar() {
   const [openSetting, setOpenSetting] = useState<boolean>(false);
@@ -27,7 +24,6 @@ export default function SideBar() {
 
   const actionHandler = () => {
     dispatch(openAction());
-    dispatch(openModalAction());
   };
 
   return (
