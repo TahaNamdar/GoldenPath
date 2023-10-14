@@ -2,7 +2,12 @@
 
 import { useDispatch, useSelector } from "react-redux";
 import type { RootState } from "./Redux/store/store";
-import { openAction, closeAction } from "./Redux/featrues/toggle/toggleSlice";
+import {
+  openAction,
+  closeAction,
+  setModalNameAction,
+} from "./Redux/featrues/toggle/toggleSlice";
+import GoldenModal from "./components/goldenModal/goldenModal";
 
 // test redux
 
@@ -12,21 +17,24 @@ export default function Home() {
 
   console.log(active, "status");
 
+  const handler = () => {
+    dispatch(openAction());
+    dispatch(setModalNameAction("changeBirthday"));
+  };
+
   return (
     <div className="bg-darkGunmetal h-screen p-10">
       <p className="text-white mb-6 text-3xl">Golden path</p>
 
+      <GoldenModal title="Change BirthDay" name="changeBirthday">
+        testttttt
+      </GoldenModal>
+
       <button
-        className="bg-green-600 p-8 text-white mr-5"
-        onClick={() => dispatch(openAction())}
+        onClick={() => handler()}
+        className="cursor-pointer text-white text-3xl"
       >
-        open
-      </button>
-      <button
-        className="bg-red-600 text-white p-8"
-        onClick={() => dispatch(closeAction())}
-      >
-        close
+        click me
       </button>
     </div>
   );
