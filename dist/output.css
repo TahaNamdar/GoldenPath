@@ -920,10 +920,6 @@ html {
   margin-bottom: 4rem;
 }
 
-.mb-\[6rem\] {
-  margin-bottom: 6rem;
-}
-
 .mb-\[7\.4rem\] {
   margin-bottom: 7.4rem;
 }
@@ -1340,6 +1336,10 @@ html {
 
 .w-screen {
   width: 100vw;
+}
+
+.w-\[60\.6rem\] {
+  width: 60.6rem;
 }
 
 .min-w-\[100vw\] {
@@ -2909,6 +2909,26 @@ html {
 
 .pt-px {
   padding-top: 1px;
+}
+
+.pt-\[22\.4rem\] {
+  padding-top: 22.4rem;
+}
+
+.pt-\[8\.5rem\] {
+  padding-top: 8.5rem;
+}
+
+.pt-\[7\.4rem\] {
+  padding-top: 7.4rem;
+}
+
+.pb-\[1\.6rem\] {
+  padding-bottom: 1.6rem;
+}
+
+.pt-\[1\.6rem\] {
+  padding-top: 1.6rem;
 }
 
 .text-left {
@@ -6223,6 +6243,14 @@ html {
     width: 100%;
   }
 
+  .sm\:w-\[34rem\] {
+    width: 34rem;
+  }
+
+  .sm\:w-\[32rem\] {
+    width: 32rem;
+  }
+
   .sm\:flex-row-reverse {
     flex-direction: row-reverse;
   }
@@ -6415,6 +6443,18 @@ html {
     width: unset;
   }
 
+  .md\:w-\[60\.6rem\] {
+    width: 60.6rem;
+  }
+
+  .md\:w-\[\] {
+    width: ;
+  }
+
+  .md\:w-\[50rem\] {
+    width: 50rem;
+  }
+
   .md\:min-w-\[60\%\] {
     min-width: 60%;
   }
@@ -6541,6 +6581,26 @@ html {
 
   .md\:pt-\[3\.2rem\] {
     padding-top: 3.2rem;
+  }
+
+  .md\:pt-\[8\.5rem\] {
+    padding-top: 8.5rem;
+  }
+
+  .md\:pr-\[10rem\] {
+    padding-right: 10rem;
+  }
+
+  .md\:pl-\[10rem\] {
+    padding-left: 10rem;
+  }
+
+  .md\:pt-\[1\.rem\] {
+    padding-top: 1.rem;
+  }
+
+  .md\:pt-\[1\.5rem\] {
+    padding-top: 1.5rem;
   }
 
   .md\:text-2xl {
@@ -6725,6 +6785,38 @@ html {
     padding-top: 2rem;
   }
 
+  .lg\:pt-\[22\.4rem\] {
+    padding-top: 22.4rem;
+  }
+
+  .lg\:pr-\[12\.2rem\] {
+    padding-right: 12.2rem;
+  }
+
+  .lg\:pl-\[12\.2rem\] {
+    padding-left: 12.2rem;
+  }
+
+  .lg\:pl-\[10rem\] {
+    padding-left: 10rem;
+  }
+
+  .lg\:pr-\[10rem\] {
+    padding-right: 10rem;
+  }
+
+  .lg\:pt-\[8\.5rem\] {
+    padding-top: 8.5rem;
+  }
+
+  .lg\:pb-\[1\.8rem\] {
+    padding-bottom: 1.8rem;
+  }
+
+  .lg\:pt-\[1\.8rem\] {
+    padding-top: 1.8rem;
+  }
+
   .lg\:text-\[1\.8rem\] {
     font-size: 1.8rem;
   }
@@ -6737,6 +6829,26 @@ html {
 
   .xl\:w-\[80rem\] {
     width: 80rem;
+  }
+
+  .xl\:pt-\[22\.4rem\] {
+    padding-top: 22.4rem;
+  }
+
+  .xl\:pr-\[12\.2rem\] {
+    padding-right: 12.2rem;
+  }
+
+  .xl\:pl-\[12\.2rem\] {
+    padding-left: 12.2rem;
+  }
+
+  .xl\:pb-\[1\.8rem\] {
+    padding-bottom: 1.8rem;
+  }
+
+  .xl\:pt-\[1\.8rem\] {
+    padding-top: 1.8rem;
   }
 }
 

@@ -12,8 +12,7 @@ import ChangePass from "/public/assets/changePass.svg";
 import Birthday from "/public/assets/birthday.svg";
 import Link from "next/link";
 import MobileSideBar from "../mobileSidebar/mobileSideBar";
-import Modal from "../modal/modal";
-import MobileNavigation from "../mobileNavigation/mobileNavigation";
+
 import { useDispatch } from "react-redux";
 import {
   openAction,

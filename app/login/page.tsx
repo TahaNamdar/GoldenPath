@@ -8,6 +8,9 @@ import Star3 from "/public/assets/star3.svg";
 import XlLogo from "/public/assets/xlLoginLogo.svg";
 import Logo from "/public/assets/loginLogo.svg";
 import { useState, useEffect } from "react";
+import InputFiled from "../components/inputFiled/inputFiled";
+import Email from "/public/assets/changeEmail.svg";
+import Pass from "/public/assets/changePass.svg";
 
 export default function Login() {
   const [isXlScreen, setIsXlScreen] = useState(false);
@@ -47,8 +50,34 @@ export default function Login() {
 
   return (
     <div className="bg-Crayola h-screen block sm:flex sm:flex-row-reverse ">
-      <div className="w-full h-screen md:w-[34rem] lg:w-[60.6rem] xl:w-[80rem] bg-darkGunmetal"></div>
-      <div className="flex-1 relative hidden sm:block ">
+      <div className="w-full h-screen z-50 md:w-[50rem]  lg:w-[60.6rem] xl:w-[80rem] bg-darkGunmetal pt-[7.4rem] pr-[2rem] pl-[2rem] md:pt-[8.5rem] md:pr-[10rem] md:pl-[10rem] xl:pt-[22.4rem] xl:pr-[12.2rem] xl:pl-[12.2rem]">
+        <div className="mb-[2.8rem] md:mb-[1.2rem]">
+          <InputFiled
+            width="w-full"
+            type="text"
+            label="Email"
+            placeholder="type..."
+          >
+            <Email />
+          </InputFiled>
+        </div>{" "}
+        <div className="mb-[2.8rem] md:mb-[3.8rem]">
+          <InputFiled
+            width="w-full"
+            type="password"
+            label="Password"
+            placeholder="type..."
+          >
+            <Pass />
+          </InputFiled>
+        </div>
+        <div className="text-right">
+          <button className="bg-chipColor rounded-[1.4rem] w-full text-center text-black text-2xl md:text-3xl pl-[10rem] pr-[10rem] pt-[1.2rem] pb-[1.2rem] md:pl-[11rem] md:pr-[11rem] md:pt-[1.8rem] md:pb-[1.8rem]">
+            Save
+          </button>
+        </div>{" "}
+      </div>
+      <div className="flex-1 relative hidden md:block ">
         <div className=" bg-[url('../public/assets/xlLoginShape1.svg')] bg-contain bg-no-repeat fixed h-screen  w-full bottom-0"></div>
         <div className=" bg-[url('../public/assets/xlLoginShape2.svg')] bg-contain bg-no-repeat w-full fixed h-screen mt-[-0.3rem]"></div>
         <div className="absolute top-[3%] left-[57%]">
