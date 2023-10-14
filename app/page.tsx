@@ -1,21 +1,40 @@
 "use client";
-import { useTheme } from "next-themes";
+
+import { useDispatch, useSelector } from "react-redux";
+import type { RootState } from "./Redux/store/store";
+import {
+  openAction,
+  closeAction,
+  setModalNameAction,
+} from "./Redux/featrues/toggle/toggleSlice";
+import GoldenModal from "./components/goldenModal/goldenModal";
+
+// test redux
 
 export default function Home() {
-  const { theme, setTheme } = useTheme();
+  const active = useSelector((state: RootState) => state.toggle.active);
+  const dispatch = useDispatch();
+
+  console.log(active, "status");
+
+  const handler = () => {
+    dispatch(openAction());
+    dispatch(setModalNameAction("changeBirthday"));
+  };
 
   return (
-    <div className="bg-white dark:bg-darkGunmetal h-screen p-10">
-      <p className="text-lightBlue mb-6 text-2xl dark:text-white">
-        I'm working on
-        <span className="text-3xl text-mango">YearlyGoals page</span>
-      </p>
+    <div className="bg-darkGunmetal h-screen p-10">
+      <p className="text-white mb-6 text-3xl">Golden path</p>
+
+      <GoldenModal title="Change BirthDay" name="changeBirthday">
+        testttttt
+      </GoldenModal>
 
       <button
-        className=" bg-white text-blueViolet dark:bg-darkGunmetal dark:text-white rounded-lg "
-        onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+        onClick={() => handler()}
+        className="cursor-pointer text-white text-3xl"
       >
-        {theme === "dark" ? "Light" : "Dark"}
+        click me
       </button>
     </div>
   );

@@ -11,23 +11,125 @@ import ChangeEmail from "/public/assets/changeEmail.svg";
 import ChangePass from "/public/assets/changePass.svg";
 import Birthday from "/public/assets/birthday.svg";
 import Link from "next/link";
-import Drawer from "../drawer/drawer";
-import BirthDayModal from "../modals/birthDayModals";
+import MobileSideBar from "../mobileSidebar/mobileSideBar";
+import Modal from "../modal/modal";
+import MobileNavigation from "../mobileNavigation/mobileNavigation";
+import { useDispatch } from "react-redux";
+import {
+  openAction,
+  setModalNameAction,
+} from "@/app/Redux/featrues/toggle/toggleSlice";
+import InputFiled from "../inputFiled/inputFiled";
+import Key from "/public/assets/key.svg";
+import Email from "/public/assets/email.svg";
+import BirthdaySvg from "/public/assets/birthdaySvg.svg";
+import GoldenModal from "../goldenModal/goldenModal";
 
 export default function SideBar() {
   const [openSetting, setOpenSetting] = useState<boolean>(false);
 
-  const [showModal, setShowModal] = useState<boolean>(false);
+  const dispatch = useDispatch();
 
-  const handleOnClose = () => {
-    setShowModal(false);
+  const changeBirthDayActionHandler = () => {
+    dispatch(openAction());
+    dispatch(setModalNameAction("changeBirthday"));
+  };
+  const changeEmailActionHandler = () => {
+    dispatch(openAction());
+    dispatch(setModalNameAction("changeEmail"));
+  };
+  const changePasswordActionHandler = () => {
+    dispatch(openAction());
+    dispatch(setModalNameAction("changePassword"));
   };
 
   return (
     <div>
-      <BirthDayModal onClose={handleOnClose} visible={showModal} />
+      <GoldenModal title="Change BirthDay" name="changeBirthday">
+        <div className="mb-[2.8rem] md:mb-[3.8rem]">
+          <InputFiled
+            width="w-full"
+            type="text"
+            label="Birthday"
+            placeholder="type..."
+          >
+            <BirthdaySvg />
+          </InputFiled>
+        </div>
+        <div className="text-right">
+          <button className="bg-chipColor rounded-[1.4rem] w-full sm:w-[28rem] text-center text-black text-2xl md:text-3xl pl-[10rem] pr-[10rem] pt-[1.2rem] pb-[1.2rem] md:pl-[11rem] md:pr-[11rem] md:pt-[1.8rem] md:pb-[1.8rem]">
+            Save
+          </button>
+        </div>{" "}
+      </GoldenModal>
+
+      <GoldenModal title="Change Email" name="changeEmail">
+        <div className="mb-[2.8rem] md:mb-[1.2rem]">
+          <InputFiled
+            width="w-full"
+            type="text"
+            label="New Email"
+            placeholder="type..."
+          >
+            <Email />
+          </InputFiled>
+        </div>{" "}
+        <div className="mb-[2.8rem] md:mb-[3.8rem]">
+          <InputFiled
+            width="w-full"
+            type="password"
+            label="Repeat Password"
+            placeholder="type..."
+          >
+            <Key />
+          </InputFiled>
+        </div>
+        <div className="text-right">
+          <button className="bg-chipColor rounded-[1.4rem] w-full sm:w-[28rem] text-center text-black text-2xl md:text-3xl pl-[10rem] pr-[10rem] pt-[1.2rem] pb-[1.2rem] md:pl-[11rem] md:pr-[11rem] md:pt-[1.8rem] md:pb-[1.8rem]">
+            Save
+          </button>
+        </div>{" "}
+      </GoldenModal>
+
+      <GoldenModal title="Change Password" name="changePassword">
+        <div className="mb-[2.8rem] md:mb-[1.2rem]">
+          <InputFiled
+            width="w-full"
+            type="password"
+            label="Old Password"
+            placeholder="type..."
+          >
+            <Key />
+          </InputFiled>
+        </div>{" "}
+        <div className="mb-[2.8rem] md:mb-[1.2rem]">
+          <InputFiled
+            width="w-full"
+            type="password"
+            label="New Password"
+            placeholder="type..."
+          >
+            <Key />
+          </InputFiled>
+        </div>{" "}
+        <div className="mb-[2.8rem] md:mb-[3.8rem]">
+          <InputFiled
+            width="w-full"
+            type="password"
+            label="Repeat Password"
+            placeholder="type..."
+          >
+            <Key />
+          </InputFiled>
+        </div>
+        <div className="text-right">
+          <button className="bg-chipColor rounded-[1.4rem] w-full sm:w-[28rem] text-center text-black text-2xl md:text-3xl pl-[10rem] pr-[10rem] pt-[1.2rem] pb-[1.2rem] md:pl-[11rem] md:pr-[11rem] md:pt-[1.8rem] md:pb-[1.8rem]">
+            Save
+          </button>
+        </div>
+      </GoldenModal>
       {/* modal */}
-      <Drawer />
+      <MobileSideBar />
       {/* drawer */}
       <div className="hidden lg:flex lg:flex-col lg:justify-between lg:h-full md:h-screen md:w-[28.6rem] bg-darkGunmetal relative ">
         <div className="md:mb-[40rem]">
@@ -84,7 +186,7 @@ export default function SideBar() {
             <div>
               <div className={`${openSetting ? "block pt-6" : "hidden"}`}>
                 <div
-                  onClick={() => setShowModal(true)}
+                  onClick={() => changeBirthDayActionHandler()}
                   className="flex items-center bg-darkGunmetal w-4/5 m-auto rounded-[1.4rem] pt-[1.5rem] pb-[1.3rem] cursor-pointer justify-center mb-[1.4rem]"
                 >
                   <Birthday />
@@ -92,11 +194,17 @@ export default function SideBar() {
                     Change Birthday
                   </p>
                 </div>
-                <div className="flex items-center bg-darkGunmetal w-4/5 m-auto rounded-[1.4rem] pt-[1.5rem] pb-[1.3rem] cursor-pointer justify-center mb-[1.4rem]">
+                <div
+                  onClick={() => changeEmailActionHandler()}
+                  className="flex items-center bg-darkGunmetal w-4/5 m-auto rounded-[1.4rem] pt-[1.5rem] pb-[1.3rem] cursor-pointer justify-center mb-[1.4rem]"
+                >
                   <ChangeEmail />
                   <p className="ml-[1rem] text-sm text-white">Change Email</p>
                 </div>
-                <div className="flex items-center bg-darkGunmetal w-4/5 m-auto rounded-[1.4rem] pt-[1.5rem] pb-[1.3rem] cursor-pointer justify-center">
+                <div
+                  onClick={() => changePasswordActionHandler()}
+                  className="flex items-center bg-darkGunmetal w-4/5 m-auto rounded-[1.4rem] pt-[1.5rem] pb-[1.3rem] cursor-pointer justify-center"
+                >
                   <ChangePass />
                   <p className="ml-[1rem] text-sm text-white">
                     Change Password
