@@ -51,6 +51,7 @@ export default function SideBar() {
             type="text"
             label="Birthday"
             placeholder="type..."
+            fontSize="text-3xl md:text-[2.8rem]"
           >
             <BirthdaySvg />
           </InputFiled>
@@ -69,6 +70,7 @@ export default function SideBar() {
             type="text"
             label="New Email"
             placeholder="type..."
+            fontSize="text-3xl md:text-[2.8rem]"
           >
             <Email />
           </InputFiled>
@@ -79,6 +81,7 @@ export default function SideBar() {
             type="password"
             label="Repeat Password"
             placeholder="type..."
+            fontSize="text-3xl md:text-[2.8rem]"
           >
             <Key />
           </InputFiled>
@@ -97,6 +100,7 @@ export default function SideBar() {
             type="password"
             label="Old Password"
             placeholder="type..."
+            fontSize="text-3xl;md:text-[2.8rem]"
           >
             <Key />
           </InputFiled>
@@ -107,6 +111,7 @@ export default function SideBar() {
             type="password"
             label="New Password"
             placeholder="type..."
+            fontSize="text-3xl md:text-[2.8rem]"
           >
             <Key />
           </InputFiled>
@@ -117,6 +122,7 @@ export default function SideBar() {
             type="password"
             label="Repeat Password"
             placeholder="type..."
+            fontSize="text-3xl md:text-[2.8rem]"
           >
             <Key />
           </InputFiled>

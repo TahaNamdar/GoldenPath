@@ -1052,6 +1052,10 @@ html {
   margin-top: 1px;
 }
 
+.mr-\[12px\] {
+  margin-right: 12px;
+}
+
 .box-border {
   box-sizing: border-box;
 }
@@ -2911,6 +2915,10 @@ html {
   padding-top: 1.6rem;
 }
 
+.pt-\[18rem\] {
+  padding-top: 18rem;
+}
+
 .pt-\[2\.1rem\] {
   padding-top: 2.1rem;
 }
@@ -2933,14 +2941,6 @@ html {
 
 .pt-px {
   padding-top: 1px;
-}
-
-.pt-\[\] {
-  padding-top: ;
-}
-
-.pt-\[18rem\] {
-  padding-top: 18rem;
 }
 
 .text-left {
@@ -6272,10 +6272,6 @@ html {
     justify-content: space-between;
   }
 
-  .sm\:overflow-auto {
-    overflow: auto;
-  }
-
   .sm\:overflow-hidden {
     overflow: hidden;
   }
@@ -6659,14 +6655,6 @@ html {
     margin-right: 4.7rem;
   }
 
-  .lg\:mb-\[2\] {
-    margin-bottom: 2;
-  }
-
-  .lg\:mb-\[29rem\] {
-    margin-bottom: 29rem;
-  }
-
   .lg\:block {
     display: block;
   }
@@ -6810,20 +6798,12 @@ html {
     padding-top: 2rem;
   }
 
-  .lg\:pb-\[\] {
-    padding-bottom: ;
-  }
-
-  .lg\:pb-\[29rem\] {
-    padding-bottom: 29rem;
-  }
-
-  .lg\:pt-\[29rem\] {
-    padding-top: 29rem;
-  }
-
   .lg\:text-\[1\.8rem\] {
     font-size: 1.8rem;
+  }
+
+  .lg\:text-3xl {
+    font-size: 2rem;
   }
 }
 
@@ -6862,6 +6842,18 @@ html {
 
   .xl\:text-\[4\.8rem\] {
     font-size: 4.8rem;
+  }
+
+  .xl\:text-\[2\.8rem\] {
+    font-size: 2.8rem;
+  }
+
+  .xl\:text-\[2\.4rem\] {
+    font-size: 2.4rem;
+  }
+
+  .xl\:text-\[24px\] {
+    font-size: 24px;
   }
 }
 

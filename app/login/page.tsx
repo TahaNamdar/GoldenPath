@@ -9,8 +9,11 @@ import XlLogo from "/public/assets/xlLoginLogo.svg";
 import Logo from "/public/assets/loginLogo.svg";
 import { useState, useEffect } from "react";
 import InputFiled from "../components/inputFiled/inputFiled";
-import Email from "/public/assets/changeEmail.svg";
-import Pass from "/public/assets/changePass.svg";
+import Email from "/public/assets/smEmail.svg";
+import Pass from "/public/assets/smPassword.svg";
+import GoogleLogo from "@/public/assets/google.png";
+import FaceBookLogo from "@/public/assets/facebook.png";
+import Image from "next/image";
 
 export default function Login() {
   const [isXlScreen, setIsXlScreen] = useState(false);
@@ -49,7 +52,7 @@ export default function Login() {
   };
 
   return (
-    <div className="bg-Crayola h-screen block sm:flex sm:flex-row-reverse sm:overflow-hidden ">
+    <div className="bg-Crayola  block sm:flex sm:flex-row-reverse sm:overflow-hidden ">
       <div className="w-full overflow-auto h-screen z-50 lg:w-[60.6rem] xl:w-[80rem] bg-darkGunmetal  pr-[2rem] pl-[2rem] flex flex-col justify-center md:pr-[10rem] md:pl-[10rem]  xl:pr-[12.2rem] xl:pl-[12.2rem]">
         <p className="text-white text-center text-[2.4rem] md:text-[3.2rem] xl:text-[4.8rem] mb-[9rem]  md:mb-[4.7rem] md: xl:mb-[11.1rem] pt-[18rem] lg:pt-[22.4rem]">
           Login
@@ -60,6 +63,7 @@ export default function Login() {
             type="text"
             label="Email"
             placeholder="golden@gmail.com"
+            fontSize="text-2xl lg:text-3xl xl:text-[24px]"
           >
             <Email />
           </InputFiled>
@@ -70,6 +74,7 @@ export default function Login() {
             type="password"
             label="Password"
             placeholder="*****"
+            fontSize="text-2xl lg:text-3xl xl:text-[24px]"
           >
             <Pass />
           </InputFiled>
@@ -92,15 +97,17 @@ export default function Login() {
           </div>
         </div>
         <div className="text-right mb-[3.9rem]">
-          <button className=" rounded-[1.4rem] border-[1px] border-white w-full text-center text-white  text-2xl md:text-3xl pl-[10rem] pr-[10rem] pt-[1.2rem] pb-[1.2rem] md:pl-[11rem] md:pr-[11rem] md:pt-[1.8rem] md:pb-[1.8rem]">
+          <button className="flex items-center justify-center rounded-[1.4rem] border-[1px] border-white w-full text-center text-white  text-2xl md:text-3xl pl-[10rem] pr-[10rem] pt-[1.2rem] pb-[1.2rem] md:pl-[11rem] md:pr-[11rem] md:pt-[1.8rem] md:pb-[1.8rem]">
+            <Image src={GoogleLogo} alt="google icon" className="mr-[12px]" />
             Google
           </button>
         </div>{" "}
-        <div className="text-right mb-[3.9rem] ">
-          <button className=" rounded-[1.4rem] w-full border-[1px] border-white text-center text-white text-2xl md:text-3xl pl-[10rem] pr-[10rem] pt-[1.2rem] pb-[1.2rem] md:pl-[11rem] md:pr-[11rem] md:pt-[1rem] md:pb-[1.8rem]">
-            Facebook
+        <div className="text-right mb-[3.9rem]">
+          <button className="flex items-center justify-center rounded-[1.4rem] border-[1px] border-white w-full text-center text-white  text-2xl md:text-3xl pl-[10rem] pr-[10rem] pt-[1.2rem] pb-[1.2rem] md:pl-[11rem] md:pr-[11rem] md:pt-[1.8rem] md:pb-[1.8rem]">
+            <Image src={FaceBookLogo} alt="google icon" className="mr-[12px]" />
+            FaceBook
           </button>
-        </div>
+        </div>{" "}
       </div>
       <div className="flex-1 relative hidden lg:block ">
         <div className=" bg-[url('../public/assets/xlLoginShape1.svg')] bg-contain bg-no-repeat fixed h-screen  w-full bottom-0"></div>

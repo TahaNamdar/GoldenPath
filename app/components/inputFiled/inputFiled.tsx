@@ -1,4 +1,4 @@
-import React from "react";
+import React, { CSSProperties } from "react";
 
 type Props = {
   width?: string;
@@ -7,6 +7,8 @@ type Props = {
   onChange?: React.ChangeEventHandler;
   label?: string;
   children?: React.ReactNode;
+  style?: CSSProperties;
+  fontSize: string;
 };
 
 export default function InputFiled({
@@ -16,6 +18,8 @@ export default function InputFiled({
   onChange,
   label,
   children,
+  style,
+  fontSize,
 }: Props) {
   return (
     <div>
@@ -30,7 +34,7 @@ export default function InputFiled({
           type={type}
           placeholder={placeholder}
           onChange={onChange}
-          className={`bg-input ${width} pl-[6rem]  md:pl-[6.8rem]  text-3xl md:text-[2.8rem] border-none focus:outline-none rounded-[1.4rem] text-white pt-[1.6rem] pb-[1.6rem] sm:pt-[1.4rem] sm:pb-[1.4rem] md:pt-[1.5rem] md:pb-[1.5rem] xl:pt-[1.8rem] xl:pb-[1.8rem]`}
+          className={`bg-input ${style} ${fontSize} ${width} pl-[6rem]  md:pl-[6.8rem]  border-none focus:outline-none rounded-[1.4rem] text-white pt-[1.6rem] pb-[1.6rem] sm:pt-[1.4rem] sm:pb-[1.4rem] md:pt-[1.5rem] md:pb-[1.5rem] xl:pt-[1.8rem] xl:pb-[1.8rem]`}
         />
       </div>
     </div>
