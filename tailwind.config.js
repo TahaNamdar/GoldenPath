@@ -38,6 +38,10 @@ module.exports = withMT({
       borderColor: "#ffffff8f",
       input: "#0d0d0d4d",
       danger: "#EA4335",
+      homeColor: "#17191D",
+      navBar: "#4a4a4a30",
+      homeColor: "#17191d",
+      customYellow:"#FFB400"
     },
     fontSize: {
       sm: "1.2rem",
