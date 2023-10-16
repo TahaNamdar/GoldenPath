@@ -736,10 +736,6 @@ html {
   right: 0.25rem;
 }
 
-.right-1\/2 {
-  right: 50%;
-}
-
 .right-2 {
   right: 0.5rem;
 }
@@ -1221,10 +1217,6 @@ html {
   height: 100vh;
 }
 
-.h-\[00px\] {
-  height: 00px;
-}
-
 .max-h-96 {
   max-height: 24rem;
 }
@@ -1637,10 +1629,6 @@ html {
 
 .flex-row {
   flex-direction: row;
-}
-
-.flex-row-reverse {
-  flex-direction: row-reverse;
 }
 
 .flex-col {
@@ -6440,6 +6428,10 @@ html {
     left: 0px;
   }
 
+  .md\:left-1\/2 {
+    left: 50%;
+  }
+
   .md\:right-0 {
     right: 0px;
   }
@@ -6524,6 +6516,10 @@ html {
     height: 800px;
   }
 
+  .md\:h-full {
+    height: 100%;
+  }
+
   .md\:h-screen {
     height: 100vh;
   }
@@ -6590,6 +6586,15 @@ html {
 
   .md\:max-w-\[83\.333333\%\] {
     max-width: 83.333333%;
+  }
+
+  .md\:-translate-x-1\/2 {
+    --tw-translate-x: -50%;
+    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+  }
+
+  .md\:transform {
+    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
   }
 
   .md\:flex-wrap {
@@ -6731,8 +6736,8 @@ html {
 }
 
 @media (min-width: 960px) {
-  .lg\:right-\[111px\] {
-    right: 111px;
+  .lg\:left-1\/2 {
+    left: 50%;
   }
 
   .lg\:mb-\[3\.7rem\] {
@@ -6835,6 +6840,15 @@ html {
     max-width: 75%;
   }
 
+  .lg\:-translate-x-1\/2 {
+    --tw-translate-x: -50%;
+    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+  }
+
+  .lg\:transform {
+    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+  }
+
   .lg\:flex-col {
     flex-direction: column;
   }
@@ -6908,6 +6922,10 @@ html {
 }
 
 @media (min-width: 1140px) {
+  .xl\:left-\[unset\] {
+    left: unset;
+  }
+
   .xl\:right-\[111px\] {
     right: 111px;
   }
@@ -6932,6 +6950,10 @@ html {
     height: 900px;
   }
 
+  .xl\:h-auto {
+    height: auto;
+  }
+
   .xl\:w-5\/12 {
     width: 41.666667%;
   }
@@ -6942,6 +6964,18 @@ html {
 
   .xl\:w-\[80rem\] {
     width: 80rem;
+  }
+
+  .xl\:transform-none {
+    transform: none;
+  }
+
+  .xl\:flex-row-reverse {
+    flex-direction: row-reverse;
+  }
+
+  .xl\:overflow-hidden {
+    overflow: hidden;
   }
 
   .xl\:pb-\[1\.8rem\] {
