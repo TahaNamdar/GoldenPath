@@ -26,6 +26,7 @@ import GoldenModal from "../goldenModal/goldenModal";
 
 export default function SideBar() {
   const [openSetting, setOpenSetting] = useState<boolean>(false);
+  const [value, setValue] = useState("");
 
   const dispatch = useDispatch();
 
@@ -42,6 +43,26 @@ export default function SideBar() {
     dispatch(setModalNameAction("changePassword"));
   };
 
+  function formatInputDate(input: any) {
+    const cleaned = input.replace(/\D/g, ""); // Remove all non-numeric characters
+    const match = cleaned.match(/^(\d{0,4})(\d{0,2})(\d{0,2})$/); // Use regex to capture groups for year, month, and day
+
+    if (match) {
+      // Construct the formatted date based on captured groups
+      const formattedDate =
+        match[1] +
+        (match[2] ? "-" + match[2] : "") +
+        (match[3] ? "-" + match[3] : "");
+      return formattedDate;
+    }
+    return "";
+  }
+
+  const handleChange = (e: any) => {
+    const cleanData = formatInputDate(e.target.value);
+    setValue(cleanData);
+  };
+
   return (
     <div>
       <GoldenModal title="Change BirthDay" name="changeBirthday">
@@ -50,8 +71,12 @@ export default function SideBar() {
             width="w-full"
             type="text"
             label="Birthday"
-            placeholder="type..."
+            id="dateInput"
+            placeholder="YYYY-MM-DD"
             fontSize="text-3xl md:text-[2.8rem]"
+            maxlength="10"
+            onChange={handleChange}
+            value={value}
           >
             <BirthdaySvg />
           </InputFiled>

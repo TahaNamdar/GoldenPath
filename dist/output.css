@@ -724,10 +724,6 @@ html {
   left: 80%;
 }
 
-.left-\[97px\] {
-  left: 97px;
-}
-
 .right-0 {
   right: 0px;
 }
@@ -1016,6 +1012,10 @@ html {
   margin-left: 2.4rem;
 }
 
+.ml-\[97px\] {
+  margin-left: 97px;
+}
+
 .ml-\[auto\] {
   margin-left: auto;
 }
@@ -1277,10 +1277,6 @@ html {
   width: 2.5rem;
 }
 
-.w-10\/12 {
-  width: 83.333333%;
-}
-
 .w-11\/12 {
   width: 91.666667%;
 }
@@ -1379,6 +1375,10 @@ html {
 
 .w-\[74px\] {
   width: 74px;
+}
+
+.w-\[88\%\] {
+  width: 88%;
 }
 
 .w-full {

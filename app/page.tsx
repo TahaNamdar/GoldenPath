@@ -11,7 +11,7 @@ export default function Home() {
   return (
     <main className="bg-homeColor h-screen overflow-auto overflow-x-hidden">
       <div className="relative bg-homeColor bg-cover bg-[url('../public/assets/layout/wallpaper.png')] h-[700px] md:h-[800px]  xl:overflow-hidden xl:h-[900px] w-full xl:flex xl:flex-row-reverse">
-        <div className="z-10 flex items-center justify-between rounded-[23px] pl-[70px] pr-[70px] left-1/2 top-[47px] transform -translate-x-1/2  w-10/12 fixed bg-navBar backdrop-blur-[29px]">
+        <div className="z-10 flex items-center justify-between rounded-[23px] pl-[70px] pr-[70px] left-1/2 top-[47px] transform -translate-x-1/2  w-[88%] fixed bg-navBar backdrop-blur-[29px]">
           <Logo />
           <div className="text-white">Login</div>
         </div>
@@ -37,7 +37,7 @@ export default function Home() {
             <Shadow />
           </div>
 
-          <div className="absolute top-1/2 transform left-[97px] -translate-y-1/2">
+          <div className="flex justify-center flex-col h-full ml-[97px]">
             <p className="text-white text-[72px]">Take Back The</p>
             <p className="text-customYellow text-[72px]">
               Control Of Your Life
