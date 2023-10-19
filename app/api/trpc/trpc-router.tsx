@@ -17,7 +17,6 @@ export const appRouter = t.router({
     )
     .mutation(async ({ input, ctx }) => {
       const { email, password } = input;
-      
 
       const exists = await (ctx as any).prisma.user.findFirst({
         where: { email },
@@ -43,15 +42,7 @@ export const appRouter = t.router({
       };
     }),
 
-  // login:t.procedure.mutation()
-
-  // setLifeGoals:t.procedure.mutation()
-
-  // getLifeGoals:t.procedure.query()
-
-  // setYearlyGoals:t.procedure.mutation()
-
-  // getYearlyGoals:t.procedure.query()
+  //find and update prisma
 });
 
 export type AppRouter = typeof appRouter;

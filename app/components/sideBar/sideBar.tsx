@@ -12,7 +12,6 @@ import ChangePass from "/public/assets/changePass.svg";
 import Birthday from "/public/assets/birthday.svg";
 import Link from "next/link";
 import MobileSideBar from "../mobileSidebar/mobileSideBar";
-
 import { useDispatch } from "react-redux";
 import {
   openAction,
@@ -23,12 +22,17 @@ import Key from "/public/assets/key.svg";
 import Email from "/public/assets/email.svg";
 import BirthdaySvg from "/public/assets/birthdaySvg.svg";
 import GoldenModal from "../goldenModal/goldenModal";
+import { signOut } from "next-auth/react";
+import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 export default function SideBar() {
   const [openSetting, setOpenSetting] = useState<boolean>(false);
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState<string>("");
 
   const dispatch = useDispatch();
+
+  const router = useRouter();
 
   const changeBirthDayActionHandler = () => {
     dispatch(openAction());
@@ -61,6 +65,11 @@ export default function SideBar() {
   const handleChange = (e: any) => {
     const cleanData = formatInputDate(e.target.value);
     setValue(cleanData);
+  };
+
+  const handleLogOut = () => {
+    signOut();
+    router.push("/");
   };
 
   return (
@@ -251,7 +260,12 @@ export default function SideBar() {
           <div className="bg-Crayola  rounded-[1.4rem] w-[18rem] m-auto cursor-pointer">
             <div className="pt-[2.2rem] pb-[2.2rem] pr-[2.8rem] pl-[2.8rem] flex items-center">
               <LogOut />
-              <p className="ml-[1.5rem] text-3xl text-white">logout</p>
+              <p
+                className="ml-[1.5rem] text-3xl text-white"
+                onClick={handleLogOut}
+              >
+                logout
+              </p>
             </div>
           </div>
         </div>
