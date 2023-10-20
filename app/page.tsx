@@ -46,7 +46,7 @@ export default function Home() {
               <RemovalSm />
             </div>
           </div>
-          <div className="w-full md:bg-transparent bg-homeColor md:mt-[15%] md:ml-[4%] xl:mt-[unset] xl:ml-[unset] xl:bg-[unset] md:w-full xl:w-5/12 relative h-auto md:h-full lg:h-full xl:h-auto ">
+          <div className="w-full md:bg-transparent bg-banner pb-[30px] lg:pb-[unset] md:mt-[15%] md:ml-[4%] xl:mt-[unset] xl:ml-[unset] xl:bg-[unset] md:w-full xl:w-5/12 relative h-auto md:h-full lg:h-full xl:h-auto ">
             <div className="absolute left-[-2px] top-[16%] hidden xl:block">
               <Shadow />
             </div>
@@ -85,7 +85,63 @@ export default function Home() {
             <div className="flex justify-center relative 2xl:hidden">
               <FrameSm />
             </div>{" "}
-            <div className="bg-[url('../public/assets/layout/lifegoals.svg')] 2xl:h-auto 2xl:w-full relative hidden 2xl:block 2xl:mb-[160px]"></div>
+            <div className="flex justify-center">
+              <div className="bg-[url('../public/assets/layout/lifeGoalsBgLg.png')] 3xl:h-[970px] 3xl:mb-[160px]  3xl:w-[1440px] relative hidden 3xl:block 2xl:mb-[160px] bg-no-repeat">
+                <div className="absolute bg-smallBox backdrop-blur-[18px] z-10 border-[1px] border-white rounded-[14px] 3xl:top-[10%] 3xl:left-[7%]  3xl:w-[500px] 3xl:h-[117px] text-center text-[18px] 3xl:pt-[46px] 3xl:pb-[46px] 3xl:pr-[34px] 3xl:pl-[34px]">
+                  <p className="text-white">
+                    Assess how fast you achieved your goals so far.
+                  </p>
+                </div>{" "}
+                <div className="absolute bg-smallBox backdrop-blur-[18px] z-10 border-[1px] border-white rounded-[14px] 3xl:top-[23%] 3xl:right-[-2%]  3xl:w-[320px] 3xl:h-[117px] text-center text-[18px] 3xl:pt-[46px] 3xl:pb-[46px] 3xl:pr-[34px] 3xl:pl-[34px]">
+                  <p className="text-white">Break it into measurable goals </p>
+                </div>{" "}
+                <div className="absolute bg-smallBox backdrop-blur-[18px] z-10 border-[1px] border-white rounded-[14px] 3xl:top-[70%] 3xl:right-[-5%]  3xl:w-[420px] 3xl:h-[117px] text-center text-[18px] 3xl:pt-[46px] 3xl:pb-[46px] 3xl:pr-[34px] 3xl:pl-[34px]">
+                  <p className="text-white">
+                    Create a realistic vision for your future life.{" "}
+                  </p>
+                </div>{" "}
+                <div className="absolute bg-smallBox backdrop-blur-[18px] z-10 border-[1px] border-white rounded-[14px] 3xl:bottom-[-6%] 3xl:left-[10%]  3xl:w-[570px] 3xl:h-[117px] text-center text-[18px] 3xl:pt-[33px] 3xl:pb-[33px] 3xl:pr-[34px] 3xl:pl-[34px]">
+                  <p className="text-white">
+                    Constantly evaluate and adjust; either your goals to your
+                    efforts or your efforts to your goals.{" "}
+                  </p>
+                </div>
+              </div>
+            </div>
+            {/* prioritize section */}
+            <div className="flex justify-center pl-[68px] pr-[68px] mb-[60px]">
+              <div className="text-center">
+                <p className="text-customYellow text-[32px] sm:[40px] xl:text-[50px]">
+                  Prioritize <span className="text-white">Your Goals</span>
+                </p>
+                <p className="text-white text-[18px] sm:text-[20px] xl:text-[26px]">
+                  “Successfully people don’t use a complex system, they use a
+                  simple system for a long period of time” Alex Hormozi
+                </p>
+              </div>
+            </div>
+            <div className="flex justify-center relative 2xl:hidden">
+              <FrameSm />
+            </div>{" "}
+            <div className="flex justify-center">
+              <div className="bg-[url('../public/assets/layout/YearlyXL.png')] 3xl:h-[1130px] 3xl:mb-[160px]  3xl:w-[1548px] relative hidden 3xl:block 2xl:mb-[160px] bg-no-repeat">
+                <div className="absolute bg-smallBox backdrop-blur-[18px] z-10 border-[1px] border-white rounded-[14px] 3xl:top-[9%] 3xl:left-[35%]  3xl:w-[520px] 3xl:h-[117px] text-center text-[18px] 3xl:pt-[46px] 3xl:pb-[46px] 3xl:pr-[34px] 3xl:pl-[34px]">
+                  <p className="text-white">
+                    Prioritizie them so you know what to work on each day{" "}
+                  </p>
+                </div>{" "}
+                <div className="absolute bg-smallBox backdrop-blur-[18px] z-10 border-[1px] border-white rounded-[14px] 3xl:top-[45%] 3xl:right-[-1%]  3xl:w-[320px] 3xl:h-[117px] text-center text-[18px] 3xl:pt-[34px] 3xl:pb-[46px] 3xl:pr-[34px] 3xl:pl-[34px]">
+                  <p className="text-white">
+                    Set goals in each key area of your life{" "}
+                  </p>
+                </div>{" "}
+                <div className="absolute bg-smallBox backdrop-blur-[18px] z-10 border-[1px] border-white rounded-[14px] 3xl:bottom-[-5%] 3xl:right-[10%]  3xl:w-[320px] 3xl:h-[117px] text-center text-[18px] 3xl:pt-[46px] 3xl:pb-[46px] 3xl:pr-[34px] 3xl:pl-[34px]">
+                  <p className="text-white">
+                    Break them into smaller manageable goals{" "}
+                  </p>
+                </div>{" "}
+              </div>
+            </div>
           </div>
         </div>
 

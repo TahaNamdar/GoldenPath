@@ -51,6 +51,7 @@ module.exports = withMT({
       customYellow: "#FFB400",
       footerColor: "#ffffff99",
       copyRightColor: "#ffffff5e",
+      smallBox: "#3131318a",
     },
     fontSize: {
       sm: "1.2rem",
