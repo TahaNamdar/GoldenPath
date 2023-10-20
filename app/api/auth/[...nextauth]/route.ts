@@ -1,5 +1,6 @@
 import { NextAuthOptions } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
+import GoogleProvider from "next-auth/providers/google";
 import { verify } from "argon2";
 import { PrismaClient } from "@prisma/client";
 import { loginSchema } from "../../../common/validation/auth";
@@ -45,6 +46,10 @@ export const authOptions: NextAuthOptions = {
           password: user.password,
         };
       },
+    }),
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID as string,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
     }),
   ],
   // ...
