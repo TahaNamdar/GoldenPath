@@ -10,6 +10,10 @@ module.exports = withMT({
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
+    screens: {
+      "3xl": "1600px",
+    },
+
     colors: {
       // lightMode
       mango: "#FDC929",
@@ -41,7 +45,8 @@ module.exports = withMT({
       homeColor: "#17191D",
       navBar: "#4a4a4a30",
       homeColor: "#17191d",
-      customYellow:"#FFB400"
+      layoutColor: "#1F1F21",
+      customYellow: "#FFB400",
     },
     fontSize: {
       sm: "1.2rem",
