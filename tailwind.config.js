@@ -12,6 +12,7 @@ module.exports = withMT({
   theme: {
     screens: {
       "3xl": "1600px",
+      "1sm": "440px",
     },
 
     colors: {
@@ -45,8 +46,11 @@ module.exports = withMT({
       homeColor: "#17191D",
       navBar: "#4a4a4a30",
       homeColor: "#17191d",
+      banner: "#070708",
       layoutColor: "#1F1F21",
       customYellow: "#FFB400",
+      footerColor: "#ffffff99",
+      copyRightColor: "#ffffff5e",
     },
     fontSize: {
       sm: "1.2rem",
