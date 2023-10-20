@@ -732,6 +732,10 @@ html {
   left: 20%;
 }
 
+.left-\[30\%\] {
+  left: 30%;
+}
+
 .left-\[57\%\] {
   left: 57%;
 }
@@ -780,6 +784,10 @@ html {
   right: 24px;
 }
 
+.right-\[3\%\] {
+  right: 3%;
+}
+
 .top-0 {
   top: 0px;
 }
@@ -802,6 +810,10 @@ html {
 
 .top-\[10\%\] {
   top: 10%;
+}
+
+.top-\[13\%\] {
+  top: 13%;
 }
 
 .top-\[14\%\] {
@@ -832,20 +844,8 @@ html {
   top: 4%;
 }
 
-.right-\[\] {
-  right: ;
-}
-
-.top-\[13\%\] {
-  top: 13%;
-}
-
 .top-\[46\%\] {
   top: 46%;
-}
-
-.top-\[52\%\] {
-  top: 52%;
 }
 
 .top-\[50\%\] {
@@ -856,20 +856,8 @@ html {
   top: 65%;
 }
 
-.right-\[3\%\] {
-  right: 3%;
-}
-
 .top-\[95\%\] {
   top: 95%;
-}
-
-.left-\[60\%\] {
-  left: 60%;
-}
-
-.left-\[30\%\] {
-  left: 30%;
 }
 
 .z-10 {
@@ -1214,6 +1202,14 @@ html {
 
 .mt-px {
   margin-top: 1px;
+}
+
+.mb-\[auto\] {
+  margin-bottom: auto;
+}
+
+.mb-\[12\%\] {
+  margin-bottom: 12%;
 }
 
 .box-border {
@@ -2660,12 +2656,26 @@ html {
   background-image: url('../public/assets/xlLoginShape2.svg');
 }
 
+.bg-gradient-to-l {
+  background-image: linear-gradient(to left, var(--tw-gradient-stops));
+}
+
 .bg-gradient-to-t {
   background-image: linear-gradient(to top, var(--tw-gradient-stops));
 }
 
 .bg-gradient-to-tr {
   background-image: linear-gradient(to top right, var(--tw-gradient-stops));
+}
+
+.bg-gradient-to-r {
+  background-image: linear-gradient(to right, var(--tw-gradient-stops));
+}
+
+.from-\[\#31353E\] {
+  --tw-gradient-from: #31353E var(--tw-gradient-from-position);
+  --tw-gradient-to: rgb(49 53 62 / 0) var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
 }
 
 .from-amber-600 {
@@ -3372,6 +3382,30 @@ html {
 
 .pt-px {
   padding-top: 1px;
+}
+
+.pt-\[\] {
+  padding-top: ;
+}
+
+.pt-\[21px\] {
+  padding-top: 21px;
+}
+
+.pb-\[21px\] {
+  padding-bottom: 21px;
+}
+
+.pt-\[17px\] {
+  padding-top: 17px;
+}
+
+.pb-\[17px\] {
+  padding-bottom: 17px;
+}
+
+.pt-10 {
+  padding-top: 2.5rem;
 }
 
 .text-left {
@@ -7244,8 +7278,16 @@ html {
     left: 70%;
   }
 
-  .lg\:right-\[4\%\] {
-    right: 4%;
+  .lg\:left-\[unset\] {
+    left: unset;
+  }
+
+  .lg\:right-0 {
+    right: 0px;
+  }
+
+  .lg\:right-\[unset\] {
+    right: unset;
   }
 
   .lg\:top-\[10\%\] {
@@ -7274,22 +7316,6 @@ html {
 
   .lg\:top-\[95\%\] {
     top: 95%;
-  }
-
-  .lg\:right-\[1\%\] {
-    right: 1%;
-  }
-
-  .lg\:right-0 {
-    right: 0px;
-  }
-
-  .lg\:right-\[unset\] {
-    right: unset;
-  }
-
-  .lg\:left-\[unset\] {
-    left: unset;
   }
 
   .lg\:mb-\[3\.7rem\] {

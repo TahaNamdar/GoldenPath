@@ -25,7 +25,10 @@ export default function Navbar() {
       >
         Login
       </div>
-      <div className="block lg:hidden absolute right-[24px] top-[32px] cursor-pointer ">
+      <div
+        className="block lg:hidden absolute right-[24px] top-[32px] cursor-pointer "
+        onClick={() => handleLogin()}
+      >
         <Profile />
       </div>
     </div>

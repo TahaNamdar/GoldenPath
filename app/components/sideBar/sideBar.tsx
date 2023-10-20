@@ -23,14 +23,16 @@ import Email from "/public/assets/email.svg";
 import BirthdaySvg from "/public/assets/birthdaySvg.svg";
 import GoldenModal from "../goldenModal/goldenModal";
 import { signOut } from "next-auth/react";
-import { redirect } from "next/navigation";
 import { useRouter } from "next/navigation";
+import { usePathname } from "next/navigation"; // usePathname is a hook now imported from navigation
 
 export default function SideBar() {
   const [openSetting, setOpenSetting] = useState<boolean>(false);
   const [value, setValue] = useState<string>("");
 
   const dispatch = useDispatch();
+
+  const pathName = usePathname();
 
   const router = useRouter();
 
@@ -180,8 +182,12 @@ export default function SideBar() {
             <div className=" mx-auto max-w-lg md:mr-[1.2rem] md:ml-[1.6rem]  ">
               <div>
                 <Link
-                  href={"/lifeGoals"}
-                  className="flex ml-[-5.6rem] items-center cursor-pointer text-white font-normal text-3xl md:pl-[3.8rem] md:mb-[4rem] "
+                  href={"/dashboard"}
+                  className={`${
+                    pathName == "/dashboard"
+                      ? "bg-gradient-to-r from-[#31353E] "
+                      : ""
+                  } flex ml-[-5.6rem] pt-[21px] pb-[21px] items-center cursor-pointer text-white font-normal text-3xl md:pl-[3.8rem] `}
                 >
                   <div className="md:mr-[1.5rem] ml-[2.4rem]">
                     <Vector />
@@ -190,8 +196,12 @@ export default function SideBar() {
                 </Link>
 
                 <Link
-                  href={"/yearlyGoals"}
-                  className="flex ml-[-5.6rem] items-center cursor-pointer text-white font-normal text-3xl md:pl-[3.8rem] md:mb-[4rem]"
+                  href={"/dashboard/yearlyGoals"}
+                  className={` ${
+                    pathName == "/dashboard/yearlyGoals"
+                      ? "bg-gradient-to-r from-[#31353E] "
+                      : ""
+                  }flex ml-[-5.6rem] pt-[21px] pb-[21px] items-center cursor-pointer text-white font-normal text-3xl md:pl-[3.8rem] `}
                 >
                   <div className="md:mr-[1.5rem] ml-[2.4rem]">
                     <ArcherVector />
@@ -201,7 +211,7 @@ export default function SideBar() {
 
                 <Link
                   href={"/aboutUs"}
-                  className="flex ml-[-5.6rem] items-center cursor-pointer text-white font-normal text-3xl md:pl-[3.8rem] "
+                  className="flex ml-[-5.6rem] pt-[21px] pb-[21px] items-center cursor-pointer text-white font-normal text-3xl md:pl-[3.8rem] "
                 >
                   <div className="md:mr-[1.5rem] ml-[2.4rem]">
                     <Tool />

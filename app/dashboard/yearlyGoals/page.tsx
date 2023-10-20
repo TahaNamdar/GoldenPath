@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import DragSvg from "../../public/assets/Drag.svg";
+import DragSvg from "@/public/assets/Drag.svg";
 import SideBar from "@/app/components/sideBar/sideBar";
 
 export default function YearlyGoals() {
