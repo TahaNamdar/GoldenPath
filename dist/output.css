@@ -832,6 +832,46 @@ html {
   top: 4%;
 }
 
+.right-\[\] {
+  right: ;
+}
+
+.top-\[13\%\] {
+  top: 13%;
+}
+
+.top-\[46\%\] {
+  top: 46%;
+}
+
+.top-\[52\%\] {
+  top: 52%;
+}
+
+.top-\[50\%\] {
+  top: 50%;
+}
+
+.top-\[65\%\] {
+  top: 65%;
+}
+
+.right-\[3\%\] {
+  right: 3%;
+}
+
+.top-\[95\%\] {
+  top: 95%;
+}
+
+.left-\[60\%\] {
+  left: 60%;
+}
+
+.left-\[30\%\] {
+  left: 30%;
+}
+
 .z-10 {
   z-index: 10;
 }
@@ -7184,12 +7224,72 @@ html {
     left: 50%;
   }
 
+  .lg\:left-\[14\%\] {
+    left: 14%;
+  }
+
+  .lg\:left-\[3\%\] {
+    left: 3%;
+  }
+
+  .lg\:left-\[32\%\] {
+    left: 32%;
+  }
+
+  .lg\:left-\[6\%\] {
+    left: 6%;
+  }
+
+  .lg\:left-\[70\%\] {
+    left: 70%;
+  }
+
+  .lg\:right-\[4\%\] {
+    right: 4%;
+  }
+
   .lg\:top-\[10\%\] {
     top: 10%;
   }
 
+  .lg\:top-\[24\%\] {
+    top: 24%;
+  }
+
+  .lg\:top-\[44\%\] {
+    top: 44%;
+  }
+
+  .lg\:top-\[47\%\] {
+    top: 47%;
+  }
+
   .lg\:top-\[47px\] {
     top: 47px;
+  }
+
+  .lg\:top-\[60\%\] {
+    top: 60%;
+  }
+
+  .lg\:top-\[95\%\] {
+    top: 95%;
+  }
+
+  .lg\:right-\[1\%\] {
+    right: 1%;
+  }
+
+  .lg\:right-0 {
+    right: 0px;
+  }
+
+  .lg\:right-\[unset\] {
+    right: unset;
+  }
+
+  .lg\:left-\[unset\] {
+    left: unset;
   }
 
   .lg\:mb-\[3\.7rem\] {
@@ -7706,6 +7806,10 @@ html {
 @media (min-width: 1320px) {
   .\32xl\:right-\[111px\] {
     right: 111px;
+  }
+
+  .\32xl\:right-\[4\%\] {
+    right: 4%;
   }
 
   .\32xl\:mb-\[160px\] {

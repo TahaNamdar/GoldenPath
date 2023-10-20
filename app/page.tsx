@@ -14,6 +14,9 @@ import Avatar1 from "@/public/assets/layout/parham.svg";
 import Avatar2 from "@/public/assets/layout/avatar2.svg";
 import FooterLogo from "@/public/assets/layout/footerLogo.svg";
 import FooterLogoSm from "@/public/assets/layout/footerLogoSm.svg";
+import WhiteStar from "@/public/assets/layout/whiteStar.svg";
+import GoldStar from "@/public/assets/layout/goldStar.svg";
+import BlueStar from "@/public/assets/layout/blueStar.svg";
 import Footer from "@/app/components/footer/footer";
 import Navbar from "@/app/components/navbar/navbar";
 
@@ -70,7 +73,25 @@ export default function Home() {
           </div>
         </div>
         {/* second section */}
-        <div className="bg-gradient-to-t from-layoutColor to-homeColor ">
+        <div className="bg-gradient-to-t from-layoutColor to-homeColor relative ">
+          <div className="hidden xl:block absolute lg:left-[6%] lg:top-[10%]">
+            <WhiteStar />
+          </div>{" "}
+          <div className="absolute right-[2%] top-[13%] lg:right-[unset] lg:left-[3%] lg:top-[24%]">
+            <WhiteStar />
+          </div>{" "}
+          <div className="absolute top-[46%] right-[2%] lg:right-[unset]  lg:left-[14%] lg:top-[47%]">
+            <GoldStar />
+          </div>{" "}
+          <div className="absolute left-[2%] lg:left-[70%] top-[50%] lg:top-[44%]">
+            <GoldStar />
+          </div>{" "}
+          <div className="absolute right-[3%] lg:right-[unset] lg:left-[32%] top-[65%] lg:top-[95%]">
+            <GoldStar />
+          </div>{" "}
+          <div className="absolute top-[95%] left-[30%] lg:left-[unset] lg:right-0 2xl:right-[4%] lg:top-[60%]">
+            <BlueStar />
+          </div>
           <div className="pt-[150px] pb-[100px]">
             <div className="flex justify-center pl-[68px] pr-[68px] mb-[60px]">
               <div className="text-center">
