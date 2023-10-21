@@ -29,7 +29,7 @@ export default function Footer() {
       </div>
       <div className="block md:hidden bg-[url('../public/assets/layout/smFooter.png')] bg-layoutColor h-[740px] w-full relative bg-cover bg-no-repeat">
         <div className="text-center pt-[87px]">
-          <p className="text-white text-[24px] mb-[18px]">Social</p>
+          <p className="text-white text-[24px] mb-[18px]">SOCIAL</p>
           <p className="text-footerColor text-[20px] mb-[18px]">Youtube</p>
           <p className="text-footerColor text-[20px] mb-[18px]">LinkedIn</p>
           <p className="text-footerColor text-[20px] mb-[18px]">Instagram</p>

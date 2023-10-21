@@ -60,18 +60,20 @@ export default function Home() {
             </div>
 
             <div className="flex justify-center  flex-col h-full ml-[40px] mr-[40px] xl:mr[unset] xl:ml-[97px]">
-              <p className="text-white text-[52px] xl:text-[64px] 2xl:text-[72px]">
+              <p className="text-white font-medium text-[52px] xl:text-[64px] 2xl:text-[72px]">
                 Take Back The
               </p>
-              <p className="text-customYellow text-[52px] xl:text-[64px] 2xl:text-[72px]">
+              <p className="text-customYellow font-medium  text-[52px] xl:text-[64px] 2xl:text-[72px]">
                 Control Of Your Life
               </p>
-              <p className="text-white text-[20px] lg:text-[20px] 2xl:text-[24px] pb-[37px] xl:pb-[39px]">
-                set realistic goals, break them into tasks, prioritize them and
+              <p className="text-white text-[20px] font-normal lg:text-[20px] 2xl:text-[24px] pb-[37px] xl:pb-[39px]">
+                Set realistic goals, break them into tasks, prioritize them and
                 achieve your goals.
               </p>
-              <div className="border-[1px] w-[209px] text-white flex justify-center cursor-pointer z-30 border-white text-[16px] pb-[18px] pt-[18px] pr-[70px] pl-[70px] rounded-[14px]  ">
-                Get Start
+              <div className="bg-gradient-to-r  w-[209px] p-[1px] flex justify-center rounded-[14px] from-[#ffffff1c] to-[#ffffff] ">
+                <div className=" font-normal bg-banner text-white flex justify-center cursor-pointer z-30 text-[16px] pb-[18px] pt-[18px] pr-[70px] pl-[70px] rounded-[14px]  ">
+                  Get Start
+                </div>
               </div>
             </div>
           </div>
@@ -96,7 +98,7 @@ export default function Home() {
           <div className="absolute top-[95%] left-[30%] lg:left-[unset] lg:right-0 2xl:right-[4%] lg:top-[60%]">
             <BlueStar />
           </div>
-          <div className="pt-[150px] pb-[100px]">
+          <div className="pt-[50px] pb-[100px]">
             <div className="flex justify-center pl-[68px] pr-[68px] mb-[60px]">
               <div className="text-center">
                 <p className="text-white text-[32px] sm:[40px] xl:text-[50px]">
@@ -224,19 +226,19 @@ export default function Home() {
                   </p>
                 </div>
                 <div className=" mb-[60px]">
-                  <p className="text-white text-[18px] mb-[12px]">
+                  <p className="text-white text-[18px] mb-[14px] font-light">
                     It all started with Saman’s obsession over productivity. He
                     used many productivity tools, sticky notes, or even a
                     combination of reminders and Google calendar, etc...
                   </p>{" "}
-                  <p className="text-white text-[18px] mb-[12px]">
+                  <p className="text-white text-[18px] mb-[14px] font-light">
                     He ended up creating his own system on Notion. Based on the
                     research he made on successful CEO’s productivity hacks and
                     rich of his experience using basically all the productivity
                     apps on the market, he eventually built a simple yet
                     powerful system.
                   </p>{" "}
-                  <p className="text-white text-[18px]">
+                  <p className="text-white text-[18px] font-light">
                     He then went on a quest to help Parham, his old friend who’s
                     a 3 time world procrastination champion. The idea was that
                     he was able to solve Parham’s problem, he could solve
@@ -249,7 +251,7 @@ export default function Home() {
             </section>
             <section className="lg:w-1/2">
               <div className="flex justify-end">
-                <div className="bg-layoutColor overflow-x-scroll 2xl:overflow-hidden w-[85%] rounded-l-[35px] border-t-[1px] border-b-[1px] border-l-[1px] border-white">
+                <div className="bg-layoutColor overflow-x-scroll 2xl:overflow-hidden w-[85%]  rounded-l-[55px] border-t-[2px] border-b-[2px] border-l-[2px] border-white">
                   <div className="pt-[45px] pb-[45px] pl-[45px] md:flex md:items-center">
                     <div className="mb-[45px] md:mb-[unset] md:mr-[73px]">
                       <Avatar1 />
@@ -275,7 +277,7 @@ export default function Home() {
                 <FooterLogo />
               </div>
               <div className="absolute z-10 top-1/2  transform -translate-y-1/2 pr-[14px]  1sm:pt-[270px] pt-[250px] md:pt-[220px] pl-[14px] md:left-1/2 md:-translate-x-1/2 ">
-                <p className="text-[26px] md:text-[32px] xl:text-[42px] text-white  mb-[140px]">
+                <p className="text-[26px] md:text-[32px] xl:text-[42px] text-white  mb-[140px] pl-[60px] pr-[60px] md:pr-[unset] md:pl-[unset]">
                   Get on your{" "}
                   <span className="text-customYellow">golden path</span> right
                   now
@@ -285,7 +287,7 @@ export default function Home() {
                   change your life.
                 </p>
                 <div className="flex justify-center">
-                  <div className="pt-[27px] pb-[27px] pr-[46px] pl-[46px] w-[262px]  text-customYellow text-[20px] mb-[166px] border-customYellow border-[1px] rounded-[14px] cursor-pointer ">
+                  <div className="pt-[27px] pb-[27px] pr-[46px] pl-[46px] w-[262px] font-light  text-customYellow text-[20px] mb-[166px] border-customYellow border-[1px] rounded-[20px] cursor-pointer ">
                     join now
                   </div>
                 </div>
