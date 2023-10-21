@@ -80,6 +80,7 @@ export default function Login() {
       email,
       password,
     });
+
     if (login?.error == null) {
       router.push("/dashboard");
       showToastSuccess();
