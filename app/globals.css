@@ -1,3 +1,20 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 50px #181b21 inset !important;
+  -webkit-text-fill-color: whitesmoke !important;
+  -webkit-background-clip: content-box !important;
+}
+
+:autofill {
+  background-color: transparent;
+}
+
+input[data-autocompleted] {
+  background-color: transparent !important;
+}

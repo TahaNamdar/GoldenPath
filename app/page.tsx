@@ -5,6 +5,7 @@ import Removal from "@/public/assets/layout/removal.svg";
 import Shape1 from "@/public/assets/layout/homeShape1.svg";
 import ShadowShapeMd from "@/public/assets/layout/shadowShapeMd.svg";
 import Shadow from "@/public/assets/layout/circleShadow.svg";
+import SmShadow from "@/public/assets/layout/smBannerShadow.svg";
 import MainShape from "@/public/assets/layout/mainShape.svg";
 import MainShapeMd from "@/public/assets/layout/mainShapeMd.svg";
 import RemovalSm from "@/public/assets/layout/removalSm.svg";
@@ -53,6 +54,9 @@ export default function Home() {
           <div className="w-full md:bg-transparent bg-banner pb-[30px] lg:pb-[unset] md:mt-[15%] md:ml-[4%] xl:mt-[unset] xl:ml-[unset] xl:bg-[unset] md:w-full xl:w-5/12 relative h-auto md:h-full lg:h-full xl:h-auto ">
             <div className="absolute left-[-2px] top-[16%] hidden xl:block">
               <Shadow />
+            </div>
+            <div className="absolute left-[1px] top-[-19%]  xl:hidden">
+              <SmShadow />
             </div>
 
             <div className="flex justify-center  flex-col h-full ml-[40px] mr-[40px] xl:mr[unset] xl:ml-[97px]">
