@@ -16,10 +16,8 @@ import Image from "next/image";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { redirect } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
 const schema = yup
   .object({
@@ -65,13 +63,6 @@ export default function Login() {
     window.addEventListener("resize", updateMedia);
     return () => window.removeEventListener("resize", updateMedia);
   }, []);
-
-  // const { data: session } = useSession();
-
-  // const router = useRouter();
-
-  // const email = "tag@ldfd.com";
-  // const password = "12345";
 
   const submit = async (data: any) => {
     const { email, password } = data;

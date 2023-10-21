@@ -26,7 +26,6 @@ import { signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation"; // usePathname is a hook now imported from navigation
 import { useForm, SubmitHandler } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
 import { trpc } from "@/utils/trpc";
 
 type FormValues = {
@@ -35,7 +34,13 @@ type FormValues = {
 };
 
 export default function SideBar() {
-  const { register, handleSubmit, reset } = useForm<FormValues>();
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+    setError,
+  } = useForm<FormValues>();
 
   const [openSetting, setOpenSetting] = useState<boolean>(false);
   const [value, setValue] = useState<string>("");
@@ -84,12 +89,13 @@ export default function SideBar() {
     router.push("/");
   };
 
-  const mutation = trpc.changeEmail.useMutation();
+  const changeEmailMutation = trpc.changeEmail.useMutation();
 
-  const changeEmailHandler: SubmitHandler<FormValues> = async (data) => {
+  const changeEmailHandler: SubmitHandler<FormValues> = (data) => {
     const { newEmail, newEmailPassFiled } = data;
 
-    mutation.mutate({ newEmail, newEmailPassFiled });
+    changeEmailMutation.mutate({ newEmail, newEmailPassFiled });
+
     reset();
   };
 
@@ -145,10 +151,13 @@ export default function SideBar() {
             >
               <Key />
             </InputFiled>
+            <p className="text-danger mt-2 pl-[10px]">
+              {changeEmailMutation.error && "password not matched"}
+            </p>
           </div>
           <div className="text-right">
             <input
-              value="Save"
+              value={changeEmailMutation.isSuccess ? "Saved" : "Save"}
               type="submit"
               className="bg-chipColor rounded-[1.4rem] cursor-pointer w-full sm:w-[28rem] text-center text-black text-2xl md:text-3xl pl-[10rem] pr-[10rem] pt-[1.2rem] pb-[1.2rem] md:pl-[11rem] md:pr-[11rem] md:pt-[1.8rem] md:pb-[1.8rem]"
             />

@@ -65,20 +65,21 @@ export const appRouter = t.router({
 
       const isValidPassword = await verify(user.password, newEmailPassFiled);
 
-      if (isValidPassword) {
-        const updateUser = await (ctx as any).prisma.user.update({
-          where: {
-            id: (session as any).id,
-          },
-          data: {
-            email: newEmail,
-          },
+      if (!isValidPassword) {
+        throw new TRPCError({
+          code: "CONFLICT",
+          message: "username or password is wrong!",
         });
       }
 
-      if (!isValidPassword) {
-        throw new Error("password is wrong");
-      }
+      const updateUser = await (ctx as any).prisma.user.update({
+        where: {
+          id: (session as any).id,
+        },
+        data: {
+          email: newEmail,
+        },
+      });
     }),
 });
 

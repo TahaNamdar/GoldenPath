@@ -1,4 +1,5 @@
 import "../dist/output.css";
+import "react-toastify/dist/ReactToastify.css";
 import type { Metadata } from "next";
 import { ThemeProvider } from "@/utils/themeProvider";
 import { TrpcProvider } from "@/utils/trpc-provider";
