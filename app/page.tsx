@@ -32,12 +32,16 @@ export default function Home() {
           <div className="absolute hidden 2xl:block bottom-[-12%]  overflow-x-hidden w-ful xl:overflow-x-[unset]">
             <MainShape />
           </div>{" "}
-          <div className="absolute hidden md:hidden 2xl:hidden bottom-[-10%] lg:translate-x-[-9%] xl:translate-x-[-10%] 2xl:translate-x-[-28%] 3xl:translate-x-0   overflow-x-hidden w-full xl:overflow-x-[unset]">
-            <ShadowShapeMd />
-          </div>
-          <div className="absolute hidden md:hidden 2xl:hidden bottom-[-12%]  overflow-x-hidden w-ful xl:overflow-x-[unset]">
-            <MainShapeMd />
-          </div>
+          <section className="absolute w-full bg-banner h-[160px] bottom-[-9%]">
+            <section className="absolute bottom-[-10%]">
+              <div className="2xl:hidden bottom-[-10%]  translate-x-[-20%] translate-y-[30%] lg:translate-x-[-9%] xl:translate-x-[-10%] 2xl:translate-x-[-28%] 3xl:translate-x-0  w-full xl:overflow-x-[unset]">
+                <ShadowShapeMd />
+              </div>
+              <div className="absolute 2xl:hidden 1sm:bottom-[-12%] bottom-[-13%] translate-x-[-20%] translate-y-[10%]  w-ful xl:overflow-x-[unset]">
+                <MainShapeMd />
+              </div>
+            </section>
+          </section>
           <div className="absolute right-[-14%] sm:right-[8%]">
             <Shadow />
           </div>

@@ -668,6 +668,10 @@ html {
   bottom: -12%;
 }
 
+.bottom-\[-13\%\] {
+  bottom: -13%;
+}
+
 .bottom-\[-1rem\] {
   bottom: -1rem;
 }
@@ -862,6 +866,14 @@ html {
 
 .top-\[95\%\] {
   top: 95%;
+}
+
+.bottom-\[-11\%\] {
+  bottom: -11%;
+}
+
+.bottom-\[-9\%\] {
+  bottom: -9%;
 }
 
 .z-10 {
@@ -1324,10 +1336,6 @@ html {
   height: 1px;
 }
 
-.h-\[200px\] {
-  height: 200px;
-}
-
 .h-\[370px\] {
   height: 370px;
 }
@@ -1367,6 +1375,14 @@ html {
 
 .h-screen {
   height: 100vh;
+}
+
+.h-\[100px\] {
+  height: 100px;
+}
+
+.h-\[160px\] {
+  height: 160px;
 }
 
 .max-h-96 {
@@ -1509,10 +1525,6 @@ html {
   width: 18rem;
 }
 
-.w-\[200px\] {
-  width: 200px;
-}
-
 .w-\[209px\] {
   width: 209px;
 }
@@ -1527,6 +1539,10 @@ html {
 
 .w-\[30rem\] {
   width: 30rem;
+}
+
+.w-\[374px\] {
+  width: 374px;
 }
 
 .w-\[5\.4rem\] {
@@ -1556,10 +1572,6 @@ html {
 
 .w-screen {
   width: 100vw;
-}
-
-.w-\[374px\] {
-  width: 374px;
 }
 
 .min-w-\[100vw\] {
@@ -1701,6 +1713,16 @@ html {
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
+.translate-x-\[-21\%\] {
+  --tw-translate-x: -21%;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+.translate-x-\[-69\%\] {
+  --tw-translate-x: -69%;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
 .translate-x-full {
   --tw-translate-x: 100%;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
@@ -1708,6 +1730,36 @@ html {
 
 .translate-y-2\/4 {
   --tw-translate-y: 50%;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+.translate-y-\[10\%\] {
+  --tw-translate-y: 10%;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+.translate-y-\[29\%\] {
+  --tw-translate-y: 29%;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+.translate-x-\[-19\%\] {
+  --tw-translate-x: -19%;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+.translate-y-\[24\%\] {
+  --tw-translate-y: 24%;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+.translate-x-\[-20\%\] {
+  --tw-translate-x: -20%;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+.translate-y-\[30\%\] {
+  --tw-translate-y: 30%;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
@@ -2668,6 +2720,10 @@ html {
   background-image: url('../public/assets/layout/setFrame.png');
 }
 
+.bg-\[url\(\'\.\.\/public\/assets\/layout\/setFrame2\.png\'\)\] {
+  background-image: url('../public/assets/layout/setFrame2.png');
+}
+
 .bg-\[url\(\'\.\.\/public\/assets\/layout\/smFooter\.png\'\)\] {
   background-image: url('../public/assets/layout/smFooter.png');
 }
@@ -2694,10 +2750,6 @@ html {
 
 .bg-gradient-to-tr {
   background-image: linear-gradient(to top right, var(--tw-gradient-stops));
-}
-
-.bg-\[url\(\'\.\.\/public\/assets\/layout\/setFrame2\.png\'\)\] {
-  background-image: url('../public/assets/layout/setFrame2.png');
 }
 
 .from-\[\#31353E\] {
@@ -8169,6 +8221,10 @@ input[data-autocompleted] {
 }
 
 @media (min-width: 440px) {
+  .\31sm\:bottom-\[-12\%\] {
+    bottom: -12%;
+  }
+
   .\31sm\:pt-\[270px\] {
     padding-top: 270px;
   }
