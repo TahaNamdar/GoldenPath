@@ -29,22 +29,34 @@ export default function Footer() {
       </div>
       <div className="block md:hidden bg-[url('../public/assets/layout/smFooter.png')] bg-layoutColor h-[740px] w-full relative bg-cover bg-no-repeat">
         <div className="text-center pt-[87px]">
-          <p className="text-white text-[24px] mb-[18px]">SOCIAL</p>
-          <p className="text-footerColor text-[20px] mb-[18px]">Youtube</p>
-          <p className="text-footerColor text-[20px] mb-[18px]">LinkedIn</p>
-          <p className="text-footerColor text-[20px] mb-[18px]">Instagram</p>
-          <p className="text-footerColor text-[20px] mb-[18px]">Twitter</p>
-          <p className="text-footerColor text-[20px] mb-[18px]">Tiktok</p>
+          <p className="text-white text-[24px] mb-[18px] font-normal">SOCIAL</p>
+          <p className="text-footerColor text-[20px] mb-[18px] font-normal">
+            Youtube
+          </p>
+          <p className="text-footerColor text-[20px] mb-[18px] font-normal">
+            LinkedIn
+          </p>
+          <p className="text-footerColor text-[20px] mb-[18px] font-normal">
+            Instagram
+          </p>
+          <p className="text-footerColor text-[20px] mb-[18px] font-normal">
+            Twitter
+          </p>
+          <p className="text-footerColor text-[20px] mb-[18px] font-normal">
+            Tiktok
+          </p>
         </div>
         <div className="mt-[70px] sm:mt-[160px] md:mt-[120px]">
           <div className="text-center">
             <div className="mb-[30px] flex justify-center ">
               <GoldenFooter />
             </div>
-            <p className="text-white text-[16px] mb-[5px]">
+            <p className="text-white text-[16px] mb-[5px] font-normal">
               all right resaved for golden path.{" "}
             </p>
-            <p className="text-copyRightColor text-[16px]">copyright 2023</p>
+            <p className="text-copyRightColor text-[16px] font-normal">
+              copyright 2023
+            </p>
           </div>
         </div>
       </div>

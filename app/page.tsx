@@ -9,8 +9,6 @@ import SmShadow from "@/public/assets/layout/smBannerShadow.svg";
 import MainShape from "@/public/assets/layout/mainShape.svg";
 import MainShapeMd from "@/public/assets/layout/mainShapeMd.svg";
 import RemovalSm from "@/public/assets/layout/removalSm.svg";
-import FrameSm from "@/public/assets/layout/FrameSm.svg";
-import FrameSmYearly from "@/public/assets/layout/Frame44.svg";
 import Avatar1 from "@/public/assets/layout/parham.svg";
 import Avatar2 from "@/public/assets/layout/avatar2.svg";
 import FooterLogo from "@/public/assets/layout/footerLogo.svg";
@@ -110,9 +108,9 @@ export default function Home() {
                 </p>
               </div>
             </div>
-            <div className="flex justify-center relative xl:hidden mb-[150px]">
-              <FrameSm />
-            </div>{" "}
+            <div className="flex justify-center">
+              <div className=" relative xl:hidden mb-[150px] h-[600px] bg-no-repeat w-[374px] bg-[url('../public/assets/layout/setFrame.png')]"></div>{" "}
+            </div>
             <div className="flex justify-center">
               <div className="bg-[url('../public/assets/layout/lifeGoalsBgLg.png')] 3xl:h-[970px] 3xl:mb-[160px]  3xl:w-[1440px] relative hidden 3xl:block 2xl:mb-[160px] bg-no-repeat">
                 <div className="absolute bg-smallBox backdrop-blur-[18px] z-10 border-[1px] border-white rounded-[14px] 3xl:top-[10%] 3xl:left-[7%]  3xl:w-[500px] 3xl:h-[117px] text-center text-[18px] 3xl:pt-[46px] 3xl:pb-[46px] 3xl:pr-[34px] 3xl:pl-[34px]">
@@ -170,9 +168,10 @@ export default function Home() {
                 </p>
               </div>
             </div>
-            <div className="flex justify-center relative xl:hidden ">
-              <FrameSmYearly />
-            </div>{" "}
+            <div className="flex justify-center">
+              <div className=" relative xl:hidden h-[600px] bg-no-repeat w-[374px] bg-[url('../public/assets/layout/setFrame2.png')] "></div>{" "}
+            </div>
+
             <div className="flex justify-center">
               <div className="bg-[url('../public/assets/layout/YearlyXL.png')] 3xl:h-[1130px] 3xl:mb-[160px]  3xl:w-[1548px] relative hidden 3xl:block 2xl:mb-[160px] bg-no-repeat">
                 <div className="absolute bg-smallBox backdrop-blur-[18px] z-10 border-[1px] border-white rounded-[14px] 3xl:top-[9%] 3xl:left-[35%]  3xl:w-[520px] 3xl:h-[117px] text-center text-[18px] 3xl:pt-[46px] 3xl:pb-[46px] 3xl:pr-[34px] 3xl:pl-[34px]">
