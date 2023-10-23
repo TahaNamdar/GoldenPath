@@ -17,6 +17,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { ToastContainer, toast } from "react-toastify";
+import { useRouter } from "next/navigation";
 
 const schema = yup
   .object({
@@ -41,6 +42,8 @@ export default function Register() {
   } = useForm({
     resolver: yupResolver(schema),
   });
+
+  const router = useRouter();
 
   const [isXlScreen, setIsXlScreen] = useState(false);
 

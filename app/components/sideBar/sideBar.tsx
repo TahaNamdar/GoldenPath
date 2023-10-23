@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import GoldenLogo from "/public/assets/goldenPath.svg";
 import ArcherVector from "/public/assets/archer.svg";
 import Tool from "/public/assets/Tool.svg";
@@ -31,6 +31,9 @@ import { trpc } from "@/utils/trpc";
 type FormValues = {
   newEmail: string;
   newEmailPassFiled: string;
+  oldPassword: string;
+  newPassword: string;
+  repeatPassword: string;
 };
 
 export default function SideBar() {
@@ -90,14 +93,27 @@ export default function SideBar() {
   };
 
   const changeEmailMutation = trpc.changeEmail.useMutation();
+  const changePasswordMutation = trpc.changePassword.useMutation();
 
   const changeEmailHandler: SubmitHandler<FormValues> = (data) => {
     const { newEmail, newEmailPassFiled } = data;
-
     changeEmailMutation.mutate({ newEmail, newEmailPassFiled });
-
     reset();
   };
+
+  const changePasswordHandler: SubmitHandler<FormValues> = (data) => {
+    const { oldPassword, newPassword, repeatPassword } = data;
+    if (newPassword !== repeatPassword) {
+      setError("repeatPassword", {
+        type: "manual",
+        message: "not matched with new password",
+      });
+    }
+
+    changePasswordMutation.mutate({ oldPassword, newPassword });
+  };
+
+  //admin@gmail.com
 
   return (
     <div>
@@ -166,44 +182,64 @@ export default function SideBar() {
       </GoldenModal>
 
       <GoldenModal title="Change Password" name="changePassword">
-        <div className="mb-[2.8rem] md:mb-[1.2rem]">
-          <InputFiled
-            width="w-full"
-            type="password"
-            label="Old Password"
-            placeholder="type..."
-            fontSize="text-3xl;md:text-[2.8rem]"
-          >
-            <Key />
-          </InputFiled>
-        </div>{" "}
-        <div className="mb-[2.8rem] md:mb-[1.2rem]">
-          <InputFiled
-            width="w-full"
-            type="password"
-            label="New Password"
-            placeholder="type..."
-            fontSize="text-3xl md:text-[2.8rem]"
-          >
-            <Key />
-          </InputFiled>
-        </div>{" "}
-        <div className="mb-[2.8rem] md:mb-[3.8rem]">
-          <InputFiled
-            width="w-full"
-            type="password"
-            label="Repeat Password"
-            placeholder="type..."
-            fontSize="text-3xl md:text-[2.8rem]"
-          >
-            <Key />
-          </InputFiled>
-        </div>
-        <div className="text-right">
-          <button className="bg-chipColor rounded-[1.4rem] w-full sm:w-[28rem] text-center text-black text-2xl md:text-3xl pl-[10rem] pr-[10rem] pt-[1.2rem] pb-[1.2rem] md:pl-[11rem] md:pr-[11rem] md:pt-[1.8rem] md:pb-[1.8rem]">
-            Save
-          </button>
-        </div>
+        <form onSubmit={handleSubmit(changePasswordHandler)}>
+          <div className="mb-[2.8rem] md:mb-[1.2rem]">
+            <InputFiled
+              width="w-full"
+              type="password"
+              label="Old Password"
+              placeholder="type..."
+              fontSize="text-3xl md:text-[2.8rem]"
+              register={register}
+              registerName="oldPassword"
+            >
+              <Key />
+            </InputFiled>
+            {changePasswordMutation.error && (
+              <p className="text-danger mt-2 pl-[10px]">
+                {changePasswordMutation.error.message}
+              </p>
+            )}
+          </div>{" "}
+          <div className="mb-[2.8rem] md:mb-[1.2rem]">
+            <InputFiled
+              width="w-full"
+              type="password"
+              label="New Password"
+              placeholder="type..."
+              fontSize="text-3xl md:text-[2.8rem]"
+              register={register}
+              registerName="newPassword"
+            >
+              <Key />
+            </InputFiled>
+          </div>{" "}
+          <div className="mb-[2.8rem] md:mb-[3.8rem]">
+            <InputFiled
+              width="w-full"
+              type="password"
+              label="Repeat Password"
+              placeholder="type..."
+              fontSize="text-3xl md:text-[2.8rem]"
+              register={register}
+              registerName="repeatPassword"
+            >
+              <Key />
+            </InputFiled>
+            {errors.repeatPassword && (
+              <p className="text-danger mt-2 pl-[10px]">
+                {errors.repeatPassword.message}
+              </p>
+            )}
+          </div>
+          <div className="text-right">
+            <input
+              type="submit"
+              value={changePasswordMutation.isSuccess ? "Saved" : "Save"}
+              className="bg-chipColor cursor-pointer rounded-[1.4rem] w-full sm:w-[28rem] text-center text-black text-2xl md:text-3xl pl-[10rem] pr-[10rem] pt-[1.2rem] pb-[1.2rem] md:pl-[11rem] md:pr-[11rem] md:pt-[1.8rem] md:pb-[1.8rem]"
+            />
+          </div>
+        </form>
       </GoldenModal>
       {/* modal */}
       <MobileSideBar />

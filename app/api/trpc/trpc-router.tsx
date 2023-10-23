@@ -45,6 +45,7 @@ export const appRouter = t.router({
       };
     }),
 
+  // change email
   changeEmail: t.procedure
     .input(
       z.object({
@@ -78,6 +79,47 @@ export const appRouter = t.router({
         },
         data: {
           email: newEmail,
+        },
+      });
+    }),
+
+  //change password
+
+  changePassword: t.procedure
+    .input(
+      z.object({
+        oldPassword: z.string().min(4).max(12),
+        newPassword: z.string().min(4).max(12),
+      })
+    )
+    .mutation(async ({ input, ctx }) => {
+      const { oldPassword, newPassword } = input;
+
+      const session = await getServerSession(authOptions);
+
+      const user = await (ctx as any).prisma.user.findUnique({
+        where: {
+          id: (session as any).id,
+        },
+      });
+
+      const isValidPassword = await verify(user.password, oldPassword);
+
+      if (!isValidPassword) {
+        throw new TRPCError({
+          code: "CONFLICT",
+          message: "password is wrong",
+        });
+      }
+
+      const hashedNewPassword = await hash(newPassword);
+
+      const updatePassword = await (ctx as any).prisma.user.update({
+        where: {
+          id: (session as any).id,
+        },
+        data: {
+          password: hashedNewPassword,
         },
       });
     }),
