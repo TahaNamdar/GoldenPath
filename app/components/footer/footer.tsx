@@ -52,10 +52,10 @@ export default function Footer() {
               <GoldenFooter />
             </div>
             <p className="text-white text-[16px] mb-[5px] font-normal">
-              all right resaved for golden path.{" "}
+              All Right Resaved For Golden Path.{" "}
             </p>
             <p className="text-copyRightColor text-[16px] font-normal">
-              copyright 2023
+              Copyright 2023
             </p>
           </div>
         </div>
