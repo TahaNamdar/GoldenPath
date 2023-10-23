@@ -1537,6 +1537,10 @@ html {
   width: 5.4rem;
 }
 
+.w-\[56px\] {
+  width: 56px;
+}
+
 .w-\[58px\] {
   width: 58px;
 }
@@ -1560,6 +1564,10 @@ html {
 
 .w-screen {
   width: 100vw;
+}
+
+.w-\[39px\] {
+  width: 39px;
 }
 
 .min-w-\[100vw\] {
@@ -6942,12 +6950,20 @@ input[data-autocompleted] {
     padding-top: 1.4rem;
   }
 
+  .sm\:pt-\[240px\] {
+    padding-top: 240px;
+  }
+
   .sm\:pt-\[3rem\] {
     padding-top: 3rem;
   }
 
-  .sm\:pt-\[240px\] {
-    padding-top: 240px;
+  .sm\:pl-\[2rem\] {
+    padding-left: 2rem;
+  }
+
+  .sm\:pr-\[2rem\] {
+    padding-right: 2rem;
   }
 
   .sm\:text-2xl {
@@ -7311,10 +7327,6 @@ input[data-autocompleted] {
     padding-top: 1.8rem;
   }
 
-  .md\:pt-\[220px\] {
-    padding-top: 220px;
-  }
-
   .md\:pt-\[2rem\] {
     padding-top: 2rem;
   }
@@ -7420,6 +7432,10 @@ input[data-autocompleted] {
 
   .lg\:top-\[95\%\] {
     top: 95%;
+  }
+
+  .lg\:mb-\[2rem\] {
+    margin-bottom: 2rem;
   }
 
   .lg\:mb-\[3\.7rem\] {
@@ -7659,16 +7675,20 @@ input[data-autocompleted] {
     padding-top: 22.4rem;
   }
 
+  .lg\:pt-\[290px\] {
+    padding-top: 290px;
+  }
+
   .lg\:pt-\[2rem\] {
     padding-top: 2rem;
   }
 
-  .lg\:pt-\[220px\] {
-    padding-top: 220px;
+  .lg\:pr-\[4\.6rem\] {
+    padding-right: 4.6rem;
   }
 
-  .lg\:pt-\[290px\] {
-    padding-top: 290px;
+  .lg\:pl-\[3\.7rem\] {
+    padding-left: 3.7rem;
   }
 
   .lg\:text-left {
@@ -7877,6 +7897,10 @@ input[data-autocompleted] {
 
   .xl\:w-\[94\%\] {
     width: 94%;
+  }
+
+  .xl\:w-\[56px\] {
+    width: 56px;
   }
 
   .xl\:translate-x-\[-20\%\] {
@@ -8175,6 +8199,10 @@ input[data-autocompleted] {
     margin-bottom: 160px;
   }
 
+  .\33xl\:mb-\[180px\] {
+    margin-bottom: 180px;
+  }
+
   .\33xl\:ml-auto {
     margin-left: auto;
   }
@@ -8189,10 +8217,6 @@ input[data-autocompleted] {
 
   .\33xl\:mt-\[18\%\] {
     margin-top: 18%;
-  }
-
-  .\33xl\:mb-\[180px\] {
-    margin-bottom: 180px;
   }
 
   .\33xl\:block {
@@ -8304,6 +8328,10 @@ input[data-autocompleted] {
     padding-top: 170px;
   }
 
+  .\33xl\:pt-\[260px\] {
+    padding-top: 260px;
+  }
+
   .\33xl\:pt-\[33px\] {
     padding-top: 33px;
   }
@@ -8314,10 +8342,6 @@ input[data-autocompleted] {
 
   .\33xl\:pt-\[46px\] {
     padding-top: 46px;
-  }
-
-  .\33xl\:pt-\[260px\] {
-    padding-top: 260px;
   }
 
   .\33xl\:text-\[24px\] {

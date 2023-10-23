@@ -23,7 +23,11 @@ export default function Chips({ age, daysLeft, counter }: Props) {
 
   return (
     <div className="flex items-start mb-[1.6rem]">
-      <div className="bg-darkGunmetal text-center text-white pr-[1.3rem] pl-[1.3rem] pt-[1.4rem] pb-[1.4rem] lg:pr-[1.7rem] lg:pl-[1.7rem] lg:pt-[1.4rem] lg:pb-[1.4rem] mr-[1.3rem] flex justify-center items-center text-[1.4rem]  lg:text-[1.8rem] rounded-[1.4rem]">
+      <div
+        className={`bg-darkGunmetal text-center ${
+          counter == age ? "text-white" : "text-placeholder"
+        } pr-[1.3rem] pl-[1.3rem] pt-[1.4rem] pb-[1.4rem] lg:pr-[1.7rem] lg:pl-[1.7rem] lg:pt-[1.4rem] lg:pb-[1.4rem] mr-[1.3rem] flex justify-center items-center text-[1.4rem]  lg:text-[1.8rem] rounded-[1.4rem] w-[39px] xl:w-[56px]`}
+      >
         {counter}
       </div>
       {/* chip  */}

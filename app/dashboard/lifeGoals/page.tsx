@@ -34,7 +34,7 @@ export default function LifeGoals() {
     <div className=" bg-CharlestonGreen lg:bg-darkGunmetal lg:flex md:p-1">
       <SideBar />
 
-      <div className="flex-1  bg-CharlestonGreen rounded-md md:pl-[3.7rem] md:pr-[4.6rem] h-screen lg:h-auto">
+      <div className="flex-1  bg-CharlestonGreen rounded-md lg:pl-[3.7rem] lg:pr-[4.6rem] h-screen xl:h-auto">
         <div className="lg:flex items-center justify-between mb-[1rem] lg:mb-[3.7rem] mt-[4.5rem] pl-[2rem] pr-[2rem]">
           <div className="lg:mb-[2rem]">
             <p className="text-3xl mb-[1.4rem]  md:text-4xl text-white font-medium md:mb-2">
@@ -75,7 +75,7 @@ export default function LifeGoals() {
           </div>
           {/* chips */}
           <div className="bg-Crayola pl-[2rem]  lg:pr-[3.8rem] lg:pl-[3.8rem] lg:rounded-b-[1.4rem] ">
-            <section className="pt-[2rem] pb-[2rem] ">
+            <section className="pt-[2rem] sm:pr-[2rem] pb-[2rem] ">
               {chipsFromAgeArray}
             </section>
           </div>
