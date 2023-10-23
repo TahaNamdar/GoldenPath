@@ -6946,6 +6946,10 @@ input[data-autocompleted] {
     padding-top: 3rem;
   }
 
+  .sm\:pt-\[240px\] {
+    padding-top: 240px;
+  }
+
   .sm\:text-2xl {
     font-size: 1.6rem;
   }
@@ -7659,6 +7663,14 @@ input[data-autocompleted] {
     padding-top: 2rem;
   }
 
+  .lg\:pt-\[220px\] {
+    padding-top: 220px;
+  }
+
+  .lg\:pt-\[290px\] {
+    padding-top: 290px;
+  }
+
   .lg\:text-left {
     text-align: left;
   }
@@ -7763,8 +7775,16 @@ input[data-autocompleted] {
     margin-left: unset;
   }
 
+  .xl\:ml-auto {
+    margin-left: auto;
+  }
+
   .xl\:mr-\[unset\] {
     margin-right: unset;
+  }
+
+  .xl\:mr-auto {
+    margin-right: auto;
   }
 
   .xl\:mt-\[22\%\] {
@@ -7773,14 +7793,6 @@ input[data-autocompleted] {
 
   .xl\:mt-\[unset\] {
     margin-top: unset;
-  }
-
-  .xl\:ml-auto {
-    margin-left: auto;
-  }
-
-  .xl\:mr-auto {
-    margin-right: auto;
   }
 
   .xl\:block {
@@ -7855,16 +7867,16 @@ input[data-autocompleted] {
     width: 500px;
   }
 
+  .xl\:w-\[75\%\] {
+    width: 75%;
+  }
+
   .xl\:w-\[80rem\] {
     width: 80rem;
   }
 
   .xl\:w-\[94\%\] {
     width: 94%;
-  }
-
-  .xl\:w-\[75\%\] {
-    width: 75%;
   }
 
   .xl\:translate-x-\[-20\%\] {
@@ -7949,6 +7961,10 @@ input[data-autocompleted] {
     padding-top: 22px;
   }
 
+  .xl\:pt-\[295px\] {
+    padding-top: 295px;
+  }
+
   .xl\:pt-\[32px\] {
     padding-top: 32px;
   }
@@ -7965,20 +7981,12 @@ input[data-autocompleted] {
     font-size: 24px;
   }
 
-  .xl\:text-\[26px\] {
-    font-size: 26px;
-  }
-
   .xl\:text-\[4\.8rem\] {
     font-size: 4.8rem;
   }
 
   .xl\:text-\[40px\] {
     font-size: 40px;
-  }
-
-  .xl\:text-\[42px\] {
-    font-size: 42px;
   }
 
   .xl\:text-\[64px\] {
@@ -8183,6 +8191,10 @@ input[data-autocompleted] {
     margin-top: 18%;
   }
 
+  .\33xl\:mb-\[180px\] {
+    margin-bottom: 180px;
+  }
+
   .\33xl\:block {
     display: block;
   }
@@ -8247,24 +8259,12 @@ input[data-autocompleted] {
     width: 570px;
   }
 
-  .\33xl\:w-\[88\%\] {
-    width: 88%;
-  }
-
-  .\33xl\:w-\[75\%\] {
-    width: 75%;
-  }
-
-  .\33xl\:w-\[90\%\] {
-    width: 90%;
-  }
-
-  .\33xl\:w-\[73\%\] {
-    width: 73%;
-  }
-
   .\33xl\:w-\[71\%\] {
     width: 71%;
+  }
+
+  .\33xl\:w-\[88\%\] {
+    width: 88%;
   }
 
   .\33xl\:translate-x-0 {
@@ -8316,8 +8316,20 @@ input[data-autocompleted] {
     padding-top: 46px;
   }
 
+  .\33xl\:pt-\[260px\] {
+    padding-top: 260px;
+  }
+
   .\33xl\:text-\[24px\] {
     font-size: 24px;
+  }
+
+  .\33xl\:text-\[26px\] {
+    font-size: 26px;
+  }
+
+  .\33xl\:text-\[42px\] {
+    font-size: 42px;
   }
 
   .\33xl\:text-\[50px\] {
@@ -8331,19 +8343,11 @@ input[data-autocompleted] {
   .\33xl\:text-\[72px\] {
     font-size: 72px;
   }
-
-  .\33xl\:text-\[26px\] {
-    font-size: 26px;
-  }
 }
 
 @media (min-width: 440px) {
   .\31sm\:bottom-\[-12\%\] {
     bottom: -12%;
-  }
-
-  .\31sm\:pt-\[270px\] {
-    padding-top: 270px;
   }
 }
 

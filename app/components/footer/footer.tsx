@@ -7,7 +7,7 @@ export default function Footer() {
       <div className="hidden md:block bg-[url('../public/assets/layout/footer.png')] bg-layoutColor h-[370px] w-full relative bg-auto bg-no-repeat">
         <div className="md:w-[80%] lg:w-[60%] xl:w-1/2 2xl:w-[40%]   flex flex-row-reverse justify-around pt-[60px]">
           <div>
-            <p className="text-white text-[24px] mb-[18px]">Social</p>
+            <p className="text-white text-[24px] mb-[18px]">SOCIAL</p>
             <p className="text-footerColor text-[20px] mb-[18px]">Youtube</p>
             <p className="text-footerColor text-[20px] mb-[18px]">LinkedIn</p>
             <p className="text-footerColor text-[20px] mb-[18px]">Instagram</p>
@@ -20,9 +20,9 @@ export default function Footer() {
             </div>
 
             <p className="text-white text-[16px] mb-[5px]">
-              all right resaved for golden path.{" "}
+              All Right Resaved For Golden Path.{" "}
             </p>
-            <p className="text-copyRightColor text-[16px]">copyright 2023</p>
+            <p className="text-copyRightColor text-[16px]">Copyright 2023</p>
           </div>
         </div>
         <div className=" md:w-[20%] lg:w-[40%] xl:w-1/2 2xl:w-[60%] "></div>

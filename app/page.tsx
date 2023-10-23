@@ -289,19 +289,19 @@ export default function Home() {
         <div className="bg-layoutColor relative">
           <div className="z-20 text-center">
             <div className="relative h-[650px] lg:h-[800px]">
-              <div className="absolute block lg:hidden top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+              <div className="absolute block 3xl:hidden top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
                 <FooterLogoSm />
               </div>{" "}
-              <div className="absolute hidden lg:block top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+              <div className="absolute hidden 3xl:block top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
                 <FooterLogo />
               </div>
-              <div className="absolute z-10 top-1/2  transform -translate-y-1/2 pr-[14px]  1sm:pt-[270px] pt-[250px] md:pt-[220px] pl-[14px] md:left-1/2 md:-translate-x-1/2 ">
-                <p className="text-[26px] md:text-[32px] xl:text-[42px] text-white  mb-[140px] pl-[60px] pr-[60px] md:pr-[unset] md:pl-[unset]">
+              <div className="absolute z-10 top-1/2  transform -translate-y-1/2 pr-[14px] pt-[250px] sm:pt-[240px] lg:pt-[290px] xl:pt-[295px] 3xl:pt-[260px] pl-[14px] md:left-1/2 md:-translate-x-1/2 ">
+                <p className="text-[26px] md:text-[32px] 3xl:text-[42px] text-white  mb-[140px] 3xl:mb-[180px] pl-[60px] pr-[60px] md:pr-[unset] md:pl-[unset]">
                   Get on your{" "}
                   <span className="text-customYellow">golden path</span> right
                   now
                 </p>
-                <p className="text-white text-[18px] md:text-[20px] xl:text-[26px] mb-[20px]">
+                <p className="text-white text-[18px] md:text-[20px] 3xl:text-[26px] mb-[20px]">
                   Or go watch you tiktok garbage and miss the opportunity to
                   change your life.
                 </p>
