@@ -2,8 +2,24 @@
 
 import { useState } from "react";
 import SideBar from "@/app/components/sideBar/sideBar";
+import { trpc } from "@/utils/trpc";
+import moment from "moment";
 
 export default function LifeGoals() {
+  const fetchOneUser = trpc.getOneUser.useQuery();
+
+  const { data: userData } = fetchOneUser;
+
+  function getAge(dateString: string) {
+    const date = moment(dateString, "YYYY-MM-DD");
+    const years = moment().diff(date, "years");
+
+    const days = moment().diff(date.add(years, "years"), "days", false);
+    return { years, days };
+  }
+
+  const { days } = getAge(userData?.birthday);
+
   const [tags, setTags] = useState<any[]>([""]);
 
   const addTags = (event: any) => {

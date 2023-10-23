@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import GoldenLogo from "/public/assets/goldenPath.svg";
 import ArcherVector from "/public/assets/archer.svg";
 import Tool from "/public/assets/Tool.svg";

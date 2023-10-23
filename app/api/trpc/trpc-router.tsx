@@ -152,6 +152,18 @@ export const appRouter = t.router({
         },
       });
     }),
+
+  //get user by id
+
+  getOneUser: t.procedure.query(async ({ ctx }) => {
+    const session = await getServerSession(authOptions);
+
+    return (ctx as any).prisma.user.findUnique({
+      where: {
+        id: (session as any).id,
+      },
+    });
+  }),
 });
 
 export type AppRouter = typeof appRouter;
