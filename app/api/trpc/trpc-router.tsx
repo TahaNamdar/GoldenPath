@@ -1,6 +1,6 @@
 import { initTRPC, TRPCError } from "@trpc/server";
 import superjson from "superjson";
-import { z } from "zod";
+import { date, z } from "zod";
 import { hash } from "argon2";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
@@ -120,6 +120,35 @@ export const appRouter = t.router({
         },
         data: {
           password: hashedNewPassword,
+        },
+      });
+    }),
+
+  //change birthday
+
+  changeBirthday: t.procedure
+    .input(
+      z.object({
+        birthday: date(),
+      })
+    )
+    .mutation(async ({ input, ctx }) => {
+      const { birthday } = input;
+
+      const session = await getServerSession(authOptions);
+
+      const user = await (ctx as any).prisma.user.findUnique({
+        where: {
+          id: (session as any).id,
+        },
+      });
+
+      const updateBirthday = await (ctx as any).prisma.user.update({
+        where: {
+          id: (session as any).id,
+        },
+        data: {
+          birthday: birthday,
         },
       });
     }),

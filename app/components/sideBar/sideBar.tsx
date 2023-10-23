@@ -47,6 +47,7 @@ export default function SideBar() {
 
   const [openSetting, setOpenSetting] = useState<boolean>(false);
   const [value, setValue] = useState<string>("");
+  const [birthdayError, setBirthdayError] = useState<string>("");
 
   const dispatch = useDispatch();
 
@@ -82,11 +83,6 @@ export default function SideBar() {
     return "";
   }
 
-  const handleChange = (e: any) => {
-    const cleanData = formatInputDate(e.target.value);
-    setValue(cleanData);
-  };
-
   const handleLogOut = () => {
     signOut();
     router.push("/");
@@ -94,6 +90,7 @@ export default function SideBar() {
 
   const changeEmailMutation = trpc.changeEmail.useMutation();
   const changePasswordMutation = trpc.changePassword.useMutation();
+  const changeBirthdayMutation = trpc.changeBirthday.useMutation();
 
   const changeEmailHandler: SubmitHandler<FormValues> = (data) => {
     const { newEmail, newEmailPassFiled } = data;
@@ -113,7 +110,21 @@ export default function SideBar() {
     changePasswordMutation.mutate({ oldPassword, newPassword });
   };
 
-  //admin@gmail.com
+  const handleChangeBirthday = (e: any) => {
+    const cleanData = formatInputDate(e.target.value);
+    setValue(cleanData);
+  };
+
+  const changeBirthdaySubmitHandler = () => {
+    if (value === "" || value.length < 10) {
+      setBirthdayError("this filed is required");
+    }
+    if (value !== "" && value.length == 10) {
+      const birthday = new Date(value);
+      changeBirthdayMutation.mutate({ birthday });
+      setBirthdayError("");
+    }
+  };
 
   return (
     <div>
@@ -127,15 +138,21 @@ export default function SideBar() {
             placeholder="YYYY-MM-DD"
             fontSize="text-3xl md:text-[2.8rem]"
             maxlength="10"
-            onChange={handleChange}
+            onChange={handleChangeBirthday}
             value={value}
           >
             <BirthdaySvg />
           </InputFiled>
+          <p className="text-danger mt-2 pl-[10px]">
+            {birthdayError && birthdayError}
+          </p>
         </div>
         <div className="text-right">
-          <button className="bg-chipColor rounded-[1.4rem] w-full sm:w-[28rem] text-center text-black text-2xl md:text-3xl pl-[10rem] pr-[10rem] pt-[1.2rem] pb-[1.2rem] md:pl-[11rem] md:pr-[11rem] md:pt-[1.8rem] md:pb-[1.8rem]">
-            Save
+          <button
+            onClick={() => changeBirthdaySubmitHandler()}
+            className="bg-chipColor cursor-pointer rounded-[1.4rem] w-full sm:w-[28rem] text-center text-black text-2xl md:text-3xl pl-[10rem] pr-[10rem] pt-[1.2rem] pb-[1.2rem] md:pl-[11rem] md:pr-[11rem] md:pt-[1.8rem] md:pb-[1.8rem]"
+          >
+            {changeBirthdayMutation.isSuccess ? "Saved" : "Save"}
           </button>
         </div>{" "}
       </GoldenModal>
