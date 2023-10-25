@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 
 type Props = {
   counter: number;
@@ -6,18 +6,47 @@ type Props = {
   age?: any;
 };
 
+type IChips = {
+  age: number;
+  tasks: { value: string }[];
+};
+
+const newArray: any[] = [];
+
 export default function Chips({ age, daysLeft, counter }: Props) {
-  const [tags, setTags] = useState<any[]>([""]);
+  const [state, setState] = useState<IChips[]>([]);
+
+  console.log(state, "store");
 
   const addTags = (event: any) => {
+    const activeInputAge = event.target.name;
     if (event.key === "Enter" && event.target.value !== "") {
-      setTags([...tags, event.target.value]);
+      // setState([...state, event.target.value]);
+
+      newArray.push(event.target.value);
+
+      setState([
+        ...state,
+        {
+          age: activeInputAge,
+          tasks: newArray,
+        },
+      ]);
+
+      // setState((prevState: any) => {
+      //   return {
+      //     ...prevState,
+      //     age: activeInputAge,
+      //     tasks: newArray,
+      //   };
+      // });
+
       event.target.value = "";
     }
     if (event.key === "Backspace" && event.target.value == "") {
-      const copyArr = [...tags];
-      copyArr.pop();
-      setTags(copyArr);
+      // const copyArr = [...state];
+      // copyArr.pop();
+      // setState(copyArr);
     }
   };
 
@@ -34,22 +63,23 @@ export default function Chips({ age, daysLeft, counter }: Props) {
       <div className="bg-darkGunmetal rounded-[1.4rem] w-4/5 sm:w-full ">
         <div className="pt-[1.2rem] pb-[0.8rem] pl-[1.8rem] relative flex">
           <div className="flex items-center flex-wrap w-11/12 lg:w-10/12  ">
-            {tags.map((tag, index) => {
+            {/* {state.map((item: any, index: number) => {
               return (
                 <div
                   key={index}
                   className={`bg-chipColor mb-[0.6rem] text-[1.4rem] lg:text-[1.8rem] mr-[0.8rem] lg:mr-[1.6rem] text-black rounded-[3.4rem] pt-[0.2rem] pb-[0.2rem] pr-[0.8rem] pl-[0.8rem] ${
-                    tag == "" ? "hidden" : "block"
+                    item == "" ? "hidden" : "block"
                   }`}
                 >
-                  {tag}
+                  {item}
                 </div>
               );
-            })}
+            })} */}
             <input
               type="text"
               placeholder="Type to add a goal..."
               onKeyUp={addTags}
+              name={counter.toString()}
               className="pr-[1.8rem] text-[1.4rem] lg:text-[1.8rem] w-[14rem] md:w-[unset] bg-darkGunmetal text-placeholder focus:outline-none placeholder-placeholder mb-[0.6rem] "
             />
           </div>

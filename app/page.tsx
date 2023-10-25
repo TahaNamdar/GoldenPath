@@ -28,12 +28,12 @@ export default function Home() {
     <main className="bg-homeColor h-screen overflow-auto overflow-x-hidden">
       <section>
         {/* first section */}
-        <div className="relative mb-[50px] bg-banner bg-cover bg-[url('../public/assets/layout/wallpaper.png')] h-auto md:h-auto  xl:overflow-hidden lg:h-[890px] xl:h-[1000px] w-full md:flex md:flex-row-reverse xl:flex xl:flex-row-reverse">
+        <div className="relative mb-[50px] bg-banner bg-cover bg-[url('../public/assets/layout/wallpaper.png')] h-auto md:h-auto  xl:overflow-hidden lg:h-[890px] xl:h-[1000px] 2xl:h-screen w-full md:flex md:flex-row-reverse xl:flex xl:flex-row-reverse">
           <Navbar />
-          <div className="absolute hidden xl:block bottom-[-10%] 3xl:bottom-[-8%] lg:translate-x-[-9%] xl:translate-x-[-24%] 2xl:translate-x-[-18%] 3xl:translate-x-0  overflow-x-hidden w-full xl:overflow-x-[unset]">
+          <div className="absolute hidden xl:block bottom-[-10%] 2xl:bottom-[-20%] 3xl:bottom-[-8%] lg:translate-x-[-9%] xl:translate-x-[-24%] 2xl:translate-x-[-18%] 3xl:translate-x-0  overflow-x-hidden w-full xl:overflow-x-[unset]">
             <Shape1 />
           </div>
-          <div className="absolute hidden xl:block bottom-[-12%] 3xl:bottom-[-10%]  overflow-x-hidden w-ful xl:overflow-x-[unset]">
+          <div className="absolute hidden xl:block bottom-[-12%] 2xl:bottom-[-22%] 3xl:bottom-[-10%]  overflow-x-hidden  xl:overflow-x-[unset]">
             <MainShape />
           </div>{" "}
           <section className="absolute w-full bg-banner h-[160px] bottom-[-9%] xl:hidden">
@@ -65,7 +65,7 @@ export default function Home() {
               <SmShadow />
             </div>
 
-            <div className="flex justify-center  flex-col h-full ml-[40px] xl:mr-[unset] xl:ml-[97px]">
+            <div className="flex justify-center  flex-col h-full ml-[40px] mr-[20px] xl:mr-[unset] xl:ml-[97px]">
               <p className="text-white font-medium text-[52px] xl:text-[64px] lg:mt-[-22%] xl:mt-[22%] 2xl:mt-[22%] 3xl:mt-[18%] 3xl:text-[72px]">
                 Take Back The
               </p>
@@ -117,7 +117,7 @@ export default function Home() {
               </div>
             </div>
             <div className="flex justify-center">
-              <div className=" relative xl:hidden mb-[150px] h-[600px] bg-no-repeat w-[374px] bg-[url('../public/assets/layout/setFrame.png')]"></div>{" "}
+              <div className=" relative xl:hidden mb-[150px] h-[610px] bg-no-repeat w-[390px] bg-[url('../public/assets/layout/setFrame.png')] bg-cover"></div>{" "}
             </div>
             <div className="flex justify-center">
               <div className="bg-[url('../public/assets/layout/lifeGoalsBgLg.png')] 3xl:h-[970px] 3xl:mb-[160px]  3xl:w-[1440px] relative hidden 3xl:block 2xl:mb-[160px] bg-no-repeat">
@@ -165,7 +165,7 @@ export default function Home() {
               </div>
             </div>
             {/* prioritize section */}
-            <div className="flex justify-center pl-[68px] pr-[68px] mb-[60px] xl:w-[75%] xl:ml-auto xl:mr-auto 3xl:w-[71%] 3xl:ml-auto 3xl:mr-auto   ">
+            <div className="flex justify-center pl-[60px] pr-[60px] mb-[60px] xl:w-[75%] xl:ml-auto xl:mr-auto 3xl:w-[71%] 3xl:ml-auto 3xl:mr-auto   ">
               <div className="text-center">
                 <p className="text-customYellow text-[32px] sm:text-[40px] 3xl:text-[50px]">
                   Prioritize <span className="text-white">Your Goals</span>
@@ -177,7 +177,7 @@ export default function Home() {
               </div>
             </div>
             <div className="flex justify-center">
-              <div className=" relative xl:hidden h-[600px] bg-no-repeat w-[374px] bg-[url('../public/assets/layout/setFrame2.png')] "></div>{" "}
+              <div className=" relative xl:hidden h-[628px] bg-cover bg-no-repeat w-[390px] bg-[url('../public/assets/layout/setFrame2.png')] "></div>{" "}
             </div>
 
             <div className="flex justify-center">
@@ -296,7 +296,7 @@ export default function Home() {
                 <FooterLogo />
               </div>
               <div className="absolute z-10 top-1/2  transform -translate-y-1/2 pr-[14px] pt-[250px] sm:pt-[240px] lg:pt-[290px] xl:pt-[295px] 3xl:pt-[260px] pl-[14px] md:left-1/2 md:-translate-x-1/2 ">
-                <p className="text-[26px] md:text-[32px] 3xl:text-[42px] text-white  mb-[140px] 3xl:mb-[180px] pl-[60px] pr-[60px] md:pr-[unset] md:pl-[unset]">
+                <p className="text-[26px] md:text-[32px] 3xl:text-[42px] text-white  mb-[140px] 3xl:mb-[180px] pl-[50px] pr-[50px] md:pr-[unset] md:pl-[unset]">
                   Get on your{" "}
                   <span className="text-customYellow">golden path</span> right
                   now

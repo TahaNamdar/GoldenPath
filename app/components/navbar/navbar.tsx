@@ -1,5 +1,5 @@
 import React from "react";
-import Logo from "@/public/assets/layout/homeLogo.svg";
+import Logo from "@/public/assets/layout/newLogo.svg";
 import SmLogo from "@/public/assets/layout/Final.svg";
 import Profile from "@/public/assets/layout/profile.svg";
 import { useRouter } from "next/navigation";
@@ -12,7 +12,7 @@ export default function Navbar() {
   };
 
   return (
-    <div className=" z-[99] flex items-center justify-center lg:justify-between lg:rounded-[23px] lg:pl-[70px] lg:pr-[70px] left-1/2 lg:top-[47px] transform -translate-x-1/2 w-full  lg:w-[88%] absolute bg-navBar backdrop-blur-[7.5px] lg:backdrop-blur-[29px]">
+    <div className=" z-[99] flex items-center justify-center lg:justify-between lg:rounded-[23px] lg:pl-[70px] lg:pr-[70px] left-1/2 lg:top-[47px] transform -translate-x-1/2 w-full  lg:w-[88%] absolute bg-navBar backdrop-blur-[7.5px] lg:backdrop-blur-[29px] lg:pt-[18px] lg:pb-[18px]">
       <div className="hidden lg:block">
         <Logo />
       </div>{" "}
