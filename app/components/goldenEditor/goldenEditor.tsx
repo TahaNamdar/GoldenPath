@@ -20,23 +20,25 @@ const GoldenEditor = () => {
   ]); // Initial
   const newInputRef = useRef<HTMLInputElement>(null);
 
+  const [backSpace, setBackSpace] = useState<boolean>(false);
+
   useEffect(() => {
-    if (newInputRef.current) {
-      newInputRef.current.focus();
+    if (!backSpace) {
+      if (newInputRef.current) {
+        newInputRef.current.focus();
+      }
     }
-  }, [inputs]); // Focus the new input whenever inputs change
+  }, [inputs, backSpace]); // Focus the new input whenever inputs change
 
   const handleInputChange = (id: number, value: string) => {
     // console.log(`Input with ID ${id} changed to ${value}`);
   };
 
-  console.log(inputs, "--------------");
-
-  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>, ID: number) => {
+  const handleKeyDown = (e: any, ID: number) => {
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault(); // Prevent the default behavior (submitting the form)
       const currentInput = inputs.find((input: any) => input.id === ID);
-
+      setBackSpace(false);
       if (currentInput?.value.trim() !== "") {
         const newInput = {
           id: Date.now(),
@@ -45,6 +47,13 @@ const GoldenEditor = () => {
         };
         setInputs([...inputs, newInput]);
       }
+    }
+    if (e.key === "Backspace" && e.target.value == "") {
+      const filteredArray = inputs.filter((item: any, _) => item.id !== ID);
+      setInputs(filteredArray);
+    }
+    if (e.key === "Backspace") {
+      setBackSpace(true);
     }
   };
 

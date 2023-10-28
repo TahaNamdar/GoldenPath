@@ -92,9 +92,15 @@ export default function YearlyGoals() {
         </div>
         {/* Activities */}
         <div className="md:flex items-center justify-between mb-[1.6rem] mt-[4.5rem]">
-          <p className="text-3xl md:text-4xl text-white font-medium mb-4 md:mb-2">
-            life Dimensions{" "}
-          </p>
+          <div>
+            <p className="text-3xl mb-[1.4rem]  md:text-4xl text-white font-medium md:mb-2">
+              life Dimensions{" "}
+            </p>
+            <p className="hidden lg:block text-lightText text-base font-light">
+              this is all you need to follow when starting your day. start from
+              top to bottom.try to keep 3~5 items here"
+            </p>{" "}
+          </div>
         </div>
         {/* notion */}
       </div>
