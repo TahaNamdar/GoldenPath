@@ -6,12 +6,14 @@ import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 interface Input {
   id: number;
   value: string;
+  title: string;
   checked: boolean;
+  isFavorite: boolean;
 }
 
 const GoldenEditor = () => {
   const [inputs, setInputs] = useState<Input[]>([
-    { id: Date.now(), value: "", checked: false },
+    { id: Date.now(), value: "", title: "", checked: false, isFavorite: false },
   ]); // Initial
   const newInputRef = useRef<HTMLInputElement>(null);
 
@@ -25,8 +27,15 @@ const GoldenEditor = () => {
     }
   }, [inputs, backSpace]); // Focus the new input whenever inputs change
 
-  const handleInputChange = (id: number, value: string) => {
-    // console.log(`Input with ID ${id} changed to ${value}`);
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInputs((prevInputs) => {
+      return prevInputs.map((input) => {
+        return {
+          ...input,
+          title: e.target.value,
+        };
+      });
+    });
   };
 
   const handleKeyDown = (e: any, ID: number) => {
@@ -38,7 +47,9 @@ const GoldenEditor = () => {
         const newInput = {
           id: Date.now(),
           value: "",
+          title: "",
           checked: false,
+          isFavorite: false,
         };
         setInputs([...inputs, newInput]);
       }
@@ -66,13 +77,51 @@ const GoldenEditor = () => {
     });
   };
 
+  const favoriteHandler = (id: number) => {
+    setInputs((prevInputs) => {
+      return prevInputs.map((input) => {
+        if (input.id === id) {
+          return {
+            ...input,
+            isFavorite: !input.isFavorite,
+          };
+        }
+        return input;
+      });
+    });
+  };
+
+  const handleDragDrop = (results: any) => {
+    const { source, destination, type } = results;
+
+    if (!destination) return;
+    if (
+      source.draggableId === destination.droppableId &&
+      source.index === destination.index
+    )
+      return;
+
+    if (type === "group") {
+      const reorderedStores = [...inputs];
+
+      const sourceIndex = source.index;
+      const destinationIndex = destination.index;
+
+      const [removedStore] = reorderedStores.splice(sourceIndex, 1);
+      reorderedStores.splice(destinationIndex, 0, removedStore);
+
+      return setInputs(reorderedStores);
+    }
+  };
+
   return (
     <div className="bg-darkGunmetal rounded-sm p-10 text-white w-[200px] h-[200px]">
-      <DragDropContext onDragEnd={() => console.log("ondragend")}>
+      <DragDropContext onDragEnd={handleDragDrop}>
         <input
           type="text"
           placeholder="title"
           className="placeholder-white bg-transparent outline-none text-3xl"
+          onChange={handleInputChange}
         />
         <Droppable droppableId="ROOT" type="group">
           {(provided) => (
@@ -110,7 +159,6 @@ const GoldenEditor = () => {
                               : i
                           );
                           setInputs(updatedInputs);
-                          handleInputChange(input.id, e.target.value);
                         }}
                         onKeyDown={(e) => handleKeyDown(e, input.id)}
                         className={
@@ -119,6 +167,7 @@ const GoldenEditor = () => {
                             : "placeholder-white bg-transparent outline-none"
                         }
                       />
+                      <h1 onClick={() => favoriteHandler(input.id)}>Star</h1>
                     </div>
                   )}
                 </Draggable>
