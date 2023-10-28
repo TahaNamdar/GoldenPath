@@ -960,6 +960,10 @@ html {
   margin-bottom: 0px;
 }
 
+.mb-3 {
+  margin-bottom: 0.75rem;
+}
+
 .mb-4 {
   margin-bottom: 1rem;
 }
@@ -1336,6 +1340,10 @@ html {
   height: 1px;
 }
 
+.h-\[200px\] {
+  height: 200px;
+}
+
 .h-\[370px\] {
   height: 370px;
 }
@@ -1346,6 +1354,14 @@ html {
 
 .h-\[600px\] {
   height: 600px;
+}
+
+.h-\[610px\] {
+  height: 610px;
+}
+
+.h-\[628px\] {
+  height: 628px;
 }
 
 .h-\[650px\] {
@@ -1375,18 +1391,6 @@ html {
 
 .h-screen {
   height: 100vh;
-}
-
-.h-\[610px\] {
-  height: 610px;
-}
-
-.h-\[620px\] {
-  height: 620px;
-}
-
-.h-\[628px\] {
-  height: 628px;
 }
 
 .max-h-96 {
@@ -1529,6 +1533,10 @@ html {
   width: 18rem;
 }
 
+.w-\[200px\] {
+  width: 200px;
+}
+
 .w-\[209px\] {
   width: 209px;
 }
@@ -1545,8 +1553,8 @@ html {
   width: 30rem;
 }
 
-.w-\[374px\] {
-  width: 374px;
+.w-\[390px\] {
+  width: 390px;
 }
 
 .w-\[39px\] {
@@ -1580,10 +1588,6 @@ html {
 
 .w-screen {
   width: 100vw;
-}
-
-.w-\[390px\] {
-  width: 390px;
 }
 
 .min-w-\[100vw\] {
@@ -3289,6 +3293,10 @@ html {
   padding-left: 50px;
 }
 
+.pl-\[60px\] {
+  padding-left: 60px;
+}
+
 .pl-\[68px\] {
   padding-left: 68px;
 }
@@ -3355,6 +3363,10 @@ html {
 
 .pr-\[50px\] {
   padding-right: 50px;
+}
+
+.pr-\[60px\] {
+  padding-right: 60px;
 }
 
 .pr-\[68px\] {
@@ -3487,14 +3499,6 @@ html {
 
 .pt-px {
   padding-top: 1px;
-}
-
-.pl-\[60px\] {
-  padding-left: 60px;
-}
-
-.pr-\[60px\] {
-  padding-right: 60px;
 }
 
 .text-left {
@@ -4024,6 +4028,10 @@ html {
   text-decoration-line: underline;
 }
 
+.line-through {
+  text-decoration-line: line-through;
+}
+
 .antialiased {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -4035,6 +4043,16 @@ html {
 
 .placeholder-placeholder::placeholder {
   color: #ffffff26;
+}
+
+.placeholder-white::-moz-placeholder {
+  --tw-placeholder-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-placeholder-opacity));
+}
+
+.placeholder-white::placeholder {
+  --tw-placeholder-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-placeholder-opacity));
 }
 
 .opacity-0 {
