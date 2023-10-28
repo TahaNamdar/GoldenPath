@@ -10,4 +10,5 @@ module.exports = {
 
     return config;
   },
+  reactStrictMode: false, // React Strict Mode is off
 };

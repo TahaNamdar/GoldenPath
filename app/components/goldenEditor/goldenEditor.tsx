@@ -1,12 +1,7 @@
 "use client";
 
-import React, {
-  useState,
-  useRef,
-  useEffect,
-  ChangeEvent,
-  KeyboardEvent,
-} from "react";
+import React, { useState, useRef, useEffect, ChangeEvent } from "react";
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
 interface Input {
   id: number;
@@ -73,41 +68,65 @@ const GoldenEditor = () => {
 
   return (
     <div className="bg-darkGunmetal rounded-sm p-10 text-white w-[200px] h-[200px]">
-      <input
-        type="text"
-        placeholder="title"
-        className="placeholder-white bg-transparent outline-none text-3xl"
-      />
-      {inputs.map((input: any, index: number) => (
-        <div key={input.id} className="flex items-center mb-3">
-          <input
-            checked={input.checked}
-            type="checkbox"
-            className="mr-4"
-            onChange={() => handleChecked(input.id)}
-          />
-          <input
-            tabIndex={index}
-            type="text"
-            ref={index === inputs.length - 1 ? newInputRef : null}
-            value={input.value}
-            placeholder="text"
-            onChange={(e: ChangeEvent<HTMLInputElement>) => {
-              const updatedInputs = inputs.map((i: any) =>
-                i.id === input.id ? { ...i, value: e.target.value } : i
-              );
-              setInputs(updatedInputs);
-              handleInputChange(input.id, e.target.value);
-            }}
-            onKeyDown={(e) => handleKeyDown(e, input.id)}
-            className={
-              input.checked
-                ? "line-through placeholder-white bg-transparent outline-none"
-                : "placeholder-white bg-transparent outline-none"
-            }
-          />
-        </div>
-      ))}
+      <DragDropContext onDragEnd={() => console.log("ondragend")}>
+        <input
+          type="text"
+          placeholder="title"
+          className="placeholder-white bg-transparent outline-none text-3xl"
+        />
+        <Droppable droppableId="ROOT" type="group">
+          {(provided) => (
+            <div {...provided.droppableProps} ref={provided.innerRef}>
+              {inputs.map((input: any, index: number) => (
+                <Draggable
+                  draggableId={input.id.toString()}
+                  key={input.id}
+                  index={index}
+                >
+                  {(provided) => (
+                    <div
+                      key={input.id}
+                      className="flex items-center mb-3 bg-black p-2"
+                      {...provided.dragHandleProps}
+                      {...provided.draggableProps}
+                      ref={provided.innerRef}
+                    >
+                      <input
+                        checked={input.checked}
+                        type="checkbox"
+                        className="mr-4"
+                        onChange={() => handleChecked(input.id)}
+                      />
+                      <input
+                        tabIndex={index}
+                        type="text"
+                        ref={index === inputs.length - 1 ? newInputRef : null}
+                        value={input.value}
+                        placeholder="text"
+                        onChange={(e: ChangeEvent<HTMLInputElement>) => {
+                          const updatedInputs = inputs.map((i: any) =>
+                            i.id === input.id
+                              ? { ...i, value: e.target.value }
+                              : i
+                          );
+                          setInputs(updatedInputs);
+                          handleInputChange(input.id, e.target.value);
+                        }}
+                        onKeyDown={(e) => handleKeyDown(e, input.id)}
+                        className={
+                          input.checked
+                            ? "line-through placeholder-white bg-transparent outline-none"
+                            : "placeholder-white bg-transparent outline-none"
+                        }
+                      />
+                    </div>
+                  )}
+                </Draggable>
+              ))}
+            </div>
+          )}
+        </Droppable>
+      </DragDropContext>
     </div>
   );
 };
