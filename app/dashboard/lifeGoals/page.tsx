@@ -26,6 +26,7 @@ export default function LifeGoals() {
 
   for (let i = 0; i < limit; i++) {
     chipsFromAgeArray.push(
+      
       <Chips key={i} counter={i + 1} daysLeft={days} age={years} />
     );
   }

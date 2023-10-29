@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 
 type Props = {
   counter: number;
@@ -8,45 +8,53 @@ type Props = {
 
 type IChips = {
   age: number;
-  tasks: { value: string }[];
+  tasks: string[];
 };
 
-const newArray: any[] = [];
-
 export default function Chips({ age, daysLeft, counter }: Props) {
-  const [state, setState] = useState<IChips[]>([]);
-
-  console.log(state, "store");
+  const [state, setState] = useState([] as IChips[]);
 
   const addTags = (event: any) => {
-    const activeInputAge = event.target.name;
-    if (event.key === "Enter" && event.target.value !== "") {
-      // setState([...state, event.target.value]);
+    if (event.key === "Enter" && event.currentTarget.value.trim() !== "") {
+      const activeInputAge = Number(event.currentTarget.name);
+      const inputValue = event.currentTarget.value;
 
-      newArray.push(event.target.value);
+      setState((prevState) => {
+        const updatedState = [...prevState]; // Copy the state
+        const existingItem = updatedState.find(
+          (item) => item.age === activeInputAge
+        );
 
-      setState([
-        ...state,
-        {
-          age: activeInputAge,
-          tasks: newArray,
-        },
-      ]);
+        if (existingItem) {
+          existingItem.tasks.push(inputValue); // Update the tasks array
+        } else {
+          updatedState.push({
+            age: activeInputAge,
+            tasks: [inputValue],
+          }); // Add a new item if it doesn't exist
+        }
 
-      // setState((prevState: any) => {
-      //   return {
-      //     ...prevState,
-      //     age: activeInputAge,
-      //     tasks: newArray,
-      //   };
-      // });
+        return updatedState;
+      });
 
-      event.target.value = "";
+      event.currentTarget.value = "";
     }
     if (event.key === "Backspace" && event.target.value == "") {
-      // const copyArr = [...state];
-      // copyArr.pop();
-      // setState(copyArr);
+      const activeInputAge = Number(event.currentTarget.name);
+
+      setState((prevState) => {
+        const updatedState = prevState.map((item) => {
+          if (item.age === activeInputAge) {
+            return {
+              ...item,
+              tasks: item.tasks.slice(0, -1),
+            };
+          }
+          return item;
+        });
+
+        return updatedState;
+      });
     }
   };
 
@@ -63,18 +71,20 @@ export default function Chips({ age, daysLeft, counter }: Props) {
       <div className="bg-darkGunmetal rounded-[1.4rem] w-4/5 sm:w-full ">
         <div className="pt-[1.2rem] pb-[0.8rem] pl-[1.8rem] relative flex">
           <div className="flex items-center flex-wrap w-11/12 lg:w-10/12  ">
-            {/* {state.map((item: any, index: number) => {
-              return (
-                <div
-                  key={index}
-                  className={`bg-chipColor mb-[0.6rem] text-[1.4rem] lg:text-[1.8rem] mr-[0.8rem] lg:mr-[1.6rem] text-black rounded-[3.4rem] pt-[0.2rem] pb-[0.2rem] pr-[0.8rem] pl-[0.8rem] ${
-                    item == "" ? "hidden" : "block"
-                  }`}
-                >
-                  {item}
-                </div>
-              );
-            })} */}
+            {state.map((item, _) =>
+              item.tasks.map((task, _index) => {
+                return (
+                  <div
+                    key={_index}
+                    className={`bg-chipColor mb-[0.6rem] text-[1.4rem] lg:text-[1.8rem] mr-[0.8rem] lg:mr-[1.6rem] text-black rounded-[3.4rem] pt-[0.2rem] pb-[0.2rem] pr-[0.8rem] pl-[0.8rem] ${
+                      task == "" ? "hidden" : "block"
+                    }`}
+                  >
+                    {task}
+                  </div>
+                );
+              })
+            )}
             <input
               type="text"
               placeholder="Type to add a goal..."

@@ -18,16 +18,18 @@ const GoldenEditor = () => {
   const newInputRef = useRef<HTMLInputElement>(null);
 
   const [backSpace, setBackSpace] = useState<boolean>(false);
+  const [focusOnTitle, setFocusOnTitle] = useState<boolean>(false);
 
   useEffect(() => {
-    if (!backSpace) {
+    if (!backSpace || !focusOnTitle) {
       if (newInputRef.current) {
         newInputRef.current.focus();
       }
     }
-  }, [inputs, backSpace]); // Focus the new input whenever inputs change
+  }, [inputs, backSpace, focusOnTitle]); // Focus the new input whenever inputs change
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFocusOnTitle(true);
     setInputs((prevInputs) => {
       return prevInputs.map((input) => {
         return {
@@ -43,6 +45,7 @@ const GoldenEditor = () => {
       e.preventDefault(); // Prevent the default behavior (submitting the form)
       const currentInput = inputs.find((input: any) => input.id === ID);
       setBackSpace(false);
+      setFocusOnTitle(false);
       if (currentInput?.value.trim() !== "") {
         const newInput = {
           id: Date.now(),

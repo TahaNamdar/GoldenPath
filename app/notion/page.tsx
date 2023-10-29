@@ -9,6 +9,8 @@ const Page = () => {
     <GoldenEditor key={Date.now()} />,
   ]);
 
+
+
   const handleAddComponent = () => {
     const newComponentInstances = [
       ...componentInstances,
