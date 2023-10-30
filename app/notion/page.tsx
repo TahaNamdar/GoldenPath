@@ -9,8 +9,6 @@ const Page = () => {
     <GoldenEditor key={Date.now()} />,
   ]);
 
-
-
   const handleAddComponent = () => {
     const newComponentInstances = [
       ...componentInstances,
@@ -19,7 +17,7 @@ const Page = () => {
     setComponentInstances(newComponentInstances);
   };
   return (
-    <div>
+    <div className="bg-black h-screen p-10">
       <button onClick={handleAddComponent}>Add Component</button>
       {componentInstances.map((Component, index) => (
         <div key={index}>{Component}</div>
