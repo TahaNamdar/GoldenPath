@@ -9,7 +9,7 @@ import SessionProvider from "./SessionProvider";
 import localFont from "@next/font/local";
 import { Providers } from "@/utils/globalRedux";
 import ActionSizeProvider from "@/utils/actionSize";
-
+ 
 export const metadata: Metadata = {
   title: "Golden Path ",
   description: "Golden Path Website ",
@@ -35,6 +35,8 @@ const TOMMY = localFont({
   ],
   variable: "--font-TOMMY",
 });
+
+
 
 export default async function RootLayout({
   children,

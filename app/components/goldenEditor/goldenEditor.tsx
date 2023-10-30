@@ -1,10 +1,12 @@
 "use client";
 
 import React, { useState, useRef, useEffect, ChangeEvent } from "react";
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import { DragDropContext, Droppable, Draggable } from "@/utils/reactDnd";
+
+import { v4 as uuidv4 } from "uuid";
 
 interface Input {
-  id: number;
+  id: any;
   value: string;
   title: string;
   checked: boolean;
@@ -12,8 +14,10 @@ interface Input {
 }
 
 const GoldenEditor = () => {
+  const uniqueId = uuidv4();
+
   const [inputs, setInputs] = useState<Input[]>([
-    { id: Date.now(), value: "", title: "", checked: false, isFavorite: false },
+    { id: uniqueId, value: "", title: "", checked: false, isFavorite: false },
   ]); // Initial
   const newInputRef = useRef<HTMLInputElement>(null);
 
@@ -21,7 +25,8 @@ const GoldenEditor = () => {
   const [focusOnTitle, setFocusOnTitle] = useState<boolean>(false);
 
   useEffect(() => {
-    if (!backSpace || !focusOnTitle) {
+    if (focusOnTitle) return;
+    if (!backSpace) {
       if (newInputRef.current) {
         newInputRef.current.focus();
       }
@@ -40,15 +45,17 @@ const GoldenEditor = () => {
     });
   };
 
+
   const handleKeyDown = (e: any, ID: number) => {
+    setFocusOnTitle(false);
+
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault(); // Prevent the default behavior (submitting the form)
       const currentInput = inputs.find((input: any) => input.id === ID);
       setBackSpace(false);
-      setFocusOnTitle(false);
       if (currentInput?.value.trim() !== "") {
         const newInput = {
-          id: Date.now(),
+          id: uniqueId,
           value: "",
           title: "",
           checked: false,
@@ -118,7 +125,7 @@ const GoldenEditor = () => {
   };
 
   return (
-    <div className="bg-darkGunmetal rounded-sm p-10 text-white w-[200px] h-[200px]">
+    <div className="bg-darkGunmetal rounded-sm p-10 text-white w-[240px] h-[240px]">
       <DragDropContext onDragEnd={handleDragDrop}>
         <input
           type="text"
