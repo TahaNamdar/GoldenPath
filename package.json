@@ -35,6 +35,7 @@
     "postinstall-postinstall": "^2.1.0",
     "react": "^18.2.0",
     "react-beautiful-dnd": "^13.1.1",
+    "react-beautiful-dnd-next": "^10.0.0-alpha.2",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.47.0",
     "react-input-mask": "^2.0.4",

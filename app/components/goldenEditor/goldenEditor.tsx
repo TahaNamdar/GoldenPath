@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useRef, useEffect, ChangeEvent } from "react";
-import { DragDropContext, Droppable, Draggable } from "@/utils/reactDnd";
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
 import { v4 as uuidv4 } from "uuid";
 

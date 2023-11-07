@@ -1,9 +1,11 @@
 "use client";
 
 import SideBar from "@/app/components/sideBar/sideBar";
-import Chips from "@/app/components/chips/chips";
+import Chip from "@/app/components/chips/chips";
+import { DragDropContext } from "react-beautiful-dnd";
 import { trpc } from "@/utils/trpc";
 import moment from "moment";
+import { useRef } from "react";
 
 export default function LifeGoals() {
   const fetchOneUser = trpc.getOneUser.useQuery();
@@ -26,10 +28,32 @@ export default function LifeGoals() {
 
   for (let i = 0; i < limit; i++) {
     chipsFromAgeArray.push(
-      
-      <Chips key={i} counter={i + 1} daysLeft={days} age={years} />
+      <Chip key={i} counter={i + 1} daysLeft={days} age={years} index={i} />
     );
   }
+
+  // const reorder = (list: any, startIndex: any, endIndex: any) => {
+  //   const result = Array.from(list);
+  //   const [removed] = result.splice(startIndex, 1);
+  //   result.splice(endIndex, 0, removed);
+
+  //   return result;
+  // };
+
+  // const onDragEnd = (result: any) => {
+  //   const { source, destination } = result;
+  //   // console.log(result, "res");
+  //   // if (!result.destination) return;
+  //   // //change position
+  //   // // const items = reorder(state, result.source.index, result.destination.index);
+  //   // // setState(items);
+  //   // //move
+  //   if (source.droppableId === destination.droppableId) {
+  //     const items = reorder(state, source.index, destination.index);
+  //     setState(items);
+  //   }
+
+  // };
 
   return (
     <div className=" bg-CharlestonGreen lg:bg-darkGunmetal lg:flex md:p-1">
@@ -77,7 +101,9 @@ export default function LifeGoals() {
           {/* chips */}
           <div className="bg-Crayola pl-[2rem]  lg:pr-[3.8rem] lg:pl-[3.8rem] lg:rounded-b-[1.4rem] ">
             <section className="pt-[2rem] sm:pr-[2rem] pb-[2rem] ">
-              {chipsFromAgeArray}
+              <DragDropContext onDragEnd={() => console.log("")}>
+                {chipsFromAgeArray}
+              </DragDropContext>
             </section>
           </div>
         </main>
