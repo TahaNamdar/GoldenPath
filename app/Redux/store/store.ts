@@ -1,9 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import toggleReducer from "../featrues/toggle/toggleSlice";
+import chipReducer from "../featrues/chipSlice";
 
 export const store = configureStore({
   reducer: {
     toggle: toggleReducer,
+    chip: chipReducer,
   },
 });
 
