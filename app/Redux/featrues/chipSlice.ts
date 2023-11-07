@@ -32,8 +32,19 @@ const chipSlice = createSlice({
     removeChip: (state, action: PayloadAction<string>) => {
       return state.filter((chip) => chip.id !== action.payload);
     },
+
+    reorderChips: (
+      state,
+      action: PayloadAction<{ sourceIndex: number; destinationIndex: number }>
+    ) => {
+      const { sourceIndex, destinationIndex } = action.payload;
+
+      const [movedChip] = state.splice(sourceIndex, 1);
+      state.splice(destinationIndex, 0, movedChip);
+    },
   },
 });
 
-export const { addChip, removeChip, updateInput } = chipSlice.actions;
+export const { addChip, removeChip, updateInput, reorderChips } =
+  chipSlice.actions;
 export default chipSlice.reducer;

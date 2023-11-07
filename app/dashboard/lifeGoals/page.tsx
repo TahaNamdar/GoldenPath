@@ -5,9 +5,18 @@ import Chip from "@/app/components/chips/chips";
 import { DragDropContext } from "react-beautiful-dnd";
 import { trpc } from "@/utils/trpc";
 import moment from "moment";
-import { useRef } from "react";
+
+import { reorderChips } from "@/app/Redux/featrues/chipSlice";
+import { useDispatch } from "react-redux";
+
+type DraggableResult = {
+  droppableId: string;
+  index: number;
+};
 
 export default function LifeGoals() {
+  const dispatch = useDispatch();
+
   const fetchOneUser = trpc.getOneUser.useQuery();
 
   const { data: userData } = fetchOneUser;
@@ -40,20 +49,22 @@ export default function LifeGoals() {
   //   return result;
   // };
 
-  // const onDragEnd = (result: any) => {
-  //   const { source, destination } = result;
-  //   // console.log(result, "res");
-  //   // if (!result.destination) return;
-  //   // //change position
-  //   // // const items = reorder(state, result.source.index, result.destination.index);
-  //   // // setState(items);
-  //   // //move
-  //   if (source.droppableId === destination.droppableId) {
-  //     const items = reorder(state, source.index, destination.index);
-  //     setState(items);
-  //   }
+  const onDragEnd = (result: any) => {
+    const { source, destination } = result;
+    if (!destination) return;
 
-  // };
+    const sourceIndex = (source as DraggableResult).index;
+    const destinationIndex = (destination as DraggableResult).index;
+
+    if (source.droppableId === destination.droppableId) {
+      dispatch(
+        reorderChips({
+          sourceIndex: sourceIndex,
+          destinationIndex: destinationIndex,
+        })
+      );
+    }
+  };
 
   return (
     <div className=" bg-CharlestonGreen lg:bg-darkGunmetal lg:flex md:p-1">
@@ -101,7 +112,7 @@ export default function LifeGoals() {
           {/* chips */}
           <div className="bg-Crayola pl-[2rem]  lg:pr-[3.8rem] lg:pl-[3.8rem] lg:rounded-b-[1.4rem] ">
             <section className="pt-[2rem] sm:pr-[2rem] pb-[2rem] ">
-              <DragDropContext onDragEnd={() => console.log("")}>
+              <DragDropContext onDragEnd={onDragEnd}>
                 {chipsFromAgeArray}
               </DragDropContext>
             </section>

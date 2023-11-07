@@ -21,6 +21,8 @@ function Chip({ age, daysLeft, counter, index }: Props) {
   const dispatch = useDispatch();
   const tasks = useSelector((state: RootState) => state.chip); // Assuming "chip" is the slice name
 
+  console.log(tasks, "state");
+
   const addTags = (event: any) => {
     const activeInput = event.currentTarget.name;
 
