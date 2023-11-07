@@ -21,8 +21,6 @@ function Chip({ age, daysLeft, counter, index }: Props) {
   const dispatch = useDispatch();
   const tasks = useSelector((state: RootState) => state.chip); // Assuming "chip" is the slice name
 
-  console.log(tasks, "state");
-
   const addTags = (event: any) => {
     const activeInput = event.currentTarget.name;
 
@@ -54,7 +52,7 @@ function Chip({ age, daysLeft, counter, index }: Props) {
 
   return (
     <Droppable
-      droppableId={`ROOT-${index}`}
+      droppableId={`ROOT-${counter}`}
       type="group"
       direction="horizontal"
     >

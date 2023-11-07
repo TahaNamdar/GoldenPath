@@ -42,9 +42,17 @@ const chipSlice = createSlice({
       const [movedChip] = state.splice(sourceIndex, 1);
       state.splice(destinationIndex, 0, movedChip);
     },
+
+    changeAge: (state, action: PayloadAction<{ id: string; newAge: any }>) => {
+      const { id, newAge } = action.payload;
+      const chip = state.find((chip) => chip.id === id);
+      if (chip) {
+        chip.age = newAge;
+      }
+    },
   },
 });
 
-export const { addChip, removeChip, updateInput, reorderChips } =
+export const { addChip, removeChip, updateInput, reorderChips, changeAge } =
   chipSlice.actions;
 export default chipSlice.reducer;

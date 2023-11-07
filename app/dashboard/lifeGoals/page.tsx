@@ -5,8 +5,10 @@ import Chip from "@/app/components/chips/chips";
 import { DragDropContext } from "react-beautiful-dnd";
 import { trpc } from "@/utils/trpc";
 import moment from "moment";
+import { RootState } from "@/app/Redux/store/store";
+import { useSelector } from "react-redux";
 
-import { reorderChips } from "@/app/Redux/featrues/chipSlice";
+import { reorderChips, changeAge } from "@/app/Redux/featrues/chipSlice";
 import { useDispatch } from "react-redux";
 
 type DraggableResult = {
@@ -16,6 +18,8 @@ type DraggableResult = {
 
 export default function LifeGoals() {
   const dispatch = useDispatch();
+
+  const state = useSelector((state: RootState) => state.chip); // Assuming "chip" is the slice name
 
   const fetchOneUser = trpc.getOneUser.useQuery();
 
@@ -41,20 +45,20 @@ export default function LifeGoals() {
     );
   }
 
-  // const reorder = (list: any, startIndex: any, endIndex: any) => {
-  //   const result = Array.from(list);
-  //   const [removed] = result.splice(startIndex, 1);
-  //   result.splice(endIndex, 0, removed);
-
-  //   return result;
-  // };
-
   const onDragEnd = (result: any) => {
     const { source, destination } = result;
     if (!destination) return;
 
     const sourceIndex = (source as DraggableResult).index;
     const destinationIndex = (destination as DraggableResult).index;
+
+    const dropArea = destination.droppableId.split("-")[1];
+
+    const draggableTaskId = state[sourceIndex].id;
+
+    if (source.droppableId !== destination.droppableId) {
+      dispatch(changeAge({ id: draggableTaskId, newAge: dropArea }));
+    }
 
     if (source.droppableId === destination.droppableId) {
       dispatch(
