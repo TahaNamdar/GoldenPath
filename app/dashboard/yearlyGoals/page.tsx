@@ -3,9 +3,26 @@
 import { useState } from "react";
 import DragSvg from "@/public/assets/Drag.svg";
 import SideBar from "@/app/components/sideBar/sideBar";
+import GoldenEditor from "@/app/components/goldenEditor/goldenEditor";
+import { useSelector } from "react-redux";
+import { RootState } from "@/app/Redux/store/store";
 
 export default function YearlyGoals() {
   const [isShown, setIsShown] = useState<boolean>(false);
+
+  const [priorities, setPriorities] = useState<{ id: any; text: string }[]>([]);
+
+  const favoriteHandler = (id: any, text: string) => {
+    const priorityCard = { id, text };
+
+    if (priorities.length > 6) return;
+
+    const doesCardExist = priorities.find((item) => item.id === id);
+
+    if (doesCardExist) return;
+
+    setPriorities((prevPriorities) => [...prevPriorities, priorityCard]);
+  };
 
   return (
     <div className="bg-CharlestonGreen lg:bg-darkGunmetal lg:flex md:p-1">
@@ -62,32 +79,35 @@ export default function YearlyGoals() {
           </p>
 
           <div className="md:flex md:flex-wrap">
-            <div className="md:w-1/2">
-              {" "}
-              <div
-                className="flex items-center mb-[1.6rem]"
-                onMouseEnter={() => setIsShown(true)}
-                onMouseLeave={() => setIsShown(false)}
-              >
-                <div className="p-4 text-center bg-darkGunmetal mr-[1rem] rounded-large  pt-[1.1rem] pb-[1.1rem] md:pt-[2rem] md:pb[2rem] pr-[1.1rem] pl-[1.1rem] w-[5.4rem] text-2xl text-white">
-                  1
-                </div>
-                <div className="rounded-[1.4rem]  bg-darkGunmetal w-full md:w-9/12 ">
-                  <div className="pl-[1rem] md:pl-[2.2rem] flex items-center">
-                    {isShown ? (
-                      <div>
-                        <DragSvg />{" "}
+            {priorities.map((item, index) => {
+              return (
+                <div className="md:w-1/2">
+                  <div
+                    className="flex items-center mb-[1.6rem]"
+                    onMouseEnter={() => setIsShown(true)}
+                    onMouseLeave={() => setIsShown(false)}
+                  >
+                    <div className="p-4 text-center bg-darkGunmetal mr-[1rem] rounded-large  pt-[1.1rem] pb-[1.1rem] md:pt-[2rem] md:pb[2rem] pr-[1.1rem] pl-[1.1rem] w-[5.4rem] text-2xl text-white">
+                      {index + 1}
+                    </div>
+                    <div className="rounded-[1.4rem]  bg-darkGunmetal w-full md:w-9/12 ">
+                      <div className="pl-[1rem] md:pl-[2.2rem] flex items-center">
+                        {isShown ? (
+                          <div>
+                            <DragSvg />{" "}
+                          </div>
+                        ) : (
+                          <div className="w-[1.1rem]"></div>
+                        )}
+                        <p className="text-gold font-normal text-[1.3rem] md:text-2xl pt-[1.3rem] ml-[2.1rem] pb-[1.3rem] sm:pr-[16rem] md:pt-[1.8rem] md:ml-[1.7rem] md:pb-[1.5rem] md:pr-[0.4rem] lg:pt-[2rem] lg:ml-[2.1rem] lg:pb-[2.1rem] lg:pr-[0]">
+                          {item.text}
+                        </p>
                       </div>
-                    ) : (
-                      <div className="w-[1.1rem]"></div>
-                    )}
-                    <p className="text-gold font-normal text-[1.3rem] md:text-2xl pt-[1.3rem] ml-[2.1rem] pb-[1.3rem] sm:pr-[16rem] md:pt-[1.8rem] md:ml-[1.7rem] md:pb-[1.5rem] md:pr-[0.4rem] lg:pt-[2rem] lg:ml-[2.1rem] lg:pb-[2.1rem] lg:pr-[0]">
-                      transform 2232$ to usdt
-                    </p>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </div>
+              );
+            })}
           </div>
         </div>
         {/* Activities */}
@@ -103,6 +123,10 @@ export default function YearlyGoals() {
           </div>
         </div>
         {/* notion */}
+
+        <div className="flex flex-wrap justify-between">
+          <GoldenEditor onFavoriteHandler={favoriteHandler} />
+        </div>
       </div>
     </div>
   );

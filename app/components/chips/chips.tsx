@@ -17,7 +17,7 @@ type Props = {
   index: number;
 };
 
-function Chip({ age, daysLeft, counter, index }: Props) {
+function Chip({ age = "", daysLeft = "", counter, index }: Props) {
   const dispatch = useDispatch();
   const tasks = useSelector((state: RootState) => state.chip); // Assuming "chip" is the slice name
 

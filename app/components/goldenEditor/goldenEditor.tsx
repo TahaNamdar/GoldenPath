@@ -13,7 +13,11 @@ interface Input {
   isFavorite: boolean;
 }
 
-const GoldenEditor = () => {
+const GoldenEditor = ({
+  onFavoriteHandler,
+}: {
+  onFavoriteHandler: (id: any, text: string) => void;
+}) => {
   const uniqueId = uuidv4();
 
   const [inputs, setInputs] = useState<Input[]>([
@@ -23,6 +27,8 @@ const GoldenEditor = () => {
 
   const [backSpace, setBackSpace] = useState<boolean>(false);
   const [focusOnTitle, setFocusOnTitle] = useState<boolean>(false);
+
+  const [flag, setFlag] = useState<boolean>(false);
 
   useEffect(() => {
     if (focusOnTitle) return;
@@ -44,7 +50,6 @@ const GoldenEditor = () => {
       });
     });
   };
-
 
   const handleKeyDown = (e: any, ID: number) => {
     setFocusOnTitle(false);
@@ -91,6 +96,7 @@ const GoldenEditor = () => {
     setInputs((prevInputs) => {
       return prevInputs.map((input) => {
         if (input.id === id) {
+          onFavoriteHandler(input.id, input.value);
           return {
             ...input,
             isFavorite: !input.isFavorite,
@@ -125,7 +131,7 @@ const GoldenEditor = () => {
   };
 
   return (
-    <div className="bg-darkGunmetal rounded-sm p-10 text-white w-[240px] h-[240px]">
+    <div className="bg-Crayola rounded-[14px] p-10 text-white 3xl:w-[350px] 3xl:h-[299px] ">
       <DragDropContext onDragEnd={handleDragDrop}>
         <input
           type="text"
@@ -135,7 +141,12 @@ const GoldenEditor = () => {
         />
         <Droppable droppableId="ROOT" type="group">
           {(provided) => (
-            <div {...provided.droppableProps} ref={provided.innerRef}>
+            <div
+              {...provided.droppableProps}
+              ref={provided.innerRef}
+              onMouseEnter={() => setFlag(true)}
+              onMouseLeave={() => setFlag(false)}
+            >
               {inputs.map((input: any, index: number) => (
                 <Draggable
                   draggableId={input.id.toString()}
@@ -145,7 +156,7 @@ const GoldenEditor = () => {
                   {(provided) => (
                     <div
                       key={input.id}
-                      className="flex items-center mb-3 bg-black p-2"
+                      className="flex items-center mb-3  p-2"
                       {...provided.dragHandleProps}
                       {...provided.draggableProps}
                       ref={provided.innerRef}
@@ -153,7 +164,9 @@ const GoldenEditor = () => {
                       <input
                         checked={input.checked}
                         type="checkbox"
-                        className="mr-4"
+                        className={`${
+                          flag ? "block" : "hidden"
+                        } mr-4 w-[20px] h-[20px] cursor-pointer  bg-black border-gray-300 rounded focus:ring-blue-500 focus:ring-2 dark:bg-gray-700 `}
                         onChange={() => handleChecked(input.id)}
                       />
                       <input
@@ -173,11 +186,16 @@ const GoldenEditor = () => {
                         onKeyDown={(e) => handleKeyDown(e, input.id)}
                         className={
                           input.checked
-                            ? "line-through placeholder-white bg-transparent outline-none"
-                            : "placeholder-white bg-transparent outline-none"
+                            ? "line-through placeholder-white w-[90%] bg-transparent outline-none mr-[6px] "
+                            : "placeholder-white bg-transparent outline-none w-[90%] mr-[6px]"
                         }
                       />
-                      <h1 onClick={() => favoriteHandler(input.id)}>Star</h1>
+                      <div
+                        className={`${flag ? "block" : "hidden"}`}
+                        onClick={() => favoriteHandler(input.id)}
+                      >
+                        Star
+                      </div>
                     </div>
                   )}
                 </Draggable>
