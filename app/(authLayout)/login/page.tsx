@@ -18,6 +18,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useRouter } from "next/navigation";
 import { ToastContainer, toast } from "react-toastify";
+import Link from "next/link";
 
 const schema = yup
   .object({
@@ -151,9 +152,18 @@ export default function Login() {
                 {errors.password?.message}
               </p>
             </div>
-            <div>
-              <p className="text-danger text-base sm:text-2xl cursor-pointer mb-[9rem] md:mb-[7.8rem] xl:mb-[9rem]">
-                forget password
+            <div className="flex justify-between items-center mb-[9rem] md:mb-[7.8rem] xl:mb-[9rem]">
+              <p className="text-white text-[10px] lg:text-base ">
+                You Don't Have An Account ?{" "}
+                <Link
+                  href="/register"
+                  className="cursor-pointer text-chipColor"
+                >
+                  Register Here
+                </Link>
+              </p>
+              <p className="text-white text-[10px] lg:text-base cursor-pointer ">
+                Forget Password ?
               </p>
             </div>
             <div className="text-right mb-[3.9rem]">

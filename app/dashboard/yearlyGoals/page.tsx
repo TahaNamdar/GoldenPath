@@ -4,8 +4,6 @@ import { useState } from "react";
 import DragSvg from "@/public/assets/Drag.svg";
 import SideBar from "@/app/components/sideBar/sideBar";
 import GoldenEditor from "@/app/components/goldenEditor/goldenEditor";
-import { useSelector } from "react-redux";
-import { RootState } from "@/app/Redux/store/store";
 
 export default function YearlyGoals() {
   const [isShown, setIsShown] = useState<boolean>(false);
@@ -81,7 +79,7 @@ export default function YearlyGoals() {
           <div className="md:flex md:flex-wrap">
             {priorities.map((item, index) => {
               return (
-                <div className="md:w-1/2">
+                <div className="md:w-1/2" key={index}>
                   <div
                     className="flex items-center mb-[1.6rem]"
                     onMouseEnter={() => setIsShown(true)}

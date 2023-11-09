@@ -144,11 +144,7 @@ export default function Register() {
                 {errors.password?.message}
               </p>
             </div>
-            <div>
-              <p className="text-danger text-base sm:text-2xl cursor-pointer mb-[9rem] md:mb-[7.8rem] xl:mb-[9rem]">
-                forget password
-              </p>
-            </div>
+            <div className="mb-[9rem] md:mb-[7.8rem] xl:mb-[9rem]"></div>
             <div className="text-right mb-[3.9rem]">
               <input
                 value="Register"

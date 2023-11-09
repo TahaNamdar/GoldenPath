@@ -592,6 +592,10 @@ html {
   pointer-events: auto;
 }
 
+.visible {
+  visibility: visible;
+}
+
 .\!invisible {
   visibility: hidden !important;
 }
@@ -1076,6 +1080,10 @@ html {
   margin-bottom: 60px;
 }
 
+.mb-\[6px\] {
+  margin-bottom: 6px;
+}
+
 .mb-\[7\.4rem\] {
   margin-bottom: 7.4rem;
 }
@@ -1178,6 +1186,10 @@ html {
 
 .mr-\[1\.7rem\] {
   margin-right: 1.7rem;
+}
+
+.mr-\[10px\] {
+  margin-right: 10px;
 }
 
 .mr-\[12px\] {
@@ -1338,10 +1350,6 @@ html {
 
 .h-\[1px\] {
   height: 1px;
-}
-
-.h-\[20px\] {
-  height: 20px;
 }
 
 .h-\[370px\] {
@@ -1535,10 +1543,6 @@ html {
 
 .w-\[209px\] {
   width: 209px;
-}
-
-.w-\[20px\] {
-  width: 20px;
 }
 
 .w-\[22rem\] {
@@ -2248,11 +2252,6 @@ html {
 .border-deep-purple-500 {
   --tw-border-opacity: 1;
   border-color: rgb(103 58 183 / var(--tw-border-opacity));
-}
-
-.border-gray-300 {
-  --tw-border-opacity: 1;
-  border-color: rgb(224 224 224 / var(--tw-border-opacity));
 }
 
 .border-gray-900 {
@@ -3234,6 +3233,10 @@ html {
   padding-left: 0.8rem;
 }
 
+.pl-\[0px\] {
+  padding-left: 0px;
+}
+
 .pl-\[1\.1rem\] {
   padding-left: 1.1rem;
 }
@@ -3272,6 +3275,10 @@ html {
 
 .pl-\[2\.8rem\] {
   padding-left: 2.8rem;
+}
+
+.pl-\[20px\] {
+  padding-left: 20px;
 }
 
 .pl-\[2rem\] {
@@ -3566,6 +3573,10 @@ html {
   font-size: 1.8rem;
 }
 
+.text-\[10px\] {
+  font-size: 10px;
+}
+
 .text-\[11px\] {
   font-size: 11px;
 }
@@ -3768,6 +3779,11 @@ html {
 .text-brown-900 {
   --tw-text-opacity: 1;
   color: rgb(62 39 35 / var(--tw-text-opacity));
+}
+
+.text-chipColor {
+  --tw-text-opacity: 1;
+  color: rgb(197 162 255 / var(--tw-text-opacity));
 }
 
 .text-copyRightColor {
@@ -4441,6 +4457,83 @@ input:-webkit-autofill:active {
 
 input[data-autocompleted] {
   background-color: transparent !important;
+}
+
+.containerCheckbox {
+  display: block;
+  position: relative;
+  padding-left: 22px;
+  margin-bottom: 22px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+
+.containerCheckbox input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom checkbox */
+
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 24px;
+  width: 24px;
+  background-color: #31353e;
+  border: 1.5px solid white;
+  border-radius: 6px;
+}
+
+/* On mouse-over, add a grey background color */
+
+.containerCheckbox:hover input ~ .checkmark {
+  background-color: #31353e;
+  border: 1px solid white;
+  border-radius: 6px;
+}
+
+/* When the checkbox is checked, add a blue background */
+
+.containerCheckbox input:checked ~ .checkmark {
+  background-color: #31353e;
+  border: 1px solid white;
+  border-radius: 6px;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+
+.containerCheckbox input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+
+.containerCheckbox .checkmark:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
 }
 
 .before\:pointer-events-none::before {
@@ -5800,12 +5893,6 @@ input[data-autocompleted] {
   box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
 }
 
-.focus\:ring-2:focus {
-  --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
-  --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);
-  box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
-}
-
 .focus\:ring-amber-200:focus {
   --tw-ring-opacity: 1;
   --tw-ring-color: rgb(255 224 130 / var(--tw-ring-opacity));
@@ -5814,11 +5901,6 @@ input[data-autocompleted] {
 .focus\:ring-blue-200:focus {
   --tw-ring-opacity: 1;
   --tw-ring-color: rgb(144 202 249 / var(--tw-ring-opacity));
-}
-
-.focus\:ring-blue-500:focus {
-  --tw-ring-opacity: 1;
-  --tw-ring-color: rgb(33 150 243 / var(--tw-ring-opacity));
 }
 
 .focus\:ring-blue-gray-200:focus {
@@ -6891,11 +6973,6 @@ input[data-autocompleted] {
   color: rgb(96 125 139 / var(--tw-text-opacity));
 }
 
-:is(.dark .dark\:bg-gray-700) {
-  --tw-bg-opacity: 1;
-  background-color: rgb(97 97 97 / var(--tw-bg-opacity));
-}
-
 @media (min-width: 540px) {
   .sm\:relative {
     position: relative;
@@ -7776,6 +7853,10 @@ input[data-autocompleted] {
 
   .lg\:text-\[20px\] {
     font-size: 20px;
+  }
+
+  .lg\:text-base {
+    font-size: 1.4rem;
   }
 
   .lg\:backdrop-blur-\[29px\] {
