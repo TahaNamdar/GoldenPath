@@ -16,10 +16,23 @@ export default function YearlyGoals() {
     if (priorities.length > 6) return;
 
     const doesCardExist = priorities.find((item) => item.id === id);
+    const doesCardExistText = priorities.find((item) => item.text === text);
 
-    if (doesCardExist) return;
+    if (doesCardExist || doesCardExistText) return;
 
     setPriorities((prevPriorities) => [...prevPriorities, priorityCard]);
+  };
+
+  const [componentInstances, setComponentInstances] = useState([
+    <GoldenEditor key={Date.now()} onFavoriteHandler={favoriteHandler} />,
+  ]);
+
+  const handleAddComponent = () => {
+    const newComponentInstances = [
+      ...componentInstances,
+      <GoldenEditor key={Date.now()} onFavoriteHandler={favoriteHandler} />,
+    ];
+    setComponentInstances(newComponentInstances);
   };
 
   return (
@@ -28,7 +41,7 @@ export default function YearlyGoals() {
       <SideBar />
       {/* Yearly Goals */}
 
-      <div className="flex-1  bg-CharlestonGreen rounded-md pl-[2rem] pr-[2rem] md:pl-[3.7rem] md:pr-[4.6rem] h-screen lg:h-auto">
+      <div className="flex-1  bg-CharlestonGreen rounded-md pl-[2rem] pr-[2rem] md:pl-[3.7rem] md:pr-[4.6rem] h-auto pb-[60px] lg:pb-[unset]">
         <div className="lg:flex items-center justify-between mb-[3.7rem] mt-[4.5rem]">
           <div>
             <p className="text-3xl mb-[1.4rem]  md:text-4xl text-white font-medium md:mb-2">
@@ -85,10 +98,10 @@ export default function YearlyGoals() {
                     onMouseEnter={() => setIsShown(true)}
                     onMouseLeave={() => setIsShown(false)}
                   >
-                    <div className="p-4 text-center bg-darkGunmetal mr-[1rem] rounded-large  pt-[1.1rem] pb-[1.1rem] md:pt-[2rem] md:pb[2rem] pr-[1.1rem] pl-[1.1rem] w-[5.4rem] text-2xl text-white">
+                    <div className="p-4 text-center bg-darkGunmetal mr-[1rem] rounded-large  pt-[1.1rem] pb-[1.1rem] md:p-[2rem]  pr-[1.1rem] pl-[1.1rem] w-[5.4rem] text-2xl text-white">
                       {index + 1}
                     </div>
-                    <div className="rounded-[1.4rem]  bg-darkGunmetal w-full md:w-9/12 ">
+                    <div className="rounded-[1.4rem]  bg-darkGunmetal w-full md:w-9/12 xl:w-10/12 ">
                       <div className="pl-[1rem] md:pl-[2.2rem] flex items-center">
                         {isShown ? (
                           <div>
@@ -122,8 +135,20 @@ export default function YearlyGoals() {
         </div>
         {/* notion */}
 
-        <div className="flex flex-wrap justify-between">
-          <GoldenEditor onFavoriteHandler={favoriteHandler} />
+        <div className="md:flex md:flex-wrap">
+          {componentInstances.map((Component, index) => (
+            <div key={index}>{Component}</div>
+          ))}
+          <div
+            className="bg-Crayola cursor-pointer rounded-[14px] p-10 text-white  md:w-[310px] xl:w-[330px] 3xl:w-[350px] h-[160px] 3xl:mr-[20px] lg:mb-[20px]"
+            onClick={handleAddComponent}
+          >
+            <p className="text-editor text-[20px]  mb-[6px]">Add Dimension</p>
+            <p className="text-editor text-[16px]">
+              Tap here to add a new dimension, such as University, Health,
+              Bussiness etc...
+            </p>
+          </div>
         </div>
       </div>
     </div>

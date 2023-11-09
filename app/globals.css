@@ -62,9 +62,9 @@ input[data-autocompleted] {
 
 /* When the checkbox is checked, add a blue background */
 .containerCheckbox input:checked ~ .checkmark {
-  background-color: #31353e;
-  border: 1px solid white;
+  background-color: #3c414c;
   border-radius: 6px;
+  border: none;
 }
 
 /* Create the checkmark/indicator (hidden when not checked) */

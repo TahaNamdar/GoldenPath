@@ -205,8 +205,32 @@ const GoldenEditor = ({
     }
   };
 
+  const getClassName = (input: any) => {
+    let className = "";
+
+    if (input.isFavorite === true) {
+      className += "text-gold ";
+    }
+
+    if (input.checked) {
+      className +=
+        "line-through placeholder-editor text-editor text-[16px] w-[90%] bg-transparent outline-none mr-[6px] ";
+    } else {
+      className +=
+        "placeholder-white bg-transparent  outline-none text-[16px] w-[90%] mr-[6px] ";
+    }
+
+    if (input.subTask === true) {
+      className += "pl-[20px]";
+    } else {
+      className += "pl-[0px]";
+    }
+
+    return className;
+  };
+
   return (
-    <div className="bg-Crayola rounded-[14px] p-10 text-white 3xl:w-[350px] 3xl:h-[299px] ">
+    <div className="bg-Crayola rounded-[14px] p-10 text-white w-full md:w-[310px] xl:w-[330px] 3xl:w-[350px]  h-[290px] 3xl:h-[299px] md:mr-[20px] mb-[20px]">
       <DragDropContext onDragEnd={handleDragDrop}>
         <input
           type="text"
@@ -225,7 +249,6 @@ const GoldenEditor = ({
                 >
                   {(provided) => {
                     const isVisible = input.visible; // Assuming input.visible controls visibility
-                    const subTask = input.subTask;
                     return (
                       <div
                         key={input.id}
@@ -238,7 +261,7 @@ const GoldenEditor = ({
                       >
                         <div
                           className={`${
-                            isVisible ? "visible" : "hidden"
+                            isVisible ? "md:visible" : "hidden"
                           } mr-[10px]`}
                         >
                           <DragIcon />
@@ -274,19 +297,7 @@ const GoldenEditor = ({
                             setInputs(updatedInputs);
                           }}
                           onKeyDown={(e) => handleKeyDown(e, input.id)}
-                          className={`
-                            ${
-                              input.checked
-                                ? "line-through placeholder-white w-[90%] bg-transparent outline-none mr-[6px] "
-                                : "placeholder-white bg-transparent outline-none w-[90%] mr-[6px]"
-                            }
-                            ${
-                              input.isFavorite === true
-                                ? "text-gold"
-                                : "text-white"
-                            }
-                            ${subTask === true ? "pl-[20px]" : "pl-[0px]"}
-                          `}
+                          className={getClassName(input)}
                         />
                         <div
                           className={`${isVisible ? "visible" : "hidden"}`}
