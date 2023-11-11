@@ -16,19 +16,9 @@ module.exports = withMT({
     },
 
     colors: {
-      // lightMode
-      mango: "#FDC929",
-      purple: "#7763AB",
       white: "#FFFFFF",
       orchid: "#D19CC7",
       black: "#000001",
-      lightBlue: "#7344FF",
-      lavender: "#8B44FF",
-      blueViolet: "#56418C",
-      smoke: "#F9F7FF",
-      electricIndigo: "#6C02F3",
-      lightBlack: "#000000a8",
-      // darkMode
       deepViolet: { 100: "#300051", 200: "#3B0065" },
       darkGunmetal: "#1D212A",
       CharlestonGreen: "#242831",
@@ -52,6 +42,7 @@ module.exports = withMT({
       footerColor: "#ffffff99",
       copyRightColor: "#ffffff5e",
       smallBox: "#3131318a",
+      editor: "#ffffff7d",
     },
     fontSize: {
       sm: "1.2rem",
