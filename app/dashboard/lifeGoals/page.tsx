@@ -22,8 +22,18 @@ export default function LifeGoals() {
   const state = useSelector((state: RootState) => state.chip); // Assuming "chip" is the slice name
 
   const fetchOneUser = trpc.getOneUser.useQuery();
+  const getLifeGoals = trpc.getLifeGoals.useQuery();
 
   const { data: userData } = fetchOneUser;
+  // const { data: lifeGoalsData } = getLifeGoals;
+
+  const mutation = trpc.createLifeGoal.useMutation();
+
+  const create = () => {
+    const res = mutation.mutate({ age: 11 });
+  };
+
+  // console.log(lifeGoalsData, "data");
 
   function getAge(dateString: string) {
     const date = moment(dateString, "YYYY-MM-DD");
@@ -84,6 +94,7 @@ export default function LifeGoals() {
               this page is for you to detaily make tasks for your self untill
               your next birthday
             </p>{" "}
+            <button onClick={() => create()}>testtttttt</button>
           </div>
 
           {/* mobile  */}

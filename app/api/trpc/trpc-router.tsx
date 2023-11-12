@@ -5,6 +5,7 @@ import { hash } from "argon2";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { verify } from "argon2";
+import { trpc } from "@/utils/trpc";
 
 const t = initTRPC.create({
   transformer: superjson,
@@ -19,8 +20,11 @@ export const appRouter = t.router({
       })
     )
     .mutation(async ({ input, ctx }) => {
-      const { email, password } = input;
 
+      try {
+
+        const { email, password } = input;
+        
       const exists = await (ctx as any).prisma.user.findFirst({
         where: { email },
       });
@@ -34,8 +38,26 @@ export const appRouter = t.router({
 
       const hashedPassword = await hash(password);
 
+      const _LifeGoalDocuments = [];
+
+     
+
+
       const result = await (ctx as any).prisma.user.create({
         data: { email, password: hashedPassword },
+      });
+
+
+       for (let i = 1; i <= 100; i++) {
+        _LifeGoalDocuments.push({
+          userId: result.id,
+          age: i,
+          Chips: [],
+        });
+      }
+
+      await (ctx as any).prisma.LifeGoals.createMany({
+        data: _LifeGoalDocuments,
       });
 
       return {
@@ -43,6 +65,18 @@ export const appRouter = t.router({
         message: "Account created successfully",
         result: result.email,
       };
+
+
+      }
+       catch(e) {
+        console.log(e);
+
+
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "something went wrong. please try again late",
+        });
+       }
     }),
 
   // change email
@@ -164,6 +198,95 @@ export const appRouter = t.router({
       },
     });
   }),
+
+  /*
+    Life Goals
+
+    GET -> All
+    PUT -> age, chips
+  */
+
+  getLifeGoals: t.procedure.query(async ({ ctx }) => {
+    const session = await getServerSession(authOptions);
+    const id = (session as any).id;
+    const lifeGoals = await (ctx as any).prisma.LifeGoals.findUnique({
+      where: {
+        userId: id
+      }
+    });
+    return lifeGoals;
+  }),
+
+  createLifeGoal: t.procedure
+    .input(
+      z.object({
+        age: z.number(),
+      })
+    )
+    .mutation(async ({ input, ctx }) => {
+      const { age } = input;
+
+      const session = await getServerSession(authOptions);
+      const id = (session as any).id;
+
+      try {
+        const createResult = await (ctx as any).prisma.LifeGoals.create({
+          data: {
+            age,
+            userId: id,
+            Chips: [],
+          },
+        });
+
+        return createResult;
+      } catch (e) {
+        console.log(e);
+
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "something went wrong. please try again late",
+        });
+      }
+    }),
+
+  updateChips: t.procedure
+    .input(
+      z.object({
+        age: z.number(),
+        chips: z
+          .object({ id: z.string(), value: z.string(), age: z.number() })
+          .array(),
+      })
+    )
+    .mutation(async ({ input, ctx }) => {
+      const { age, chips } = input;
+
+      console.log(chips, "chips")
+
+
+      try {
+        const session = await getServerSession(authOptions);
+        const id = (session as any).id;
+
+        const result =  await (ctx as any).prisma.LifeGoals.update({
+          where: {
+            id: "6550ffc4de9aebd57640e35c"
+          },
+          data: {
+            Chips: chips
+          }
+        })
+
+        return result
+      }
+      catch(e) {
+        console.log(e);
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "something went wrong. please try again late",
+        });
+      }
+    }),
 });
 
 export type AppRouter = typeof appRouter;

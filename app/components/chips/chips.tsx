@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { Droppable, Draggable } from "react-beautiful-dnd";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { RootState } from "@/app/Redux/store/store";
+import { trpc } from "@/utils/trpc";
 import {
   addChip,
   removeChip,
@@ -18,23 +19,35 @@ type Props = {
 };
 
 function Chip({ age = "", daysLeft = "", counter, index }: Props) {
+  const [activeAge, setActiveAge] = useState(0);
   const dispatch = useDispatch();
   const tasks = useSelector((state: RootState) => state.chip); // Assuming "chip" is the slice name
 
+  // useEffect(() => {
+  //   mutation.mutate({
+  //     age: +activeAge,
+  //     chips: tasks,
+  //   });
+  // }, [tasks]);
+
+  
+
+  // const mutation = trpc.updateChips.useMutation();
+
   const addTags = (event: any) => {
-    const activeInput = event.currentTarget.name;
+    setActiveAge(event.target.name);
 
     if (event.key === "Enter" && event.currentTarget.value.trim() !== "") {
       const inputValue = event.currentTarget.value;
       const tagId = uuidv4();
 
-      dispatch(addChip({ id: tagId, value: inputValue, age: activeInput }));
+      dispatch(addChip({ id: tagId, value: inputValue, age: activeAge }));
 
       event.currentTarget.value = "";
     }
 
     if (event.key === "Backspace" && event.currentTarget.value == "") {
-      const filtered = tasks.find((task) => task.age === activeInput);
+      const filtered = tasks.find((task) => task.age === activeAge);
 
       if (filtered) {
         const lastChip = tasks[tasks.length - 1];
