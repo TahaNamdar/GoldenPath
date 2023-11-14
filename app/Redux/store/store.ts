@@ -2,12 +2,14 @@ import { configureStore } from "@reduxjs/toolkit";
 import toggleReducer from "../featrues/toggle/toggleSlice";
 import chipReducer from "../featrues/chipSlice";
 import editorReducer from "../featrues/editorSlice";
+import activeAgeReducer from "../featrues/activeAge";
 
 export const store = configureStore({
   reducer: {
     toggle: toggleReducer,
     chip: chipReducer,
     editor: editorReducer,
+    activeAge: activeAgeReducer,
   },
 });
 

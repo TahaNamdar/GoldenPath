@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import SideBar from "@/app/components/sideBar/sideBar";
 import Chip from "@/app/components/chips/chips";
 import { DragDropContext } from "react-beautiful-dnd";
@@ -7,7 +8,7 @@ import { trpc } from "@/utils/trpc";
 import moment from "moment";
 import { RootState } from "@/app/Redux/store/store";
 import { useSelector } from "react-redux";
-
+import { activeAgeFromStore } from "@/app/Redux/featrues/activeAge";
 import { reorderChips, changeAge } from "@/app/Redux/featrues/chipSlice";
 import { useDispatch } from "react-redux";
 
@@ -20,20 +21,11 @@ export default function LifeGoals() {
   const dispatch = useDispatch();
 
   const state = useSelector((state: RootState) => state.chip); // Assuming "chip" is the slice name
+  const activeAge = useSelector(activeAgeFromStore);
 
   const fetchOneUser = trpc.getOneUser.useQuery();
-  const getLifeGoals = trpc.getLifeGoals.useQuery();
 
   const { data: userData } = fetchOneUser;
-  // const { data: lifeGoalsData } = getLifeGoals;
-
-  const mutation = trpc.createLifeGoal.useMutation();
-
-  const create = () => {
-    const res = mutation.mutate({ age: 11 });
-  };
-
-  // console.log(lifeGoalsData, "data");
 
   function getAge(dateString: string) {
     const date = moment(dateString, "YYYY-MM-DD");
@@ -42,6 +34,15 @@ export default function LifeGoals() {
     const days = moment().diff(date.add(years, "years"), "days", false);
     return { years, days };
   }
+
+  const updateMutation = trpc.updateChips.useMutation();
+
+  useEffect(() => {
+    updateMutation.mutate({
+      age: +activeAge,
+      chips: state,
+    });
+  }, [state, activeAge]);
 
   const { days, years } = getAge(userData?.birthday);
 
@@ -94,7 +95,6 @@ export default function LifeGoals() {
               this page is for you to detaily make tasks for your self untill
               your next birthday
             </p>{" "}
-            <button onClick={() => create()}>testtttttt</button>
           </div>
 
           {/* mobile  */}
