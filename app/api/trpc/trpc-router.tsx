@@ -20,63 +20,53 @@ export const appRouter = t.router({
       })
     )
     .mutation(async ({ input, ctx }) => {
-
       try {
-
         const { email, password } = input;
-        
-      const exists = await (ctx as any).prisma.user.findFirst({
-        where: { email },
-      });
 
-      if (exists) {
-        throw new TRPCError({
-          code: "CONFLICT",
-          message: "User already exists.",
+        const exists = await (ctx as any).prisma.user.findFirst({
+          where: { email },
         });
-      }
 
-      const hashedPassword = await hash(password);
+        if (exists) {
+          throw new TRPCError({
+            code: "CONFLICT",
+            message: "User already exists.",
+          });
+        }
 
-      const _LifeGoalDocuments = [];
+        const hashedPassword = await hash(password);
 
-     
+        const _LifeGoalDocuments = [];
 
-
-      const result = await (ctx as any).prisma.user.create({
-        data: { email, password: hashedPassword },
-      });
-
-
-       for (let i = 1; i <= 100; i++) {
-        _LifeGoalDocuments.push({
-          userId: result.id,
-          age: i,
-          Chips: [],
+        const result = await (ctx as any).prisma.user.create({
+          data: { email, password: hashedPassword },
         });
-      }
 
-      await (ctx as any).prisma.LifeGoals.createMany({
-        data: _LifeGoalDocuments,
-      });
+        for (let i = 1; i <= 100; i++) {
+          _LifeGoalDocuments.push({
+            userId: result.id,
+            age: i,
+            Chips: [],
+          });
+        }
 
-      return {
-        status: 201,
-        message: "Account created successfully",
-        result: result.email,
-      };
+        await (ctx as any).prisma.LifeGoals.createMany({
+          data: _LifeGoalDocuments,
+        });
 
-
-      }
-       catch(e) {
+        return {
+          status: 201,
+          message: "Account created successfully",
+          result: result.email,
+        };
+      } catch (e) {
         console.log(e);
-
 
         throw new TRPCError({
           code: "INTERNAL_SERVER_ERROR",
           message: "something went wrong. please try again late",
         });
-       }
+      }
     }),
 
   // change email
@@ -211,8 +201,8 @@ export const appRouter = t.router({
     const id = (session as any).id;
     const lifeGoals = await (ctx as any).prisma.LifeGoals.findUnique({
       where: {
-        userId: id
-      }
+        userId: id,
+      },
     });
     return lifeGoals;
   }),
@@ -254,32 +244,30 @@ export const appRouter = t.router({
       z.object({
         age: z.number(),
         chips: z
-          .object({ id: z.string(), value: z.string(), age: z.number() })
+          .object({ id: z.string(), value: z.string(), age: z.string() })
           .array(),
       })
     )
     .mutation(async ({ input, ctx }) => {
       const { age, chips } = input;
+      const session = await getServerSession(authOptions);
+      const id = (session as any).id;
 
-      console.log(chips, "chips")
-
+      console.log(id, "id");
+      console.log(chips, "chips");
 
       try {
-        const session = await getServerSession(authOptions);
-        const id = (session as any).id;
-
-        const result =  await (ctx as any).prisma.LifeGoals.update({
+        const result = await (ctx as any).prisma.LifeGoals.update({
           where: {
-            id: "6550ffc4de9aebd57640e35c"
+            id: "6550ffc3de9aebd57640e35b",
           },
           data: {
-            Chips: chips
-          }
-        })
+            Chips: chips,
+          },
+        });
 
-        return result
-      }
-      catch(e) {
+        return result;
+      } catch (e) {
         console.log(e);
         throw new TRPCError({
           code: "INTERNAL_SERVER_ERROR",
