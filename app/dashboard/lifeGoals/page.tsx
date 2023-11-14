@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import SideBar from "@/app/components/sideBar/sideBar";
 import Chip from "@/app/components/chips/chips";
 import { DragDropContext } from "react-beautiful-dnd";
@@ -7,7 +8,7 @@ import { trpc } from "@/utils/trpc";
 import moment from "moment";
 import { RootState } from "@/app/Redux/store/store";
 import { useSelector } from "react-redux";
-
+import { activeAgeFromStore } from "@/app/Redux/featrues/activeAge";
 import { reorderChips, changeAge } from "@/app/Redux/featrues/chipSlice";
 import { useDispatch } from "react-redux";
 
@@ -20,6 +21,7 @@ export default function LifeGoals() {
   const dispatch = useDispatch();
 
   const state = useSelector((state: RootState) => state.chip); // Assuming "chip" is the slice name
+  const activeAge = useSelector(activeAgeFromStore);
 
   const fetchOneUser = trpc.getOneUser.useQuery();
 
@@ -32,6 +34,15 @@ export default function LifeGoals() {
     const days = moment().diff(date.add(years, "years"), "days", false);
     return { years, days };
   }
+
+  const updateMutation = trpc.updateChips.useMutation();
+
+  useEffect(() => {
+    updateMutation.mutate({
+      age: +activeAge,
+      chips: state,
+    });
+  }, [state, activeAge]);
 
   const { days, years } = getAge(userData?.birthday);
 

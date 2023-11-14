@@ -9,6 +9,7 @@ import {
   removeChip,
   updateInput,
 } from "@/app/Redux/featrues/chipSlice";
+import { setActiveAge } from "@/app/Redux/featrues/activeAge";
 
 type Props = {
   counter: number;
@@ -22,19 +23,21 @@ function Chip({ age = "", daysLeft = "", counter, index }: Props) {
   const tasks = useSelector((state: RootState) => state.chip); // Assuming "chip" is the slice name
 
   const addTags = (event: any) => {
-    const activeInput = event.currentTarget.name;
+    const currentAge = event.target.name;
+
+    dispatch(setActiveAge(currentAge));
 
     if (event.key === "Enter" && event.currentTarget.value.trim() !== "") {
       const inputValue = event.currentTarget.value;
       const tagId = uuidv4();
 
-      dispatch(addChip({ id: tagId, value: inputValue, age: activeInput }));
+      dispatch(addChip({ id: tagId, value: inputValue, age: currentAge }));
 
       event.currentTarget.value = "";
     }
 
     if (event.key === "Backspace" && event.currentTarget.value == "") {
-      const filtered = tasks.find((task) => task.age === activeInput);
+      const filtered = tasks.find((task) => task.age === currentAge);
 
       if (filtered) {
         const lastChip = tasks[tasks.length - 1];
