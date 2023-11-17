@@ -16,7 +16,7 @@ export const appRouter = t.router({
     .input(
       z.object({
         email: z.string().email(),
-        password: z.string().min(4).max(12),
+        password: z.string().min(8),
       })
     )
     .mutation(async ({ input, ctx }) => {
@@ -112,8 +112,8 @@ export const appRouter = t.router({
   changePassword: t.procedure
     .input(
       z.object({
-        oldPassword: z.string().min(4).max(12),
-        newPassword: z.string().min(4).max(12),
+        oldPassword: z.string().min(8),
+        newPassword: z.string().min(8),
       })
     )
     .mutation(async ({ input, ctx }) => {
@@ -197,14 +197,24 @@ export const appRouter = t.router({
   */
 
   getLifeGoals: t.procedure.query(async ({ ctx }) => {
-    const session = await getServerSession(authOptions);
-    const id = (session as any).id;
-    const lifeGoals = await (ctx as any).prisma.LifeGoals.findUnique({
-      where: {
-        userId: id,
-      },
-    });
-    return lifeGoals;
+    try {
+      const session = await getServerSession(authOptions);
+      const id = (session as any).id;
+      const lifeGoals = await (ctx as any).prisma.LifeGoals.findMany({
+        where: {
+          user: {
+            id,
+          },
+        },
+      });
+      return lifeGoals;
+    } catch (e) {
+      console.log(e);
+      throw new TRPCError({
+        code: "INTERNAL_SERVER_ERROR",
+        message: "something went wrong. please try again late",
+      });
+    }
   }),
 
   createLifeGoal: t.procedure
@@ -243,30 +253,95 @@ export const appRouter = t.router({
     .input(
       z.object({
         age: z.number(),
-        chips: z
-          .object({ id: z.string(), value: z.string(), age: z.string() })
-          .array(),
+        chip: z.object({ id: z.string(), value: z.string(), age: z.string() }),
       })
     )
     .mutation(async ({ input, ctx }) => {
-      const { age, chips } = input;
+      const { age, chip } = input;
       const session = await getServerSession(authOptions);
       const id = (session as any).id;
 
-      console.log(id, "id");
-      console.log(chips, "chips");
-
       try {
-        const result = await (ctx as any).prisma.LifeGoals.update({
+        /*
+
+                prisma.$transaction(async (tx) => {
+                    await tx.model.create({ data: { ... });
+                    await tx.model.findFirstOrThrow();
+                    })
+
+                */
+        const res = await (ctx as any).prisma.LifeGoals.findMany({
           where: {
-            id: "6550ffc3de9aebd57640e35b",
-          },
-          data: {
-            Chips: chips,
+            user: {
+              id,
+            },
+            userId: id,
+            age,
           },
         });
 
-        return result;
+        await (ctx as any).prisma.LifeGoals.updateMany({
+          where: {
+            user: {
+              id,
+            },
+            userId: id,
+            age,
+          },
+          data: {
+            Chips: {
+              set: [...res[0].Chips, chip],
+            },
+          },
+        });
+      } catch (e) {
+        console.log(e);
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "something went wrong. please try again late",
+        });
+      }
+    }),
+
+  deleteChips: t.procedure
+    .input(
+      z.object({
+        age: z.number(),
+        chipId: z.string(),
+      })
+    )
+    .mutation(async ({ input, ctx }) => {
+      const { age, chipId } = input;
+      const session = await getServerSession(authOptions);
+      const id = (session as any).id;
+
+      try {
+        const result = await (ctx as any).prisma.LifeGoals.findMany({
+          where: {
+            user: {
+              id,
+            },
+            userId: id,
+            age,
+          },
+        });
+
+        const newChip = (result[0].Chips.filter = (_chip: any) => {
+          return chipId !== _chip.id;
+        });
+
+        await (ctx as any).prisma.LifeGoals.updateMany({
+          where: {
+            user: {
+              id,
+            },
+            userId: id,
+            age,
+          },
+          data: {
+            Chips: newChip,
+          },
+        });
       } catch (e) {
         console.log(e);
         throw new TRPCError({

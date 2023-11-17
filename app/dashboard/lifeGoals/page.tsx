@@ -9,7 +9,11 @@ import moment from "moment";
 import { RootState } from "@/app/Redux/store/store";
 import { useSelector } from "react-redux";
 import { activeAgeFromStore } from "@/app/Redux/featrues/activeAge";
-import { reorderChips, changeAge } from "@/app/Redux/featrues/chipSlice";
+import {
+  reorderChips,
+  changeAge,
+  addChip,
+} from "@/app/Redux/featrues/chipSlice";
 import { useDispatch } from "react-redux";
 
 type DraggableResult = {
@@ -35,18 +39,25 @@ export default function LifeGoals() {
     return { years, days };
   }
 
-  const updateMutation = trpc.updateChips.useMutation();
-
-  useEffect(() => {
-    updateMutation.mutate({
-      age: +activeAge,
-      chips: state,
-    });
-  }, [state, activeAge]);
-
   const { days, years } = getAge(userData?.birthday);
 
   const limit = years + 7;
+
+  const fetchLifeGoals = trpc.getLifeGoals.useQuery();
+
+  const { data: lifeData, isSuccess } = fetchLifeGoals;
+
+  useEffect(() => {
+    if (isSuccess) {
+      const result = lifeData.slice(0, limit);
+      console.log(result, "res");
+      result.map((item: any, _: any) => {
+        return item.Chips.map((chip: any) => {
+          return dispatch(addChip(chip));
+        });
+      });
+    }
+  }, [isSuccess]);
 
   const chipsFromAgeArray = [];
 
@@ -60,8 +71,27 @@ export default function LifeGoals() {
     const { source, destination } = result;
     if (!destination) return;
 
+    /*
+        1. add value to destination age
+        2. remove value from source age
+
+        updateChips({age: destination.age, chip: source.value })
+        deleteChips({age: source.age, id: "sdygasdyugasdyugsdyuags"})
+
+      
+        */
+
     const sourceIndex = (source as DraggableResult).index;
     const destinationIndex = (destination as DraggableResult).index;
+
+    const convertSourceDroppableIdToNumber = source.droppableId.split("-")[1];
+    const convertDestinationDroppableIdToNumber =
+      destination.droppableId.split("-")[1];
+
+    console.log(state, "state");
+
+    console.log(state[+convertSourceDroppableIdToNumber], "age drag");
+    console.log(state[+convertDestinationDroppableIdToNumber], "age drop");
 
     const dropArea = destination.droppableId.split("-")[1];
 

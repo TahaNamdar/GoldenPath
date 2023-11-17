@@ -10,6 +10,7 @@ import {
   updateInput,
 } from "@/app/Redux/featrues/chipSlice";
 import { setActiveAge } from "@/app/Redux/featrues/activeAge";
+import { trpc } from "@/utils/trpc";
 
 type Props = {
   counter: number;
@@ -21,6 +22,7 @@ type Props = {
 function Chip({ age = "", daysLeft = "", counter, index }: Props) {
   const dispatch = useDispatch();
   const tasks = useSelector((state: RootState) => state.chip); // Assuming "chip" is the slice name
+  const updateChipMutation = trpc.updateChips.useMutation();
 
   const addTags = (event: any) => {
     const currentAge = event.target.name;
@@ -31,7 +33,14 @@ function Chip({ age = "", daysLeft = "", counter, index }: Props) {
       const inputValue = event.currentTarget.value;
       const tagId = uuidv4();
 
-      dispatch(addChip({ id: tagId, value: inputValue, age: currentAge }));
+      const chip = { id: tagId, value: inputValue, age: currentAge };
+
+      dispatch(addChip(chip));
+
+      updateChipMutation.mutate({
+        age: +currentAge,
+        chip,
+      });
 
       event.currentTarget.value = "";
     }
