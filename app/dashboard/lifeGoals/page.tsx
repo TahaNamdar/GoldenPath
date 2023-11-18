@@ -8,24 +8,18 @@ import { trpc } from "@/utils/trpc";
 import moment from "moment";
 import { RootState } from "@/app/Redux/store/store";
 import { useSelector } from "react-redux";
-import { activeAgeFromStore } from "@/app/Redux/featrues/activeAge";
 import {
+  setLifeGoals,
   reorderChips,
-  changeAge,
-  addChip,
+  removeFromSourceValue,
+  addToDestinationValue,
 } from "@/app/Redux/featrues/chipSlice";
 import { useDispatch } from "react-redux";
-
-type DraggableResult = {
-  droppableId: string;
-  index: number;
-};
 
 export default function LifeGoals() {
   const dispatch = useDispatch();
 
   const state = useSelector((state: RootState) => state.chip); // Assuming "chip" is the slice name
-  const activeAge = useSelector(activeAgeFromStore);
 
   const fetchOneUser = trpc.getOneUser.useQuery();
 
@@ -50,12 +44,7 @@ export default function LifeGoals() {
   useEffect(() => {
     if (isSuccess) {
       const result = lifeData.slice(0, limit);
-      console.log(result, "res");
-      result.map((item: any, _: any) => {
-        return item.Chips.map((chip: any) => {
-          return dispatch(addChip(chip));
-        });
-      });
+      dispatch(setLifeGoals(result));
     }
   }, [isSuccess]);
 
@@ -63,49 +52,63 @@ export default function LifeGoals() {
 
   for (let i = 0; i < limit; i++) {
     chipsFromAgeArray.push(
-      <Chip key={i} counter={i + 1} daysLeft={days} age={years} index={i} />
+      <Chip
+        key={i}
+        counter={i + 1}
+        daysLeft={days}
+        age={years}
+        index={i}
+        chips={state[i + 1]}
+      />
     );
   }
 
   const onDragEnd = (result: any) => {
-    const { source, destination } = result;
+    const { source, destination, draggableId } = result;
+
+    // 1. get destination age
+    const destinationAge = destination.droppableId.split("-")[1];
+    // 2. get source age
+    const sourceAge = source.droppableId.split("-")[1];
+    // 3. get destination value
+    const destinationValues = state[destinationAge];
+    // 4. get source value
+    const sourceValues = state[sourceAge];
+
+    const sourceValue = sourceValues.find(
+      (item: any) => item.id === draggableId
+    );
+
     if (!destination) return;
 
-    /*
-        1. add value to destination age
-        2. remove value from source age
-
-        updateChips({age: destination.age, chip: source.value })
-        deleteChips({age: source.age, id: "sdygasdyugasdyugsdyuags"})
-
-      
-        */
-
-    const sourceIndex = (source as DraggableResult).index;
-    const destinationIndex = (destination as DraggableResult).index;
-
-    const convertSourceDroppableIdToNumber = source.droppableId.split("-")[1];
-    const convertDestinationDroppableIdToNumber =
-      destination.droppableId.split("-")[1];
-
-    console.log(state, "state");
-
-    console.log(state[+convertSourceDroppableIdToNumber], "age drag");
-    console.log(state[+convertDestinationDroppableIdToNumber], "age drop");
-
-    const dropArea = destination.droppableId.split("-")[1];
-
-    const draggableTaskId = state[sourceIndex].id;
-
-    if (source.droppableId !== destination.droppableId) {
-      dispatch(changeAge({ id: draggableTaskId, newAge: dropArea }));
-    }
-
+    //active age
+    const activeAge = source.droppableId.split("-")[1];
+    //sorting in local age
     if (source.droppableId === destination.droppableId) {
       dispatch(
         reorderChips({
-          sourceIndex: sourceIndex,
-          destinationIndex: destinationIndex,
+          age: activeAge,
+          sourceIndex: source.index,
+          destinationIndex: destination.index,
+        })
+      );
+    }
+
+    //drag and drop between ages
+    if (source.droppableId !== destination.droppableId) {
+      // 5. remove sourceValue from sourceValues
+      dispatch(
+        removeFromSourceValue({
+          sourceValue: sourceValue,
+          sourceValues: sourceValues,
+        })
+      );
+      // 6. add sourceValue to destinationValues
+      dispatch(
+        addToDestinationValue({
+          destinationAge: destinationAge,
+          sourceValue: sourceValue,
+          destinationValues: destinationValues,
         })
       );
     }
