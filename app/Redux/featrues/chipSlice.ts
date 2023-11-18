@@ -1,58 +1,99 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-interface Chip {
+type Chip = {
   id: string;
   value: string;
   age: any;
+};
+
+interface ChipState {
+  [index: string]: Chip[];
 }
 
-interface ChipState extends Array<Chip> {}
+type LifeGoalResult = {
+  userId: string;
+  id: string;
+  age: string;
+  Chips: Chip[];
+};
 
-const initialState: ChipState = [];
+const initialState: ChipState = {};
 
 const chipSlice = createSlice({
   name: "chip",
   initialState,
   reducers: {
-    addChip: (state, action: PayloadAction<Chip>) => {
-      state.push(action.payload);
+    setLifeGoals: (state, action: PayloadAction<LifeGoalResult[]>) => {
+      const data = action.payload;
+
+      const normalizeData: any = {};
+      data.forEach((item) => {
+        const { age, Chips } = item;
+        normalizeData[age] = Chips;
+      });
+
+      return {
+        ...state,
+        ...normalizeData,
+      };
     },
 
-    updateInput: (
-      state,
-      action: PayloadAction<{ id: string; value: string }>
-    ) => {
-      const inputIndex = state.findIndex(
-        (input) => input.id === action.payload.id
-      );
-      if (inputIndex !== -1) {
-        state[inputIndex].value = action.payload.value;
-      }
+    addChip: (state, action: PayloadAction<Chip>) => {
+      const { id, age, value } = action.payload;
+      const chip = { id, age, value };
+      let chips = state[age];
+
+      chips.push(chip);
+      state[age] = chips;
     },
-    removeChip: (state, action: PayloadAction<string>) => {
-      return state.filter((chip) => chip.id !== action.payload);
+
+    removeChip: (state, action: PayloadAction<any>) => {
+      const { id, age } = action.payload;
+      const data = state[age];
+      const filteredData = data.filter((item) => item.id !== id);
+      state[age] = filteredData;
     },
 
     reorderChips: (
       state,
-      action: PayloadAction<{ sourceIndex: number; destinationIndex: number }>
+      action: PayloadAction<{
+        sourceIndex: number;
+        destinationIndex: number;
+        age: any;
+      }>
     ) => {
-      const { sourceIndex, destinationIndex } = action.payload;
+      const { sourceIndex, destinationIndex, age } = action.payload;
 
-      const [movedChip] = state.splice(sourceIndex, 1);
-      state.splice(destinationIndex, 0, movedChip);
+      const [movedChip] = state[age].splice(sourceIndex, 1);
+      state[age].splice(destinationIndex, 0, movedChip);
     },
 
-    changeAge: (state, action: PayloadAction<{ id: string; newAge: any }>) => {
-      const { id, newAge } = action.payload;
-      const chip = state.find((chip) => chip.id === id);
-      if (chip) {
-        chip.age = newAge;
-      }
+    removeFromSourceValue: (state, action: PayloadAction<any>) => {
+      const { sourceValue, sourceValues } = action.payload;
+
+      const updatedSourceValues = sourceValues.filter(
+        (item: any) => item.id !== sourceValue.id
+      );
+      // Update the state with the modified sourceValues
+      state[sourceValue.age] = updatedSourceValues;
+    },
+
+    addToDestinationValue: (state, action: PayloadAction<any>) => {
+      const { sourceValue, destinationValues, destinationAge } = action.payload;
+      state[destinationAge] = [
+        ...destinationValues,
+        { ...sourceValue, age: destinationAge },
+      ];
     },
   },
 });
 
-export const { addChip, removeChip, updateInput, reorderChips, changeAge } =
-  chipSlice.actions;
+export const {
+  addChip,
+  setLifeGoals,
+  removeChip,
+  reorderChips,
+  removeFromSourceValue,
+  addToDestinationValue,
+} = chipSlice.actions;
 export default chipSlice.reducer;

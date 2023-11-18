@@ -2,13 +2,8 @@ import React from "react";
 import { v4 as uuidv4 } from "uuid";
 import { Droppable, Draggable } from "react-beautiful-dnd";
 import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
-import { RootState } from "@/app/Redux/store/store";
-import {
-  addChip,
-  removeChip,
-  updateInput,
-} from "@/app/Redux/featrues/chipSlice";
+
+import { addChip, removeChip } from "@/app/Redux/featrues/chipSlice";
 import { setActiveAge } from "@/app/Redux/featrues/activeAge";
 import { trpc } from "@/utils/trpc";
 
@@ -17,12 +12,13 @@ type Props = {
   daysLeft?: any;
   age?: any;
   index: number;
+  chips?: any;
 };
 
-function Chip({ age = "", daysLeft = "", counter, index }: Props) {
+function Chip({ age = "", daysLeft = "", counter, index, chips }: Props) {
   const dispatch = useDispatch();
-  const tasks = useSelector((state: RootState) => state.chip); // Assuming "chip" is the slice name
   const updateChipMutation = trpc.updateChips.useMutation();
+  const deleteChipMutation = trpc.deleteChips.useMutation();
 
   const addTags = (event: any) => {
     const currentAge = event.target.name;
@@ -44,22 +40,20 @@ function Chip({ age = "", daysLeft = "", counter, index }: Props) {
 
       event.currentTarget.value = "";
     }
-
-    if (event.key === "Backspace" && event.currentTarget.value == "") {
-      const filtered = tasks.find((task) => task.age === currentAge);
-
-      if (filtered) {
-        const lastChip = tasks[tasks.length - 1];
+    if (event.key === "Backspace" && event.currentTarget.value === "") {
+      // Check if Backspace event corresponds to the correct input field
+      if (currentAge === event.currentTarget.name) {
+        const lastChip = chips[chips.length - 1];
 
         if (lastChip) {
-          dispatch(removeChip(lastChip.id));
+          dispatch(removeChip({ id: lastChip.id, age: currentAge }));
+          deleteChipMutation.mutate({
+            age: +currentAge,
+            chipId: lastChip.id,
+          });
         }
-      }
+      } else return;
     }
-  };
-
-  const handleInputChange = (id: string, value: string) => {
-    dispatch(updateInput({ id, value }));
   };
 
   return (
@@ -85,12 +79,12 @@ function Chip({ age = "", daysLeft = "", counter, index }: Props) {
           <div className="bg-darkGunmetal rounded-[1.4rem] w-4/5 sm:w-full ">
             <div className="pt-[1.2rem] pb-[0.8rem] pl-[1.8rem] relative flex">
               <div className="flex items-center flex-wrap w-11/12 lg:w-10/12  ">
-                {tasks.map((task, _index) => {
-                  if (task.age == counter) {
+                {chips &&
+                  chips.map((chip: any, _index: any) => {
                     return (
                       <Draggable
-                        draggableId={_index.toString()}
-                        key={_index}
+                        draggableId={chip.id}
+                        key={chip.id}
                         index={_index}
                       >
                         {(provided) => (
@@ -103,26 +97,22 @@ function Chip({ age = "", daysLeft = "", counter, index }: Props) {
                             <div
                               key={_index}
                               className={`bg-chipColor mb-[0.6rem] text-[1.4rem] lg:text-[1.8rem] mr-[0.8rem] lg:mr-[1.6rem] text-black rounded-[3.4rem] pt-[0.2rem] pb-[0.2rem] pr-[0.8rem] pl-[0.8rem] ${
-                                task.value == "" ? "hidden" : "block"
+                                chip.value == "" ? "hidden" : "block"
                               }`}
                             >
-                              {task.value}
+                              {chip.value}
                             </div>
                           </div>
                         )}
                       </Draggable>
                     );
-                  }
-                })}
+                  })}
 
                 <input
                   type="text"
                   placeholder="Type to add a goal..."
                   onKeyUp={addTags}
                   name={counter.toString()}
-                  onChange={(e) =>
-                    handleInputChange(counter.toString(), e.target.value)
-                  }
                   className="pr-[1.8rem] text-[1.4rem] lg:text-[1.8rem] w-[14rem] md:w-[unset] bg-darkGunmetal text-placeholder focus:outline-none placeholder-placeholder mb-[0.6rem] "
                 />
               </div>

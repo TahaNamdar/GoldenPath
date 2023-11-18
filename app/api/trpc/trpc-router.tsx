@@ -326,7 +326,9 @@ export const appRouter = t.router({
           },
         });
 
-        const newChip = (result[0].Chips.filter = (_chip: any) => {
+        
+
+        const newChip = result[0].Chips.filter((_chip: any) => {
           return chipId !== _chip.id;
         });
 
