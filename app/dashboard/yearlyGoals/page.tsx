@@ -10,17 +10,28 @@ export default function YearlyGoals() {
 
   const [priorities, setPriorities] = useState<{ id: any; text: string }[]>([]);
 
-  const favoriteHandler = (id: any, text: string) => {
-    const priorityCard = { id, text };
+  const favoriteHandler = (id: any, text: string, isFavorite: boolean) => {
+    const priorityCard = { id, text, isFavorite };
 
     if (priorities.length > 6) return;
 
-    const doesCardExist = priorities.find((item) => item.id === id);
-    const doesCardExistText = priorities.find((item) => item.text === text);
+    if (!isFavorite) {
+      setPriorities((prevPriorities) => {
+        const doesCardExist = prevPriorities.find((item) => item.id === id);
+        const doesCardExistText = prevPriorities.find(
+          (item) => item.text === text
+        );
 
-    if (doesCardExist || doesCardExistText) return;
+        if (doesCardExist || doesCardExistText) return prevPriorities;
 
-    setPriorities((prevPriorities) => [...prevPriorities, priorityCard]);
+        return [...prevPriorities, priorityCard];
+      });
+    } else {
+      setPriorities((prevPriorities: any) => {
+        const filtered = prevPriorities.filter((item: any) => item.id !== id);
+        return filtered;
+      });
+    }
   };
 
   const [componentInstances, setComponentInstances] = useState([
@@ -90,35 +101,36 @@ export default function YearlyGoals() {
           </p>
 
           <div className="md:flex md:flex-wrap">
-            {priorities.map((item, index) => {
-              return (
-                <div className="md:w-1/2" key={index}>
-                  <div
-                    className="flex items-center mb-[1.6rem]"
-                    onMouseEnter={() => setIsShown(true)}
-                    onMouseLeave={() => setIsShown(false)}
-                  >
-                    <div className="p-4 text-center bg-darkGunmetal mr-[1rem] rounded-large  pt-[1.1rem] pb-[1.1rem] md:p-[2rem]  pr-[1.1rem] pl-[1.1rem] w-[5.4rem] text-2xl text-white">
-                      {index + 1}
-                    </div>
-                    <div className="rounded-[1.4rem]  bg-darkGunmetal w-full md:w-9/12 xl:w-10/12 ">
-                      <div className="pl-[1rem] md:pl-[2.2rem] flex items-center">
-                        {isShown ? (
-                          <div>
-                            <DragSvg />{" "}
-                          </div>
-                        ) : (
-                          <div className="w-[1.1rem]"></div>
-                        )}
-                        <p className="text-gold font-normal text-[1.3rem] md:text-2xl pt-[1.3rem] ml-[2.1rem] pb-[1.3rem] sm:pr-[16rem] md:pt-[1.8rem] md:ml-[1.7rem] md:pb-[1.5rem] md:pr-[0.4rem] lg:pt-[2rem] lg:ml-[2.1rem] lg:pb-[2.1rem] lg:pr-[0]">
-                          {item.text}
-                        </p>
+            {priorities &&
+              priorities.map((item, index) => {
+                return (
+                  <div className="md:w-1/2" key={index}>
+                    <div
+                      className="flex items-center mb-[1.6rem]"
+                      onMouseEnter={() => setIsShown(true)}
+                      onMouseLeave={() => setIsShown(false)}
+                    >
+                      <div className="p-4 text-center bg-darkGunmetal mr-[1rem] rounded-large  pt-[1.1rem] pb-[1.1rem] md:p-[2rem]  pr-[1.1rem] pl-[1.1rem] w-[5.4rem] text-2xl text-white">
+                        {index + 1}
+                      </div>
+                      <div className="rounded-[1.4rem]  bg-darkGunmetal w-full md:w-9/12 xl:w-10/12 ">
+                        <div className="pl-[1rem] md:pl-[2.2rem] flex items-center">
+                          {isShown ? (
+                            <div>
+                              <DragSvg />{" "}
+                            </div>
+                          ) : (
+                            <div className="w-[1.1rem]"></div>
+                          )}
+                          <p className="text-gold font-normal text-[1.3rem] md:text-2xl pt-[1.3rem] ml-[2.1rem] pb-[1.3rem] sm:pr-[16rem] md:pt-[1.8rem] md:ml-[1.7rem] md:pb-[1.5rem] md:pr-[0.4rem] lg:pt-[2rem] lg:ml-[2.1rem] lg:pb-[2.1rem] lg:pr-[0]">
+                            {item.text}
+                          </p>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              );
-            })}
+                );
+              })}
           </div>
         </div>
         {/* Activities */}
@@ -135,12 +147,12 @@ export default function YearlyGoals() {
         </div>
         {/* notion */}
 
-        <div className="md:flex md:flex-wrap">
+        <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 3xl:grid-cols-4 gap-4">
           {componentInstances.map((Component, index) => (
             <div key={index}>{Component}</div>
           ))}
           <div
-            className="bg-Crayola cursor-pointer rounded-[14px] p-10 text-white  md:w-[310px] xl:w-[330px] 3xl:w-[350px] h-[160px] 3xl:mr-[20px] lg:mb-[20px]"
+            className="bg-Crayola cursor-pointer rounded-[14px] p-10 text-white w-full  lg:w-11/12 h-[160px] lg:h-[190px] 3xl:mr-[20px] lg:mb-[20px]"
             onClick={handleAddComponent}
           >
             <p className="text-editor text-[20px]  mb-[6px]">Add Dimension</p>

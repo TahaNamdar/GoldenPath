@@ -15,6 +15,7 @@ import {
   addToDestinationValue,
 } from "@/app/Redux/featrues/chipSlice";
 import { useDispatch } from "react-redux";
+import Loading from "@/app/components/loading/Loading";
 
 export default function LifeGoals() {
   const dispatch = useDispatch();
@@ -39,7 +40,7 @@ export default function LifeGoals() {
 
   const fetchLifeGoals = trpc.getLifeGoals.useQuery();
 
-  const { data: lifeData, isSuccess } = fetchLifeGoals;
+  const { data: lifeData, isSuccess, isLoading } = fetchLifeGoals;
 
   useEffect(() => {
     if (isSuccess) {
@@ -47,6 +48,10 @@ export default function LifeGoals() {
       dispatch(setLifeGoals(result));
     }
   }, [isSuccess]);
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   const chipsFromAgeArray = [];
 
@@ -59,6 +64,7 @@ export default function LifeGoals() {
         age={years}
         index={i}
         chips={state[i + 1]}
+        rows={state[i + 1]}
       />
     );
   }

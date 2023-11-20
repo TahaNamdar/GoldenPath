@@ -1405,6 +1405,14 @@ html {
   height: 100vh;
 }
 
+.h-\[240px\] {
+  height: 240px;
+}
+
+.h-\[190px\] {
+  height: 190px;
+}
+
 .max-h-96 {
   max-height: 24rem;
 }
@@ -1600,6 +1608,10 @@ html {
 
 .w-screen {
   width: 100vw;
+}
+
+.w-11 {
+  width: 2.75rem;
 }
 
 .min-w-\[100vw\] {
@@ -1850,6 +1862,10 @@ html {
           appearance: none;
 }
 
+.grid-cols-4 {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
 .flex-row {
   flex-direction: row;
 }
@@ -1904,6 +1920,16 @@ html {
 
 .gap-4 {
   gap: 1rem;
+}
+
+.gap-6 {
+  gap: 1.5rem;
+}
+
+.space-x-4 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-x-reverse: 0;
+  margin-right: calc(1rem * var(--tw-space-x-reverse));
+  margin-left: calc(1rem * calc(1 - var(--tw-space-x-reverse)));
 }
 
 .divide-x > :not([hidden]) ~ :not([hidden]) {
@@ -3262,6 +3288,10 @@ html {
   padding-bottom: 45px;
 }
 
+.pb-\[60px\] {
+  padding-bottom: 60px;
+}
+
 .pb-\[9px\] {
   padding-bottom: 9px;
 }
@@ -3552,10 +3582,6 @@ html {
 
 .pt-px {
   padding-top: 1px;
-}
-
-.pb-\[60px\] {
-  padding-bottom: 60px;
 }
 
 .text-left {
@@ -7197,8 +7223,16 @@ input[data-autocompleted] {
     width: 100%;
   }
 
-  .sm\:w-\[280px\] {
-    width: 280px;
+  .sm\:w-11\/12 {
+    width: 91.666667%;
+  }
+
+  .sm\:grid-cols-12 {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+  }
+
+  .sm\:grid-cols-1 {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
   }
 
   .sm\:flex-row-reverse {
@@ -7409,16 +7443,16 @@ input[data-autocompleted] {
     margin-top: 4.5rem;
   }
 
-  .md\:mr-\[20px\] {
-    margin-right: 20px;
-  }
-
   .md\:block {
     display: block;
   }
 
   .md\:flex {
     display: flex;
+  }
+
+  .md\:grid {
+    display: grid;
   }
 
   .md\:hidden {
@@ -7473,6 +7507,10 @@ input[data-autocompleted] {
     width: 28.6rem;
   }
 
+  .md\:w-\[310px\] {
+    width: 310px;
+  }
+
   .md\:w-\[80\%\] {
     width: 80%;
   }
@@ -7485,16 +7523,8 @@ input[data-autocompleted] {
     width: 100%;
   }
 
-  .md\:w-\[340px\] {
-    width: 340px;
-  }
-
-  .md\:w-\[300px\] {
-    width: 300px;
-  }
-
-  .md\:w-\[310px\] {
-    width: 310px;
+  .md\:w-11\/12 {
+    width: 91.666667%;
   }
 
   .md\:min-w-\[60\%\] {
@@ -7536,6 +7566,18 @@ input[data-autocompleted] {
 
   .md\:transform {
     transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+  }
+
+  .md\:grid-cols-12 {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+  }
+
+  .md\:grid-cols-6 {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+
+  .md\:grid-cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .md\:flex-row-reverse {
@@ -7761,6 +7803,10 @@ input[data-autocompleted] {
     top: 95%;
   }
 
+  .lg\:mb-\[20px\] {
+    margin-bottom: 20px;
+  }
+
   .lg\:mb-\[2rem\] {
     margin-bottom: 2rem;
   }
@@ -7789,20 +7835,16 @@ input[data-autocompleted] {
     margin-top: -22%;
   }
 
-  .lg\:mb-\[20px\] {
-    margin-bottom: 20px;
-  }
-
-  .lg\:mb-\[unset\] {
-    margin-bottom: unset;
-  }
-
   .lg\:block {
     display: block;
   }
 
   .lg\:flex {
     display: flex;
+  }
+
+  .lg\:grid {
+    display: grid;
   }
 
   .lg\:hidden {
@@ -7823,6 +7865,10 @@ input[data-autocompleted] {
 
   .lg\:h-full {
     height: 100%;
+  }
+
+  .lg\:h-\[190px\] {
+    height: 190px;
   }
 
   .lg\:w-1\/2 {
@@ -7877,8 +7923,8 @@ input[data-autocompleted] {
     width: 88%;
   }
 
-  .lg\:w-\[310px\] {
-    width: 310px;
+  .lg\:w-11\/12 {
+    width: 91.666667%;
   }
 
   .lg\:min-w-\[40\%\] {
@@ -7927,12 +7973,12 @@ input[data-autocompleted] {
     transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
   }
 
-  .lg\:flex-col {
-    flex-direction: column;
+  .lg\:grid-cols-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
-  .lg\:flex-wrap {
-    flex-wrap: wrap;
+  .lg\:flex-col {
+    flex-direction: column;
   }
 
   .lg\:items-center {
@@ -8230,6 +8276,10 @@ input[data-autocompleted] {
     width: 320px;
   }
 
+  .xl\:w-\[330px\] {
+    width: 330px;
+  }
+
   .xl\:w-\[350px\] {
     width: 350px;
   }
@@ -8258,18 +8308,6 @@ input[data-autocompleted] {
     width: 94%;
   }
 
-  .xl\:w-\[\] {
-    width: ;
-  }
-
-  .xl\:w-\[340px\] {
-    width: 340px;
-  }
-
-  .xl\:w-\[330px\] {
-    width: 330px;
-  }
-
   .xl\:translate-x-\[-20\%\] {
     --tw-translate-x: -20%;
     transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
@@ -8282,6 +8320,10 @@ input[data-autocompleted] {
 
   .xl\:transform-none {
     transform: none;
+  }
+
+  .xl\:grid-cols-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
   .xl\:flex-row-reverse {
@@ -8406,6 +8448,10 @@ input[data-autocompleted] {
     margin-top: 22%;
   }
 
+  .\32xl\:grid {
+    display: grid;
+  }
+
   .\32xl\:hidden {
     display: none;
   }
@@ -8494,6 +8540,10 @@ input[data-autocompleted] {
   .\32xl\:translate-x-\[-28\%\] {
     --tw-translate-x: -28%;
     transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+  }
+
+  .\32xl\:grid-cols-4 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 
   .\32xl\:overflow-hidden {
@@ -8618,10 +8668,6 @@ input[data-autocompleted] {
     height: 117px;
   }
 
-  .\33xl\:h-\[160px\] {
-    height: 160px;
-  }
-
   .\33xl\:h-\[299px\] {
     height: 299px;
   }
@@ -8689,6 +8735,10 @@ input[data-autocompleted] {
   .\33xl\:translate-x-0 {
     --tw-translate-x: 0px;
     transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+  }
+
+  .\33xl\:grid-cols-4 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 
   .\33xl\:justify-center {
