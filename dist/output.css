@@ -1088,6 +1088,10 @@ html {
   margin-bottom: 7.4rem;
 }
 
+.mb-\[8rem\] {
+  margin-bottom: 8rem;
+}
+
 .mb-\[9rem\] {
   margin-bottom: 9rem;
 }
@@ -1224,6 +1228,10 @@ html {
   margin-top: 1rem;
 }
 
+.mt-6 {
+  margin-top: 1.5rem;
+}
+
 .mt-\[-0\.3rem\] {
   margin-top: -0.3rem;
 }
@@ -1352,8 +1360,8 @@ html {
   height: 1px;
 }
 
-.h-\[290px\] {
-  height: 290px;
+.h-\[240px\] {
+  height: 240px;
 }
 
 .h-\[370px\] {
@@ -1403,14 +1411,6 @@ html {
 
 .h-screen {
   height: 100vh;
-}
-
-.h-\[240px\] {
-  height: 240px;
-}
-
-.h-\[190px\] {
-  height: 190px;
 }
 
 .max-h-96 {
@@ -1608,10 +1608,6 @@ html {
 
 .w-screen {
   width: 100vw;
-}
-
-.w-11 {
-  width: 2.75rem;
 }
 
 .min-w-\[100vw\] {
@@ -1862,10 +1858,6 @@ html {
           appearance: none;
 }
 
-.grid-cols-4 {
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-}
-
 .flex-row {
   flex-direction: row;
 }
@@ -1920,16 +1912,6 @@ html {
 
 .gap-4 {
   gap: 1rem;
-}
-
-.gap-6 {
-  gap: 1.5rem;
-}
-
-.space-x-4 > :not([hidden]) ~ :not([hidden]) {
-  --tw-space-x-reverse: 0;
-  margin-right: calc(1rem * var(--tw-space-x-reverse));
-  margin-left: calc(1rem * calc(1 - var(--tw-space-x-reverse)));
 }
 
 .divide-x > :not([hidden]) ~ :not([hidden]) {
@@ -4433,6 +4415,11 @@ html {
 
 .outline-0 {
   outline-width: 0px;
+}
+
+.blur {
+  --tw-blur: blur(8px);
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }
 
 .filter {
@@ -7223,14 +7210,6 @@ input[data-autocompleted] {
     width: 100%;
   }
 
-  .sm\:w-11\/12 {
-    width: 91.666667%;
-  }
-
-  .sm\:grid-cols-12 {
-    grid-template-columns: repeat(12, minmax(0, 1fr));
-  }
-
   .sm\:grid-cols-1 {
     grid-template-columns: repeat(1, minmax(0, 1fr));
   }
@@ -7391,6 +7370,10 @@ input[data-autocompleted] {
     margin-bottom: 6.7rem;
   }
 
+  .md\:mb-\[7\.4rem\] {
+    margin-bottom: 7.4rem;
+  }
+
   .md\:mb-\[7\.8rem\] {
     margin-bottom: 7.8rem;
   }
@@ -7451,10 +7434,6 @@ input[data-autocompleted] {
     display: flex;
   }
 
-  .md\:grid {
-    display: grid;
-  }
-
   .md\:hidden {
     display: none;
   }
@@ -7507,10 +7486,6 @@ input[data-autocompleted] {
     width: 28.6rem;
   }
 
-  .md\:w-\[310px\] {
-    width: 310px;
-  }
-
   .md\:w-\[80\%\] {
     width: 80%;
   }
@@ -7521,10 +7496,6 @@ input[data-autocompleted] {
 
   .md\:w-full {
     width: 100%;
-  }
-
-  .md\:w-11\/12 {
-    width: 91.666667%;
   }
 
   .md\:min-w-\[60\%\] {
@@ -7566,14 +7537,6 @@ input[data-autocompleted] {
 
   .md\:transform {
     transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
-  }
-
-  .md\:grid-cols-12 {
-    grid-template-columns: repeat(12, minmax(0, 1fr));
-  }
-
-  .md\:grid-cols-6 {
-    grid-template-columns: repeat(6, minmax(0, 1fr));
   }
 
   .md\:grid-cols-2 {
@@ -7843,12 +7806,12 @@ input[data-autocompleted] {
     display: flex;
   }
 
-  .lg\:grid {
-    display: grid;
-  }
-
   .lg\:hidden {
     display: none;
+  }
+
+  .lg\:h-\[190px\] {
+    height: 190px;
   }
 
   .lg\:h-\[700px\] {
@@ -7867,16 +7830,16 @@ input[data-autocompleted] {
     height: 100%;
   }
 
-  .lg\:h-\[190px\] {
-    height: 190px;
-  }
-
   .lg\:w-1\/2 {
     width: 50%;
   }
 
   .lg\:w-10\/12 {
     width: 83.333333%;
+  }
+
+  .lg\:w-11\/12 {
+    width: 91.666667%;
   }
 
   .lg\:w-2\/4 {
@@ -7921,10 +7884,6 @@ input[data-autocompleted] {
 
   .lg\:w-\[88\%\] {
     width: 88%;
-  }
-
-  .lg\:w-11\/12 {
-    width: 91.666667%;
   }
 
   .lg\:min-w-\[40\%\] {
@@ -8180,6 +8139,10 @@ input[data-autocompleted] {
     margin-bottom: 160px;
   }
 
+  .xl\:mb-\[8rem\] {
+    margin-bottom: 8rem;
+  }
+
   .xl\:mb-\[9rem\] {
     margin-bottom: 9rem;
   }
@@ -8274,10 +8237,6 @@ input[data-autocompleted] {
 
   .xl\:w-\[320px\] {
     width: 320px;
-  }
-
-  .xl\:w-\[330px\] {
-    width: 330px;
   }
 
   .xl\:w-\[350px\] {
@@ -8446,10 +8405,6 @@ input[data-autocompleted] {
 
   .\32xl\:mt-\[22\%\] {
     margin-top: 22%;
-  }
-
-  .\32xl\:grid {
-    display: grid;
   }
 
   .\32xl\:hidden {
@@ -8698,10 +8653,6 @@ input[data-autocompleted] {
 
   .\33xl\:w-\[320px\] {
     width: 320px;
-  }
-
-  .\33xl\:w-\[350px\] {
-    width: 350px;
   }
 
   .\33xl\:w-\[420px\] {

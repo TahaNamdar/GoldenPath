@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import GoldenLogo from "/public/assets/goldenPath.svg";
 import ArcherVector from "/public/assets/archer.svg";
 import Tool from "/public/assets/Tool.svg";
@@ -91,6 +91,14 @@ export default function SideBar() {
   const changeEmailMutation = trpc.changeEmail.useMutation();
   const changePasswordMutation = trpc.changePassword.useMutation();
   const changeBirthdayMutation = trpc.changeBirthday.useMutation();
+
+  const { isSuccess } = changeBirthdayMutation;
+
+  useEffect(() => {
+    if (isSuccess) {
+      location.reload();
+    }
+  }, [isSuccess]);
 
   const changeEmailHandler: SubmitHandler<FormValues> = (data) => {
     const { newEmail, newEmailPassFiled } = data;

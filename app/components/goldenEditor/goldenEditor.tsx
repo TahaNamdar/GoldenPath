@@ -23,9 +23,7 @@ interface Input {
   tasks: Tasks[];
 }
 
-
-// 1. set blur on title => create notion with title as props 
-
+// 1. set blur on title => create notion with title as props
 
 const GoldenEditor = ({
   onFavoriteHandler,
@@ -56,6 +54,8 @@ const GoldenEditor = ({
   const [backSpace, setBackSpace] = useState<boolean>(false);
   const [focusOnTitle, setFocusOnTitle] = useState<boolean>(false);
 
+  const tasks = inputs.flatMap((input) => input.tasks);
+
   useEffect(() => {
     if (focusOnTitle) return;
     if (!backSpace) {
@@ -63,7 +63,7 @@ const GoldenEditor = ({
         newInputRef.current.focus();
       }
     }
-  }, [inputs, backSpace, focusOnTitle]); // Focus the new input whenever inputs change
+  }, [tasks, backSpace, inputs, focusOnTitle]); // Focus the new input whenever inputs change
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFocusOnTitle(true);
@@ -141,6 +141,10 @@ const GoldenEditor = ({
       });
     }
 
+    if (e.key === "Backspace") {
+      setBackSpace(true);
+    }
+
     if (e.key === "Backspace" && e.target.value == "") {
       setInputs((prevInputs) => {
         return prevInputs.map((item) => {
@@ -175,10 +179,6 @@ const GoldenEditor = ({
           }
         });
       });
-    }
-
-    if (e.key === "Backspace") {
-      setBackSpace(true);
     }
   };
 
@@ -303,7 +303,7 @@ const GoldenEditor = ({
         "line-through placeholder-editor text-editor text-[16px] w-[90%] bg-transparent outline-none mr-[6px] ";
     } else {
       className +=
-        "placeholder-white bg-transparent  outline-none text-[16px] w-[90%] mr-[6px] ";
+        "placeholder-placeholder bg-transparent  outline-none text-[16px] w-[90%] mr-[6px] ";
     }
 
     if (input.subTask === true) {
@@ -319,15 +319,15 @@ const GoldenEditor = ({
     <div className="bg-Crayola rounded-[14px] p-10 text-white w-full lg:w-11/12 h-[240px] 3xl:h-[299px]  mb-[20px]">
       <input
         type="text"
-        placeholder="title"
-        className="placeholder-white bg-transparent outline-none text-3xl mb-[6px]"
+        placeholder="Choose Title"
+        className="placeholder-placeholder bg-transparent outline-none text-3xl mb-[6px]"
         onChange={handleInputChange}
       />
       <DragDropContext onDragEnd={handleDragDrop}>
         <Droppable droppableId="Editor" type="group">
           {(provided) => (
             <div {...provided.droppableProps} ref={provided.innerRef}>
-              {inputs.map((item: any) =>
+              {inputs.map((item: any, i: number) =>
                 item.tasks.map((input: any, index: number) => {
                   return (
                     <Draggable
@@ -371,13 +371,12 @@ const GoldenEditor = ({
                             </label>
 
                             <input
-                              tabIndex={index}
+                              tabIndex={i}
                               type="text"
-                              ref={
-                                index === inputs.length - 1 ? newInputRef : null
-                              }
+                              ref={i === inputs.length - 1 ? newInputRef : null}
                               value={input.value}
-                              placeholder="text"
+                              placeholder="Write New Dimension"
+                              style={{ whiteSpace: "pre-wrap" }}
                               onChange={(e: ChangeEvent<HTMLInputElement>) => {
                                 setInputs((prevInputs) => {
                                   return prevInputs.map((item) => {

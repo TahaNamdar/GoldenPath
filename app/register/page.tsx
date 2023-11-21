@@ -29,7 +29,7 @@ const schema = yup
       .string()
       .required("No password provided.")
       .min(4, "Password is too short - should be 8 chars minimum."),
-    // .matches(/[a-zA-Z]/, "Password can only contain Latin letters."),
+    validation: yup.string(),
   })
   .required();
 
@@ -38,6 +38,7 @@ export default function Register() {
     register,
     reset,
     handleSubmit,
+    setError,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
@@ -67,26 +68,13 @@ export default function Register() {
 
   const mutation = trpc.signUp.useMutation();
 
-  const submit = async (data: any) => {
+  const { isSuccess, isError } = mutation;
+
+  const submit = (data: any) => {
     const { email, password } = data;
-    const res = await mutation.mutate({ email, password });
-    reset();
-    showToastSuccess();
+    mutation.mutate({ email, password });
   };
 
-  const showToastError = () => {
-    //create a function to display a success message
-    toast.error("something wrong please try again", {
-      position: "top-right",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "dark",
-    });
-  };
   const showToastSuccess = () => {
     //create a function to display a success message
     toast.success("success - welcome !", {
@@ -101,6 +89,20 @@ export default function Register() {
     });
   };
 
+  useEffect(() => {
+    if (isSuccess) {
+      router.push("/login");
+      showToastSuccess();
+      reset();
+    }
+    if (isError) {
+      setError("validation", {
+        type: "custom",
+        message: "Somethings Wrong ",
+      });
+    }
+  }, [isSuccess, isError]);
+
   return (
     <div>
       <ToastContainer
@@ -108,7 +110,7 @@ export default function Register() {
       />
       <div className="bg-Crayola  block sm:flex sm:flex-row-reverse sm:overflow-hidden ">
         <div className="w-full overflow-auto h-screen z-50 lg:w-[60.6rem] xl:w-[80rem] bg-darkGunmetal  pr-[2rem] pl-[2rem] flex flex-col justify-center md:pr-[10rem] md:pl-[10rem]  xl:pr-[12.2rem] xl:pl-[12.2rem]">
-          <p className="text-white text-center text-[2.4rem] md:text-[3.2rem] xl:text-[4.8rem] mb-[9rem]  md:mb-[4.7rem] md: xl:mb-[11.1rem] pt-[18rem] lg:pt-[22.4rem]">
+          <p className="text-white text-center text-[2.4rem] md:text-[3.2rem] xl:text-[4.8rem] mb-[9rem]  md:mb-[4.7rem] md: xl:mb-[11.1rem] lg:pt-[22.4rem]">
             Register
           </p>
           <form onSubmit={handleSubmit(submit)}>
@@ -144,7 +146,11 @@ export default function Register() {
                 {errors.password?.message}
               </p>
             </div>
-            <div className="mb-[9rem] md:mb-[7.8rem] xl:mb-[9rem]"></div>
+            <div className="mb-[9rem] md:mb-[7.8rem] xl:mb-[9rem]">
+              <p className="text-danger mt-6 text-[14px]">
+                {errors.validation?.message}
+              </p>
+            </div>
             <div className="text-right mb-[3.9rem]">
               <input
                 value="Register"
