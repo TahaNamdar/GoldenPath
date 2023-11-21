@@ -23,6 +23,10 @@ interface Input {
   tasks: Tasks[];
 }
 
+
+// 1. set blur on title => create notion with title as props 
+
+
 const GoldenEditor = ({
   onFavoriteHandler,
 }: {
@@ -265,51 +269,24 @@ const GoldenEditor = ({
     )
       return;
 
-    // if (type === "group") {
-    //    const reorderedStores = [...inputs];
-
-    //   const flattenArray = inputs.map((input) => {
-    //     return input.tasks;
-    //   });
-
-    //   const sourceIndex = source.index;
-    //   const destinationIndex = destination.index;
-
-    //   const [removedStore] = reorderedStores.splice(sourceIndex, 1);
-    //   reorderedStores.splice(destinationIndex, 0, removedStore);
-
-    //   return setInputs(reorderedStores);
-    // }
-
     // Handle group reordering
     if (type === "group") {
-      setInputs((prevInputs) => {
-        const updatedInputs = [...prevInputs];
+      const newArray = inputs.flatMap((input) => input.tasks);
+      const reorderedStores = [...newArray];
 
-        // Extract tasks from each group
-        const flattenArray = updatedInputs.map((input) => {
-          return input.tasks;
+      const sourceIndex = source.index;
+      const destinationIndex = destination.index;
+
+      const [removedStore] = reorderedStores.splice(sourceIndex, 1);
+      reorderedStores.splice(destinationIndex, 0, removedStore);
+
+      setInputs((prevInputs: any) => {
+        return prevInputs.map((item: any) => {
+          return {
+            ...item,
+            tasks: reorderedStores,
+          };
         });
-
-        const sourceIndex = source.index;
-        const destinationIndex = destination.index;
-
-        // Remove the dragged task from the source index
-        const [removedTask] = flattenArray[sourceIndex].splice(source.index, 1);
-
-        // Insert the dragged task at the destination index
-        flattenArray[destinationIndex].splice(
-          destination.index,
-          0,
-          removedTask
-        );
-
-        // Update the tasks in each group
-        updatedInputs.forEach((input, index) => {
-          input.tasks = flattenArray[index];
-        });
-
-        return updatedInputs;
       });
     }
   };
@@ -340,18 +317,18 @@ const GoldenEditor = ({
 
   return (
     <div className="bg-Crayola rounded-[14px] p-10 text-white w-full lg:w-11/12 h-[240px] 3xl:h-[299px]  mb-[20px]">
+      <input
+        type="text"
+        placeholder="title"
+        className="placeholder-white bg-transparent outline-none text-3xl mb-[6px]"
+        onChange={handleInputChange}
+      />
       <DragDropContext onDragEnd={handleDragDrop}>
-        <input
-          type="text"
-          placeholder="title"
-          className="placeholder-white bg-transparent outline-none text-3xl mb-[6px]"
-          onChange={handleInputChange}
-        />
-        <Droppable droppableId="ROOT" type="group">
+        <Droppable droppableId="Editor" type="group">
           {(provided) => (
             <div {...provided.droppableProps} ref={provided.innerRef}>
-              {inputs.map((item: any, index: number) =>
-                item.tasks.map((input: any) => {
+              {inputs.map((item: any) =>
+                item.tasks.map((input: any, index: number) => {
                   return (
                     <Draggable
                       draggableId={input.id.toString()}
