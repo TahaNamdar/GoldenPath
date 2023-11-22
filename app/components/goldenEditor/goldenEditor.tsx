@@ -8,32 +8,47 @@ import DragIcon from "@/public/assets/layout/dragIcon.svg";
 
 import { v4 as uuidv4 } from "uuid";
 
-interface Input {
+type Tasks = {
   id: any;
   value: string;
-  title: string;
   checked: boolean;
   isFavorite: boolean;
   visible: boolean;
   subTask: boolean;
+};
+
+interface Input {
+  id: any;
+  title: string;
+  tasks: Tasks[];
 }
+
+
+// 1. set blur on title => create notion with title as props 
+
 
 const GoldenEditor = ({
   onFavoriteHandler,
 }: {
-  onFavoriteHandler: (id: any, text: string) => void;
+  onFavoriteHandler: (id: any, text: string, isFavorite: boolean) => void;
 }) => {
   const uniqueId = uuidv4();
+  const ID = uuidv4();
 
   const [inputs, setInputs] = useState<Input[]>([
     {
       id: uniqueId,
-      value: "",
       title: "",
-      checked: false,
-      isFavorite: false,
-      visible: false,
-      subTask: false,
+      tasks: [
+        {
+          id: ID,
+          value: "",
+          checked: false,
+          isFavorite: false,
+          visible: false,
+          subTask: false,
+        },
+      ],
     },
   ]); // Initial
   const newInputRef = useRef<HTMLInputElement>(null);
@@ -65,60 +80,102 @@ const GoldenEditor = ({
   const handleKeyDown = (e: any, ID: number) => {
     setFocusOnTitle(false);
 
-    if (e.key === "Enter" && !e.shiftKey && inputs.length < 5) {
+    const currentInput = inputs.map((input) => {
+      const findInput = input.tasks.find((item: any) => item.id === ID);
+      return findInput;
+    });
+
+    const inputLengthValueHandler = inputs.flatMap((input) => input.tasks);
+
+    if (
+      e.key === "Enter" &&
+      !e.shiftKey &&
+      inputLengthValueHandler.length < 5
+    ) {
       e.preventDefault(); // Prevent the default behavior (submitting the form)
-      const currentInput = inputs.find((input: any) => input.id === ID);
+
       setBackSpace(false);
-      if (currentInput?.value.trim() !== "") {
-        const newInput = {
-          id: uniqueId,
-          value: "",
-          title: "",
-          checked: false,
-          isFavorite: false,
-          visible: false,
-          subTask: false,
-        };
-        setInputs([...inputs, newInput]);
-      }
+
+      currentInput.map((item) => {
+        if (item?.value.trim() !== "") {
+          setInputs((prevInputs) => {
+            return prevInputs.map((item) => {
+              return {
+                ...item,
+                tasks: [
+                  ...item.tasks,
+                  {
+                    id: uniqueId,
+                    value: "",
+                    checked: false,
+                    isFavorite: false,
+                    visible: false,
+                    subTask: false,
+                  },
+                ],
+              };
+            });
+          });
+        }
+      });
     }
 
     if (e.key === "Tab" && e.target.value !== "") {
       e.preventDefault(); // Prevent default behavior
+
       setInputs((prevInputs) => {
-        return prevInputs.map((input) => {
-          if (input.id === ID) {
-            return {
-              ...input,
-              subTask: !input.subTask,
-            };
-          }
-          return input;
+        return prevInputs.map((item) => {
+          return {
+            ...item,
+            tasks: item.tasks.map((task) => {
+              if (task.id === ID && task.value.trim() !== "") {
+                return {
+                  ...task,
+                  subTask: !task.subTask,
+                };
+              }
+              return task;
+            }),
+          };
         });
       });
     }
 
-    inputs.map((_, index) => {
-      if (index == 0) {
-        return;
-      }
-      if (e.key === "Backspace" && e.target.value == "") {
-        setInputs((prevInputs) => {
-          return prevInputs.map((input) => {
-            if (input.id === ID) {
-              return {
-                ...input,
-                subTask: false,
-              };
-            }
-            return input;
-          });
+    if (e.key === "Backspace" && e.target.value == "") {
+      setInputs((prevInputs) => {
+        return prevInputs.map((item) => {
+          return {
+            ...item,
+            tasks: item.tasks.map((task) => {
+              if (task.id === ID) {
+                return {
+                  ...task,
+                  subTask: false,
+                };
+              }
+              return task;
+            }),
+          };
         });
+      });
 
-        const filteredArray = inputs.filter((item: any, _) => item.id !== ID);
-        setInputs(filteredArray);
-      }
-    });
+      const updatedInputs = inputs.map((input) => {
+        const updatedTasks = input.tasks.filter((task) => task.id !== ID);
+        return {
+          ...input,
+          tasks: updatedTasks,
+        };
+      });
+
+      inputs.map((input) => {
+        input.tasks.map((_, index) => {
+          if (index == 0) return;
+          else {
+            setInputs(updatedInputs);
+          }
+        });
+      });
+    }
 
     if (e.key === "Backspace") {
       setBackSpace(true);
@@ -127,57 +184,77 @@ const GoldenEditor = ({
 
   const handleChecked = (id: number) => {
     setInputs((prevInputs) => {
-      return prevInputs.map((input) => {
-        if (input.id === id && input.value.trim() !== "") {
-          return {
-            ...input,
-            checked: !input.checked,
-          };
-        }
-        return input;
+      return prevInputs.map((item) => {
+        return {
+          ...item,
+          tasks: item.tasks.map((task) => {
+            if (task.id === id && task.value.trim() !== "") {
+              return {
+                ...task,
+                checked: !task.checked,
+              };
+            }
+            return task;
+          }),
+        };
       });
     });
   };
 
   const handleVisibleShow = (id: number) => {
     setInputs((prevInputs) => {
-      return prevInputs.map((input) => {
-        if (input.id === id) {
-          return {
-            ...input,
-            visible: true,
-          };
-        }
-        return input;
+      return prevInputs.map((item) => {
+        return {
+          ...item,
+          tasks: item.tasks.map((task) => {
+            if (task.id === id) {
+              return {
+                ...task,
+                visible: true,
+              };
+            }
+            return task;
+          }),
+        };
       });
     });
   };
 
   const handleVisibleHide = (id: number) => {
-    setInputs((prevInputs) => {
-      return prevInputs.map((input) => {
-        if (input.id === id) {
-          return {
-            ...input,
-            visible: false,
-          };
-        }
-        return input;
+    setInputs((prevInputs: any) => {
+      return prevInputs.map((item: any) => {
+        return {
+          ...item,
+          tasks: item.tasks.map((task: any) => {
+            if (task.id === id) {
+              return {
+                ...task,
+                visible: false,
+              };
+            }
+            return task;
+          }),
+        };
       });
     });
   };
 
   const favoriteHandler = (id: number) => {
     setInputs((prevInputs) => {
-      return prevInputs.map((input) => {
-        if (input.id === id && input.value.trim() !== "") {
-          onFavoriteHandler(input.id, input.value);
-          return {
-            ...input,
-            isFavorite: !input.isFavorite,
-          };
-        }
-        return input;
+      return prevInputs.map((item) => {
+        return {
+          ...item,
+          tasks: item.tasks.map((task) => {
+            if (task.id === id && task.value.trim() !== "") {
+              onFavoriteHandler(task.id, task.value, task.isFavorite);
+              return {
+                ...task,
+                isFavorite: !task.isFavorite,
+              };
+            }
+            return task;
+          }),
+        };
       });
     });
   };
@@ -192,8 +269,10 @@ const GoldenEditor = ({
     )
       return;
 
+    // Handle group reordering
     if (type === "group") {
-      const reorderedStores = [...inputs];
+      const newArray = inputs.flatMap((input) => input.tasks);
+      const reorderedStores = [...newArray];
 
       const sourceIndex = source.index;
       const destinationIndex = destination.index;
@@ -201,7 +280,14 @@ const GoldenEditor = ({
       const [removedStore] = reorderedStores.splice(sourceIndex, 1);
       reorderedStores.splice(destinationIndex, 0, removedStore);
 
-      return setInputs(reorderedStores);
+      setInputs((prevInputs: any) => {
+        return prevInputs.map((item: any) => {
+          return {
+            ...item,
+            tasks: reorderedStores,
+          };
+        });
+      });
     }
   };
 
@@ -230,88 +316,104 @@ const GoldenEditor = ({
   };
 
   return (
-    <div className="bg-Crayola rounded-[14px] p-10 text-white w-full md:w-[310px] xl:w-[330px] 3xl:w-[350px]  h-[290px] 3xl:h-[299px] md:mr-[20px] mb-[20px]">
+    <div className="bg-Crayola rounded-[14px] p-10 text-white w-full lg:w-11/12 h-[240px] 3xl:h-[299px]  mb-[20px]">
+      <input
+        type="text"
+        placeholder="title"
+        className="placeholder-white bg-transparent outline-none text-3xl mb-[6px]"
+        onChange={handleInputChange}
+      />
       <DragDropContext onDragEnd={handleDragDrop}>
-        <input
-          type="text"
-          placeholder="title"
-          className="placeholder-white bg-transparent outline-none text-3xl mb-[6px]"
-          onChange={handleInputChange}
-        />
-        <Droppable droppableId="ROOT" type="group">
+        <Droppable droppableId="Editor" type="group">
           {(provided) => (
             <div {...provided.droppableProps} ref={provided.innerRef}>
-              {inputs.map((input: any, index: number) => (
-                <Draggable
-                  draggableId={input.id.toString()}
-                  key={input.id}
-                  index={index}
-                >
-                  {(provided) => {
-                    const isVisible = input.visible; // Assuming input.visible controls visibility
-                    return (
-                      <div
-                        key={input.id}
-                        className="flex items-center mb-3  p-2"
-                        {...provided.dragHandleProps}
-                        {...provided.draggableProps}
-                        ref={provided.innerRef}
-                        onMouseEnter={() => handleVisibleShow(input.id)}
-                        onMouseLeave={() => handleVisibleHide(input.id)}
-                      >
-                        <div
-                          className={`${
-                            isVisible ? "md:visible" : "hidden"
-                          } mr-[10px]`}
-                        >
-                          <DragIcon />
-                        </div>
+              {inputs.map((item: any) =>
+                item.tasks.map((input: any, index: number) => {
+                  return (
+                    <Draggable
+                      draggableId={input.id.toString()}
+                      key={input.id}
+                      index={index}
+                    >
+                      {(provided) => {
+                        const isVisible = input.visible; // Assuming input.visible controls visibility
+                        return (
+                          <div
+                            key={input.id}
+                            className="flex items-center mb-3  p-2"
+                            {...provided.dragHandleProps}
+                            {...provided.draggableProps}
+                            ref={provided.innerRef}
+                            onMouseEnter={() => handleVisibleShow(input.id)}
+                            onMouseLeave={() => handleVisibleHide(input.id)}
+                          >
+                            <div
+                              className={`${
+                                isVisible ? "md:visible" : "hidden"
+                              } mr-[10px]`}
+                            >
+                              <DragIcon />
+                            </div>
 
-                        <label
-                          className={` mr-4  containerCheckbox cursor-pointer `}
-                        >
-                          <input
-                            checked={input.checked}
-                            type="checkbox"
-                            onChange={() => handleChecked(input.id)}
-                          />{" "}
-                          <span
-                            className={`${
-                              isVisible ? "visible" : "hidden"
-                            } checkmark `}
-                          ></span>
-                        </label>
+                            <label
+                              className={` mr-4  containerCheckbox cursor-pointer `}
+                            >
+                              <input
+                                checked={input.checked}
+                                type="checkbox"
+                                onChange={() => handleChecked(input.id)}
+                              />{" "}
+                              <span
+                                className={`${
+                                  isVisible ? "visible" : "hidden"
+                                } checkmark `}
+                              ></span>
+                            </label>
 
-                        <input
-                          tabIndex={index}
-                          type="text"
-                          ref={index === inputs.length - 1 ? newInputRef : null}
-                          value={input.value}
-                          placeholder="text"
-                          onChange={(e: ChangeEvent<HTMLInputElement>) => {
-                            const updatedInputs = inputs.map((i: any) =>
-                              i.id === input.id
-                                ? { ...i, value: e.target.value }
-                                : i
-                            );
-                            setInputs(updatedInputs);
-                          }}
-                          onKeyDown={(e) => handleKeyDown(e, input.id)}
-                          className={getClassName(input)}
-                        />
-                        <div
-                          className={`${isVisible ? "visible" : "hidden"}`}
-                          onClick={() => favoriteHandler(input.id)}
-                        >
-                          <div className="cursor-pointer">
-                            {input.isFavorite ? <GoldenRate /> : <Rate />}
+                            <input
+                              tabIndex={index}
+                              type="text"
+                              ref={
+                                index === inputs.length - 1 ? newInputRef : null
+                              }
+                              value={input.value}
+                              placeholder="text"
+                              onChange={(e: ChangeEvent<HTMLInputElement>) => {
+                                setInputs((prevInputs) => {
+                                  return prevInputs.map((item) => {
+                                    return {
+                                      ...item,
+                                      tasks: item.tasks.map((task) => {
+                                        if (task.id === input.id) {
+                                          return {
+                                            ...task,
+                                            value: e.target.value,
+                                          };
+                                        }
+                                        return task;
+                                      }),
+                                    };
+                                  });
+                                });
+                              }}
+                              onKeyDown={(e) => handleKeyDown(e, input.id)}
+                              className={getClassName(input)}
+                            />
+                            <div
+                              className={`${isVisible ? "visible" : "hidden"}`}
+                              onClick={() => favoriteHandler(input.id)}
+                            >
+                              <div className="cursor-pointer">
+                                {input.isFavorite ? <GoldenRate /> : <Rate />}
+                              </div>
+                            </div>
                           </div>
-                        </div>
-                      </div>
-                    );
-                  }}
-                </Draggable>
-              ))}
+                        );
+                      }}
+                    </Draggable>
+                  );
+                })
+              )}
             </div>
           )}
         </Droppable>

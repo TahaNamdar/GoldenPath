@@ -1,7 +1,6 @@
 import "../dist/output.css";
 import "react-toastify/dist/ReactToastify.css";
 import type { Metadata } from "next";
-import { ThemeProvider } from "@/utils/themeProvider";
 import { TrpcProvider } from "@/utils/trpc-provider";
 import { getServerSession } from "next-auth";
 import { authOptions } from "./api/auth/[...nextauth]/route";
@@ -48,7 +47,6 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <Providers>
-        <ThemeProvider>
           <body
             className={`${TOMMY.variable} font-sans`}
             suppressHydrationWarning={true}
@@ -59,7 +57,6 @@ export default async function RootLayout({
               </TrpcProvider>
             </ActionSizeProvider>
           </body>
-        </ThemeProvider>
       </Providers>
     </html>
   );
