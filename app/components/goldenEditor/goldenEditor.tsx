@@ -316,7 +316,7 @@ const GoldenEditor = ({
   };
 
   return (
-    <div className="bg-Crayola rounded-[14px] p-10 text-white w-full lg:w-11/12 h-[240px] 3xl:h-[299px]  mb-[20px]">
+    <div className="bg-Crayola rounded-[14px] p-10 text-white w-full lg:w-11/12 h-[240px] 3xl:h-[299px]  mb-[20px] cursor-grab">
       <input
         type="text"
         placeholder="Choose Title"

@@ -4,6 +4,8 @@ import { useState } from "react";
 import DragSvg from "@/public/assets/Drag.svg";
 import SideBar from "@/app/components/sideBar/sideBar";
 import GoldenEditor from "@/app/components/goldenEditor/goldenEditor";
+import { ReactSortable } from "react-sortablejs";
+import { v4 as uuidv4 } from "uuid";
 
 export default function YearlyGoals() {
   const [isShown, setIsShown] = useState<boolean>(false);
@@ -34,15 +36,34 @@ export default function YearlyGoals() {
     }
   };
 
-  const [componentInstances, setComponentInstances] = useState([
-    <GoldenEditor key={Date.now()} onFavoriteHandler={favoriteHandler} />,
+  const ID = uuidv4();
+  const NewID = uuidv4();
+
+  interface ComponentInstance {
+    id: string; // or whatever type your id should be
+    component: JSX.Element;
+  }
+
+  const [componentInstances, setComponentInstances] = useState<
+    ComponentInstance[]
+  >([
+    {
+      id: ID,
+      component: (
+        <GoldenEditor key={Date.now()} onFavoriteHandler={favoriteHandler} />
+      ),
+    },
   ]);
 
   const handleAddComponent = () => {
-    const newComponentInstances = [
-      ...componentInstances,
-      <GoldenEditor key={Date.now()} onFavoriteHandler={favoriteHandler} />,
-    ];
+    const newComponentInstance: ComponentInstance = {
+      id: NewID,
+      component: (
+        <GoldenEditor key={Date.now()} onFavoriteHandler={favoriteHandler} />
+      ),
+    };
+
+    const newComponentInstances = [...componentInstances, newComponentInstance];
     setComponentInstances(newComponentInstances);
   };
 
@@ -100,11 +121,16 @@ export default function YearlyGoals() {
             top to bottom.try to keep 3~5 items here
           </p>
 
-          <div className="md:flex md:flex-wrap">
+          <ReactSortable
+            list={priorities}
+            setList={setPriorities}
+            animation={200}
+            className="md:flex md:flex-wrap"
+          >
             {priorities &&
               priorities.map((item, index) => {
                 return (
-                  <div className="md:w-1/2" key={index}>
+                  <div className="md:w-1/2 cursor-grab" key={item.id}>
                     <div
                       className="flex items-center mb-[1.6rem]"
                       onMouseEnter={() => setIsShown(true)}
@@ -131,7 +157,7 @@ export default function YearlyGoals() {
                   </div>
                 );
               })}
-          </div>
+          </ReactSortable>
         </div>
         {/* Activities */}
         <div className="md:flex items-center justify-between mb-[1.6rem] mt-[4.5rem]">
@@ -147,20 +173,27 @@ export default function YearlyGoals() {
         </div>
         {/* notion */}
 
-        <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 3xl:grid-cols-4 gap-4">
-          {componentInstances.map((Component, index) => (
-            <div key={index}>{Component}</div>
-          ))}
-          <div
-            className="bg-Crayola cursor-pointer rounded-[14px] p-10 text-white w-full  lg:w-11/12 h-[160px] lg:h-[190px] 3xl:mr-[20px] lg:mb-[20px]"
-            onClick={handleAddComponent}
+        <div>
+          <ReactSortable
+            list={componentInstances}
+            setList={setComponentInstances}
+            animation={200}
+            className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 3xl:grid-cols-4 gap-4"
           >
-            <p className="text-editor text-[20px]  mb-[6px]">Add Dimension</p>
-            <p className="text-editor text-[16px]">
-              Tap here to add a new dimension, such as University, Health,
-              Bussiness etc...
-            </p>
-          </div>
+            {componentInstances.map((Component) => (
+              <div key={Component.id}>{Component.component}</div>
+            ))}
+            <div
+              className="bg-Crayola cursor-pointer rounded-[14px] p-10 text-white w-full  lg:w-11/12 h-[160px] lg:h-[190px] 3xl:mr-[20px] lg:mb-[20px]"
+              onClick={handleAddComponent}
+            >
+              <p className="text-editor text-[20px]  mb-[6px]">Add Dimension</p>
+              <p className="text-editor text-[16px]">
+                Tap here to add a new dimension, such as University, Health,
+                Bussiness etc...
+              </p>
+            </div>
+          </ReactSortable>
         </div>
       </div>
     </div>
