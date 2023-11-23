@@ -184,7 +184,7 @@ export default function YearlyGoals() {
               <div key={Component.id}>{Component.component}</div>
             ))}
             <div
-              className="bg-Crayola cursor-pointer rounded-[14px] p-10 text-white w-full  lg:w-11/12 h-[160px] lg:h-[190px] 3xl:mr-[20px] lg:mb-[20px]"
+              className="bg-Crayola cursor-pointer rounded-[14px] mb-[9rem] md:mb-[unset] p-10 text-white w-full  lg:w-11/12 h-[160px] lg:h-[190px] 3xl:mr-[20px] lg:mb-[20px]"
               onClick={handleAddComponent}
             >
               <p className="text-editor text-[20px]  mb-[6px]">Add Dimension</p>

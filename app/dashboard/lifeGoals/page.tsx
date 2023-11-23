@@ -64,7 +64,6 @@ export default function LifeGoals() {
         age={years}
         index={i}
         chips={state[i + 1]}
-        rows={state[i + 1]}
       />
     );
   }
@@ -166,9 +165,15 @@ export default function LifeGoals() {
           {/* chips */}
           <div className="bg-Crayola pl-[2rem]  lg:pr-[3.8rem] lg:pl-[3.8rem] lg:rounded-b-[1.4rem] ">
             <section className="pt-[2rem] sm:pr-[2rem] pb-[2rem] ">
-              <DragDropContext onDragEnd={onDragEnd}>
-                {chipsFromAgeArray}
-              </DragDropContext>
+              {years === 0 ? (
+                <p className="text-white text-xl">
+                  You Should Set Your Birthday From Setting At First
+                </p>
+              ) : (
+                <DragDropContext onDragEnd={onDragEnd}>
+                  {chipsFromAgeArray}
+                </DragDropContext>
+              )}
             </section>
           </div>
         </main>
