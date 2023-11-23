@@ -1818,6 +1818,10 @@ html {
   animation: spin 1s linear infinite;
 }
 
+.cursor-grab {
+  cursor: grab;
+}
+
 .cursor-not-allowed {
   cursor: not-allowed;
 }
@@ -3506,10 +3510,6 @@ html {
   padding-top: 18px;
 }
 
-.pt-\[18rem\] {
-  padding-top: 18rem;
-}
-
 .pt-\[2\.1rem\] {
   padding-top: 2.1rem;
 }
@@ -4144,16 +4144,6 @@ html {
 
 .placeholder-placeholder::placeholder {
   color: #ffffff26;
-}
-
-.placeholder-white::-moz-placeholder {
-  --tw-placeholder-opacity: 1;
-  color: rgb(255 255 255 / var(--tw-placeholder-opacity));
-}
-
-.placeholder-white::placeholder {
-  --tw-placeholder-opacity: 1;
-  color: rgb(255 255 255 / var(--tw-placeholder-opacity));
 }
 
 .opacity-0 {
