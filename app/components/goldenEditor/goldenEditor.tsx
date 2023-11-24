@@ -5,6 +5,7 @@ import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import GoldenRate from "@/public/assets/layout/RatingGold.svg";
 import Rate from "@/public/assets/layout/Rating.svg";
 import DragIcon from "@/public/assets/layout/dragIcon.svg";
+import { trpc } from "@/utils/trpc";
 
 import { v4 as uuidv4 } from "uuid";
 
@@ -33,22 +34,37 @@ const GoldenEditor = ({
   const uniqueId = uuidv4();
   const ID = uuidv4();
 
-  const [inputs, setInputs] = useState<Input[]>([
-    {
-      id: uniqueId,
-      title: "",
-      tasks: [
-        {
-          id: ID,
-          value: "",
-          checked: false,
-          isFavorite: false,
-          visible: false,
-          subTask: false,
-        },
-      ],
-    },
-  ]); // Initial
+  const [inputs, setInputs] = useState<Input[]>([]); // Initial
+  const getNotionQuery = trpc.getNotions.useQuery();
+  const { data: yearlyGoalsData } = getNotionQuery;
+
+  useEffect(() => {
+    if (!yearlyGoalsData) return;
+    console.log(yearlyGoalsData, "__data");
+
+    if (yearlyGoalsData.length == 0) {
+      const obj = {
+        id: uniqueId,
+        title: "",
+        tasks: [
+          {
+            id: ID,
+            value: "",
+            checked: false,
+            isFavorite: false,
+            visible: false,
+            subTask: false,
+          },
+        ],
+      };
+
+      setInputs([obj]);
+    } else {
+      setInputs(yearlyGoalsData);
+    }
+  }, [yearlyGoalsData]);
+
+  console.log(inputs, "state");
   const newInputRef = useRef<HTMLInputElement>(null);
 
   const [backSpace, setBackSpace] = useState<boolean>(false);
@@ -65,7 +81,16 @@ const GoldenEditor = ({
     }
   }, [tasks, backSpace, inputs, focusOnTitle]); // Focus the new input whenever inputs change
 
+  const [titleValue, setTitleValue] = useState<string>("");
+  const createNotionMutation = trpc.createNotion.useMutation();
+  const createTaskMutation = trpc.createTask.useMutation();
+
+  const handleCreateNotion = () => {
+    createNotionMutation.mutate({ title: titleValue });
+  };
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setTitleValue(e.target.value);
     setFocusOnTitle(true);
     setInputs((prevInputs) => {
       return prevInputs.map((input) => {
@@ -95,6 +120,8 @@ const GoldenEditor = ({
       e.preventDefault(); // Prevent the default behavior (submitting the form)
 
       setBackSpace(false);
+
+      //  createTaskMutation.mutate({})
 
       currentInput.map((item) => {
         if (item?.value.trim() !== "") {
@@ -322,6 +349,7 @@ const GoldenEditor = ({
         placeholder="Choose Title"
         className="placeholder-placeholder bg-transparent outline-none text-3xl mb-[6px]"
         onChange={handleInputChange}
+        onBlur={handleCreateNotion}
       />
       <DragDropContext onDragEnd={handleDragDrop}>
         <Droppable droppableId="Editor" type="group">

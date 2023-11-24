@@ -1,25 +1,25 @@
 "use client";
 
 import React from "react";
-import Removal from "@/public/assets/layout/removal.svg";
-import Shape1 from "@/public/assets/layout/homeShape1.svg";
-import ShadowShapeMd from "@/public/assets/layout/shadowShapeMd.svg";
-import Shadow from "@/public/assets/layout/circleShadow.svg";
-import SmShadow from "@/public/assets/layout/smBannerShadow.svg";
-import MainShape from "@/public/assets/layout/mainShape.svg";
-import MainShapeMd from "@/public/assets/layout/mainShapeMd.svg";
-import RemovalSm from "@/public/assets/layout/removalSm.svg";
-import Avatar1 from "@/public/assets/layout/parham.svg";
-import Avatar2 from "@/public/assets/layout/avatar2.svg";
-import LgAvatar1 from "@/public/assets/layout/lgAvatar1.svg";
-import LgAvatar2 from "@/public/assets/layout/lgAvatar2.svg";
-import MdAvatar1 from "@/public/assets/layout/mdAvatar1.svg";
-import MdAvatar2 from "@/public/assets/layout/mdAvatar2.svg";
-import FooterLogo from "@/public/assets/layout/footerLogo.svg";
-import FooterLogoSm from "@/public/assets/layout/footerLogoSm.svg";
-import WhiteStar from "@/public/assets/layout/whiteStar.svg";
-import GoldStar from "@/public/assets/layout/goldStar.svg";
-import BlueStar from "@/public/assets/layout/blueStar.svg";
+// import Removal from "@/public/assets/layout/removal.svg";
+// import Shape1 from "@/public/assets/layout/homeShape1.svg";
+// import ShadowShapeMd from "@/public/assets/layout/shadowShapeMd.svg";
+// import Shadow from "@/public/assets/layout/circleShadow.svg";
+// import SmShadow from "@/public/assets/layout/smBannerShadow.svg";
+// import MainShape from "@/public/assets/layout/mainShape.svg";
+// import MainShapeMd from "@/public/assets/layout/mainShapeMd.svg";
+// import RemovalSm from "@/public/assets/layout/removalSm.svg";
+// import Avatar1 from "@/public/assets/layout/parham.svg";
+// import Avatar2 from "@/public/assets/layout/avatar2.svg";
+// import LgAvatar1 from "@/public/assets/layout/lgAvatar1.svg";
+// import LgAvatar2 from "@/public/assets/layout/lgAvatar2.svg";
+// import MdAvatar1 from "@/public/assets/layout/mdAvatar1.svg";
+// import MdAvatar2 from "@/public/assets/layout/mdAvatar2.svg";
+// import FooterLogo from "@/public/assets/layout/footerLogo.svg";
+// import FooterLogoSm from "@/public/assets/layout/footerLogoSm.svg";
+// import WhiteStar from "@/public/assets/layout/whiteStar.svg";
+// import GoldStar from "@/public/assets/layout/goldStar.svg";
+// import BlueStar from "@/public/assets/layout/blueStar.svg";
 import Footer from "@/app/components/footer/footer";
 import Navbar from "@/app/components/navbar/navbar";
 
@@ -30,13 +30,13 @@ export default function Home() {
         {/* first section */}
         <div className="relative mb-[50px] bg-banner bg-cover bg-[url('../public/assets/layout/wallpaper.png')] h-auto md:h-auto  xl:overflow-hidden lg:h-[890px] xl:h-[1000px] 2xl:h-screen w-full md:flex md:flex-row-reverse xl:flex xl:flex-row-reverse">
           <Navbar />
-          <div className="absolute hidden xl:block bottom-[-10%] 2xl:bottom-[-20%] 3xl:bottom-[-8%] lg:translate-x-[-9%] xl:translate-x-[-24%] 2xl:translate-x-[-18%] 3xl:translate-x-0  overflow-x-hidden w-full xl:overflow-x-[unset]">
+          {/* <div className="absolute hidden xl:block bottom-[-10%] 2xl:bottom-[-20%] 3xl:bottom-[-8%] lg:translate-x-[-9%] xl:translate-x-[-24%] 2xl:translate-x-[-18%] 3xl:translate-x-0  overflow-x-hidden w-full xl:overflow-x-[unset]">
             <Shape1 />
           </div>
           <div className="absolute hidden xl:block bottom-[-12%] 2xl:bottom-[-22%] 3xl:bottom-[-10%]  overflow-x-hidden  xl:overflow-x-[unset]">
             <MainShape />
-          </div>{" "}
-          <section className="absolute w-full bg-banner h-[160px] bottom-[-9%] xl:hidden">
+          </div>{" "} */}
+          {/* <section className="absolute w-full bg-banner h-[160px] bottom-[-9%] xl:hidden">
             <section className="absolute bottom-[-10%]">
               <div className="2xl:hidden bottom-[-10%]  translate-x-[-20%] translate-y-[30%] lg:translate-x-[-9%] xl:translate-x-[-20%] 2xl:translate-x-[-28%] 3xl:translate-x-0  w-full xl:overflow-x-[unset]">
                 <ShadowShapeMd />
@@ -45,8 +45,8 @@ export default function Home() {
                 <MainShapeMd />
               </div>
             </section>
-          </section>
-          <div className="absolute right-[-14%] sm:right-[8%]">
+          </section> */}
+          {/* <div className="absolute right-[-14%] sm:right-[8%]">
             <Shadow />
           </div>
           <div className="w-full md:w-full lg:w-[100%] xl:w-7/12 2xl:w-[50%] 3xl:w-7/12 relative h-[600px] sm:h-[600px] lg:h-[700px] xl:h-full  ">
@@ -56,8 +56,8 @@ export default function Home() {
             <div className="block lg:hidden absolute  left-1/2 transform -translate-x-1/2 md:left-1/2 md:transform md:-translate-x-1/2 lg:left-1/2 lg:transform lg:-translate-x-1/2 top-[10%] xl:transform-none xl:left-[unset]  xl:right-[111px]">
               <RemovalSm />
             </div>
-          </div>
-          <div className="w-full md:bg-transparent bg-banner pb-[30px] lg:pb-[unset] md:mt-[15%] md:ml-[4%] xl:mt-[unset] xl:ml-[unset] xl:bg-[unset] md:w-full lg:w-[50%] xl:w-5/12 2xl:w-[50%] 3xl:w-5/12 relative h-auto md:h-full lg:h-full xl:h-auto ">
+          </div> */}
+          {/* <div className="w-full md:bg-transparent bg-banner pb-[30px] lg:pb-[unset] md:mt-[15%] md:ml-[4%] xl:mt-[unset] xl:ml-[unset] xl:bg-[unset] md:w-full lg:w-[50%] xl:w-5/12 2xl:w-[50%] 3xl:w-5/12 relative h-auto md:h-full lg:h-full xl:h-auto ">
             <div className="absolute left-[-2px] top-[16%] hidden xl:block">
               <Shadow />
             </div>
@@ -82,10 +82,10 @@ export default function Home() {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
         {/* second section */}
-        <div className="bg-gradient-to-t from-layoutColor to-homeColor relative ">
+        {/* <div className="bg-gradient-to-t from-layoutColor to-homeColor relative ">
           <div className="hidden xl:block absolute lg:left-[6%] lg:top-[10%]">
             <WhiteStar />
           </div>{" "}
@@ -142,7 +142,7 @@ export default function Home() {
                 </div>
               </div>
               {/* md size */}
-              <div className="bg-[url('../public/assets/layout/lifeMD.png')]  xl:h-[725px] xl:mb-[160px]  xl:w-[1068px] relative hidden xl:block 3xl:hidden 2xl:mb-[160px] bg-no-repeat">
+        {/* <div className="bg-[url('../public/assets/layout/lifeMD.png')]  xl:h-[725px] xl:mb-[160px]  xl:w-[1068px] relative hidden xl:block 3xl:hidden 2xl:mb-[160px] bg-no-repeat">
                 <div className="absolute bg-smallBox backdrop-blur-[18px] z-10 border-[1px] border-white rounded-[14px] xl:top-[10%] xl:left-[7%]  xl:w-[500px] xl:h-[88px] text-center text-[18px] xl:pt-[32px] xl:pb-[32px] xl:pr-[34px] xl:pl-[34px]">
                   <p className="text-white">
                     Assess how fast you achieved your goals so far.
@@ -162,10 +162,10 @@ export default function Home() {
                     efforts or your efforts to your goals{" "}
                   </p>
                 </div>{" "}
-              </div>
-            </div>
-            {/* prioritize section */}
-            <div className="flex justify-center pl-[60px] pr-[60px] mb-[60px] xl:w-[75%] xl:ml-auto xl:mr-auto 3xl:w-[71%] 3xl:ml-auto 3xl:mr-auto   ">
+              </div> */}
+        {/* </div> */}
+        {/* prioritize section */}
+        {/* <div className="flex justify-center pl-[60px] pr-[60px] mb-[60px] xl:w-[75%] xl:ml-auto xl:mr-auto 3xl:w-[71%] 3xl:ml-auto 3xl:mr-auto   ">
               <div className="text-center">
                 <p className="text-customYellow text-[32px] sm:text-[40px] 3xl:text-[50px]">
                   Prioritize <span className="text-white">Your Goals</span>
@@ -178,9 +178,9 @@ export default function Home() {
             </div>
             <div className="flex justify-center">
               <div className=" relative xl:hidden h-[628px] bg-cover bg-no-repeat w-[390px] bg-[url('../public/assets/layout/setFrame2.png')] "></div>{" "}
-            </div>
+            </div> */}
 
-            <div className="flex justify-center">
+        {/* <div className="flex justify-center">
               <div className="bg-[url('../public/assets/layout/YearlyXL.png')] 3xl:h-[1130px] 3xl:mb-[160px]  3xl:w-[1548px] relative hidden 3xl:block 2xl:mb-[160px] bg-no-repeat">
                 <div className="absolute bg-smallBox backdrop-blur-[18px] z-10 border-[1px] border-white rounded-[14px] 3xl:top-[9%] 3xl:left-[35%]  3xl:w-[520px] 3xl:h-[117px] text-center text-[18px] 3xl:pt-[46px] 3xl:pb-[46px] 3xl:pr-[34px] 3xl:pl-[34px]">
                   <p className="text-white">
@@ -197,10 +197,10 @@ export default function Home() {
                     Break them into smaller manageable goals{" "}
                   </p>
                 </div>{" "}
-              </div>
+              </div> */}
 
-              {/*yearly goals md size */}
-              <div className="bg-[url('../public/assets/layout/YearlyDesktop.png')]  xl:h-[780px] xl:mb-[160px]  xl:w-[1096px] relative hidden xl:block 3xl:hidden 2xl:mb-[160px] bg-no-repeat">
+        {/*yearly goals md size */}
+        {/* <div className="bg-[url('../public/assets/layout/YearlyDesktop.png')]  xl:h-[780px] xl:mb-[160px]  xl:w-[1096px] relative hidden xl:block 3xl:hidden 2xl:mb-[160px] bg-no-repeat">
                 <div className="absolute bg-smallBox backdrop-blur-[18px] z-10 border-[1px] border-white rounded-[14px] xl:top-[9%] xl:left-[33%]  xl:w-[500px] xl:h-[88px] text-center text-[18px] xl:pt-[22px] xl:pb-[32px] xl:pr-[34px] xl:pl-[34px]">
                   <p className="text-white">
                     Prioritizie them so you know what to work on each day{" "}
@@ -217,12 +217,12 @@ export default function Home() {
                   </p>
                 </div>{" "}
               </div>
-            </div>
-          </div>
-        </div>
+            </div> */}
+        {/* </div>
+        </div> */}
 
         {/* about us */}
-
+        {/* 
         <div className="bg-homeColor ">
           <div className="pt-[83px] pb-[124px] 3xl:pt-[170px] 3xl:pb-[140px] lg:flex lg:items-center">
             <section className="lg:w-1/2">
@@ -283,10 +283,10 @@ export default function Home() {
               </div>
             </section>
           </div>
-        </div>
+        </div> */}
 
         {/* latest section */}
-        <div className="bg-layoutColor relative">
+        {/* <div className="bg-layoutColor relative">
           <div className="z-20 text-center">
             <div className="relative h-[650px] lg:h-[800px]">
               <div className="absolute block 3xl:hidden top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
@@ -313,7 +313,7 @@ export default function Home() {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
       </section>
 
       {/* footer */}

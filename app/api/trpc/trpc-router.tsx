@@ -326,8 +326,6 @@ export const appRouter = t.router({
           },
         });
 
-        
-
         const newChip = result[0].Chips.filter((_chip: any) => {
           return chipId !== _chip.id;
         });
@@ -346,6 +344,198 @@ export const appRouter = t.router({
         });
       } catch (e) {
         console.log(e);
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "something went wrong. please try again late",
+        });
+      }
+    }),
+
+  updateChipIndex: t.procedure
+    .input(
+      z.object({
+        source_id: z.string(),
+        destination_id: z.string(),
+        destination_index: z.number(),
+        item_id: z.string(),
+      })
+    )
+    .mutation(async ({ input, ctx }) => {
+      const { source_id, destination_id, destination_index, item_id } = input;
+
+      console.log(input, "----------------------------------------------");
+      const session = await getServerSession(authOptions);
+      const id = (session as any).id;
+
+      try {
+        // 1. find the given item by its ID
+        const item = await (ctx as any).prisma.LifeGoals.findUnique({
+          where: {
+            id: source_id,
+            user: {
+              id,
+            },
+            userId: id,
+          },
+        });
+
+        const source_chips = [...item.Chips];
+
+        // 2. remove the item from source
+        await (ctx as any).prisma.LifeGoals.updateMany({
+          where: {
+            id: source_id,
+            user: {
+              id,
+            },
+            userId: id,
+          },
+          data: {
+            Chips: {
+              set: item.Chips.filter((val: any) => val.id !== item_id),
+            },
+          },
+        });
+
+        // 4. read destination chips
+        const lifeGoalDocument = await (ctx as any).prisma.LifeGoals.findUnique(
+          {
+            where: {
+              id: destination_id,
+              user: {
+                id,
+              },
+              userId: id,
+            },
+          }
+        );
+
+        // 5. add the item to destination Document in given index
+        const chips = [...lifeGoalDocument.Chips];
+
+        console.log(source_chips, "sourceChips");
+        const chip = source_chips.filter((_item: any) => _item.id === item_id);
+        console.log(chip, "chip");
+        chips.splice(destination_index, 0, chip[0]);
+
+        console.log(chips, "chips");
+
+        await (ctx as any).prisma.LifeGoals.update({
+          where: {
+            id: destination_id,
+            user: {
+              id,
+            },
+            userId: id,
+          },
+          data: {
+            Chips: {
+              set: chips,
+            },
+          },
+        });
+      } catch (e) {
+        console.log(e);
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "something went wrong. please try again late",
+        });
+      }
+    }),
+
+  getNotions: t.procedure.query(async ({ ctx }) => {
+    try {
+      const session = await getServerSession(authOptions);
+      const id = (session as any).id;
+      const yearlyGoals = await (ctx as any).prisma.YearlyGoals.findMany({
+        where: {
+          user: {
+            id,
+          },
+        },
+      });
+      return yearlyGoals;
+    } catch (e) {
+      console.log(e);
+      throw new TRPCError({
+        code: "INTERNAL_SERVER_ERROR",
+        message: "something went wrong. please try again late",
+      });
+    }
+  }),
+
+  createNotion: t.procedure
+    .input(
+      z.object({
+        title: z.string(),
+      })
+    )
+    .mutation(async ({ input, ctx }) => {
+      const { title } = input;
+
+      const session = await getServerSession(authOptions);
+      const id = (session as any).id;
+
+      try {
+        const createResult = await (ctx as any).prisma.YearlyGoals.create({
+          data: {
+            userId: id,
+            title,
+            Tasks: [],
+          },
+        });
+
+        return createResult;
+      } catch (e) {
+        console.log(e);
+
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "something went wrong. please try again late",
+        });
+      }
+    }),
+
+  createTask: t.procedure
+    .input(
+      z.object({
+        notionId: z.string(),
+        value: z.string(),
+        is_sub: z.boolean(),
+      })
+    )
+    .mutation(async ({ input, ctx }) => {
+      const { notionId, value, is_sub } = input;
+
+      const session = await getServerSession(authOptions);
+      const id = (session as any).id;
+
+      try {
+        const createResult = await (ctx as any).prisma.YearlyGoals.update({
+          where: {
+            id: notionId,
+            user: {
+              id,
+            },
+            userId: id,
+          },
+          data: {
+            Tasks: {
+              push: {
+                value,
+                isFavorite: false,
+                subTask: false,
+                checked: false,
+                visible: false,
+              },
+            },
+          },
+        });
+
+        return createResult;
+      } catch (e) {
+        console.log(e);
+
         throw new TRPCError({
           code: "INTERNAL_SERVER_ERROR",
           message: "something went wrong. please try again late",

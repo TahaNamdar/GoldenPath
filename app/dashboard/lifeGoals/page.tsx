@@ -23,6 +23,7 @@ export default function LifeGoals() {
   const state = useSelector((state: RootState) => state.chip); // Assuming "chip" is the slice name
 
   const fetchOneUser = trpc.getOneUser.useQuery();
+  const updateChipIndexMutation = trpc.updateChipIndex.useMutation();
 
   const { data: userData } = fetchOneUser;
 
@@ -77,10 +78,11 @@ export default function LifeGoals() {
     const sourceAge = source.droppableId.split("-")[1];
     // 3. get destination value
     const destinationValues = state[destinationAge];
+
     // 4. get source value
     const sourceValues = state[sourceAge];
 
-    const sourceValue = sourceValues.find(
+    const sourceValue = sourceValues.Chips.find(
       (item: any) => item.id === draggableId
     );
 
@@ -97,6 +99,13 @@ export default function LifeGoals() {
           destinationIndex: destination.index,
         })
       );
+
+      updateChipIndexMutation.mutate({
+        source_id: sourceValues.id,
+        destination_id: destinationValues.id,
+        destination_index: destination.index,
+        item_id: draggableId,
+      });
     }
 
     //drag and drop between ages
@@ -104,6 +113,7 @@ export default function LifeGoals() {
       // 5. remove sourceValue from sourceValues
       dispatch(
         removeFromSourceValue({
+          destinationAge: destinationAge,
           sourceValue: sourceValue,
           sourceValues: sourceValues,
         })
@@ -116,6 +126,13 @@ export default function LifeGoals() {
           destinationValues: destinationValues,
         })
       );
+
+      updateChipIndexMutation.mutate({
+        source_id: sourceValues.id,
+        destination_id: destinationValues.id,
+        destination_index: destination.index,
+        item_id: draggableId,
+      });
     }
   };
 

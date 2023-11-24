@@ -43,7 +43,7 @@ function Chip({ age = "", daysLeft = "", counter, index, chips }: Props) {
     if (event.key === "Backspace" && event.currentTarget.value === "") {
       // Check if Backspace event corresponds to the correct input field
       if (currentAge === event.currentTarget.name) {
-        const lastChip = chips[chips.length - 1];
+        const lastChip = chips.Chips[chips.Chips.length - 1];
 
         if (lastChip) {
           dispatch(removeChip({ id: lastChip.id, age: currentAge }));
@@ -80,7 +80,7 @@ function Chip({ age = "", daysLeft = "", counter, index, chips }: Props) {
             <div className="pt-[1.2rem] pb-[0.8rem] pl-[1.8rem] relative flex">
               <div className="flex items-center flex-wrap w-11/12 lg:w-10/12  ">
                 {chips &&
-                  chips.map((chip: any, _index: any) => {
+                  chips?.Chips.map((chip: any, _index: any) => {
                     return (
                       <Draggable
                         draggableId={chip.id}

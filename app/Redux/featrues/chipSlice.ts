@@ -7,7 +7,7 @@ type Chip = {
 };
 
 interface ChipState {
-  [index: string]: Chip[];
+  [index: string]: { id: string; Chips: Chip[] };
 }
 
 type LifeGoalResult = {
@@ -28,8 +28,8 @@ const chipSlice = createSlice({
 
       const normalizeData: any = {};
       data.forEach((item) => {
-        const { age, Chips } = item;
-        normalizeData[age] = Chips;
+        const { age, Chips, id } = item;
+        normalizeData[age] = { id, Chips };
       });
 
       return {
@@ -41,17 +41,18 @@ const chipSlice = createSlice({
     addChip: (state, action: PayloadAction<Chip>) => {
       const { id, age, value } = action.payload;
       const chip = { id, age, value };
-      let chips = state[age];
 
-      chips.push(chip);
-      state[age] = chips;
+      let { Chips } = state[age];
+
+      Chips.push(chip);
+      state[age].Chips = Chips;
     },
 
     removeChip: (state, action: PayloadAction<any>) => {
       const { id, age } = action.payload;
       const data = state[age];
-      const filteredData = data.filter((item) => item.id !== id);
-      state[age] = filteredData;
+      const filteredData = data.Chips.filter((item) => item.id !== id);
+      state[age].Chips = filteredData;
     },
 
     reorderChips: (
@@ -64,25 +65,27 @@ const chipSlice = createSlice({
     ) => {
       const { sourceIndex, destinationIndex, age } = action.payload;
 
-      const [movedChip] = state[age].splice(sourceIndex, 1);
-      state[age].splice(destinationIndex, 0, movedChip);
+      const [movedChip] = state[age].Chips.splice(sourceIndex, 1);
+      state[age].Chips.splice(destinationIndex, 0, movedChip);
     },
 
     removeFromSourceValue: (state, action: PayloadAction<any>) => {
       const { sourceValue, sourceValues } = action.payload;
 
-      const updatedSourceValues = sourceValues.filter(
+      const updatedSourceValues = sourceValues.Chips.filter(
         (item: any) => item.id !== sourceValue.id
       );
       // Update the state with the modified sourceValues
-      state[sourceValue.age] = updatedSourceValues;
+
+      state[sourceValue.age].Chips = updatedSourceValues;
     },
 
     addToDestinationValue: (state, action: PayloadAction<any>) => {
       const { sourceValue, destinationValues, destinationAge } = action.payload;
-      state[destinationAge] = [
-        ...destinationValues,
-        { ...sourceValue, age: destinationAge },
+
+      state[destinationAge].Chips = [
+        ...state[destinationAge].Chips,
+        { id: sourceValue.id, value: sourceValue.value, age: destinationAge },
       ];
     },
   },
