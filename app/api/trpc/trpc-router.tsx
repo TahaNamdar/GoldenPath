@@ -1,14 +1,16 @@
 import { initTRPC, TRPCError } from "@trpc/server";
 import superjson from "superjson";
 import { date, z } from "zod";
-import { hash } from "argon2";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
-import { verify } from "argon2";
 import { trpc } from "@/utils/trpc";
 import { Notion, NotionTask } from "@/type";
 import { v4 as uuidv4 } from "uuid";
 import { getLargestIndex } from "@/utils/getLargestIndex";
+import { scrypt as _scrypt, randomBytes, verify } from "crypto";
+import { promisify } from "util";
+
+const scrypt = promisify(_scrypt);
 
 const t = initTRPC.create({
     transformer: superjson,
@@ -40,11 +42,15 @@ export const appRouter = t.router({
         )
         .mutation(async ({ input, ctx }) => {
             try {
-                const { email, password } = input;
+	       console.log("is this even running");
+               const { email, password } = input;
 
-                const exists = await (ctx as any).prisma.user.findFirst({
+                const exists = await (ctx as any).prisma.User.findFirst({
                     where: { email },
                 });
+		
+		console.log("after calling the api ")
+		console.log(exists);
 
                 if (exists) {
                     throw new TRPCError({
@@ -53,11 +59,16 @@ export const appRouter = t.router({
                     });
                 }
 
-                const hashedPassword = await hash(password);
 
                 const _LifeGoalDocuments = [];
 
-                const result = await (ctx as any).prisma.user.create({
+		console.log("abefo")
+		
+		const salt = randomBytes(8).toString("hex")
+		const hash = (await scrypt(password, salt, 32)) as Buffer;
+		const hashedPassword = `${salt}.${hash.toString("hex")}`
+
+                const result = await (ctx as any).prisma.User.create({
                     data: { email, password: hashedPassword },
                 });
 
@@ -73,7 +84,10 @@ export const appRouter = t.router({
                     data: _LifeGoalDocuments,
                 });
 
-                return {
+                
+		console.log("=======end=============");		
+
+		return {
                     status: 201,
                     message: "Account created successfully",
                     result: result.email,
@@ -97,7 +111,7 @@ export const appRouter = t.router({
                 newEmailPassFiled: z.string().min(4).max(12),
             })
         )
-        .mutation(async ({ input, ctx }) => {
+                .mutation(async ({ input, ctx }) => {
             const { newEmail, newEmailPassFiled } = input;
 
             const session = await getServerSession(authOptions);
@@ -108,9 +122,11 @@ export const appRouter = t.router({
                 },
             });
 
-            const isValidPassword = await verify(user.password, newEmailPassFiled);
 
-            if (!isValidPassword) {
+	    const [ salt, storedHash ] = user.password.split(".");
+  	    const hash = (await scrypt(newEmailPassFiled, salt, 32)) as Buffer
+
+            if (hash.toString("hex") !== storedHash) {
                 throw new TRPCError({
                     code: "CONFLICT",
                     message: "username or password is wrong!",
@@ -148,16 +164,21 @@ export const appRouter = t.router({
                 },
             });
 
-            const isValidPassword = await verify(user.password, oldPassword);
 
-            if (!isValidPassword) {
+	    const [ salt, storedHash ] = user.password.split(".");
+  	    const hash = (await scrypt(oldPassword, salt, 32)) as Buffer
+
+            if (hash.toString("hex") !== storedHash) {
                 throw new TRPCError({
                     code: "CONFLICT",
                     message: "password is wrong",
                 });
             }
 
-            const hashedNewPassword = await hash(newPassword);
+		const _newSalt = randomBytes(8).toString("hex")
+		const _newhHash = (await scrypt(newPassword, salt, 32)) as Buffer;
+		const hashedNewPassword = `${salt}.${hash.toString("hex")}`
+
 
             const updatePassword = await (ctx as any).prisma.user.update({
                 where: {
@@ -217,6 +238,12 @@ export const appRouter = t.router({
     GET -> All
     PUT -> age, chips
   */
+	
+    test: t.procedure.query( async ({ ctx })=> {
+	return {
+	   test: "hello world"
+	}	
+    }),
 
     getLifeGoals: t.procedure.use(isUser).query(async ({ ctx }) => {
         try {
@@ -1055,26 +1082,25 @@ export const appRouter = t.router({
                 await (ctx as any).prisma.Priorities.update({
                     where: {
                         id: destinationId,
-                        userId: id,
-                    },
-                    data: {
-                        index: from,
-                    },
-                });
+                        userId: id
+			},
+			data: {
+index: from,
+}
+});
 
-                // just something to return
-                return {
-                    from,
-                    to,
-                };
-            } catch (e) {
-                console.log(e);
-                throw new TRPCError({
-                    code: "INTERNAL_SERVER_ERROR",
-                    message: "something went wrong. please try again late",
-                });
-            }
-        }),
+return {
+from,
+to
+};
+} catch(e) {
+	console.log(e);
+throw new TRPCError({
+code: "INTERNAL_SERVER_ERROR",
+message: "something went wrong. please try again late",
+});
+}
+}),
 });
 
 export type AppRouter = typeof appRouter;

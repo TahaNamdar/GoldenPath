@@ -2,9 +2,15 @@ import { NextAuthOptions } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
 // import FacebookProvider from "next-auth/providers/facebook";
-import { verify } from "argon2";
 import { PrismaClient } from "@prisma/client";
 import { loginSchema } from "../../../common/validation/auth";
+
+
+import { scrypt as _scrypt } from "crypto";
+import { promisify } from "util";
+
+const scrypt =  promisify(_scrypt);
+
 
 //new
 import NextAuth from "next-auth";
@@ -25,21 +31,31 @@ export const authOptions: NextAuthOptions = {
         password: { label: "Password", type: "password" },
       },
       authorize: async (credentials, request) => {
-        const creds = await loginSchema.parseAsync(credentials);
+	console.log("is this running") 
+       	      const creds = await loginSchema.parseAsync(credentials);
 
-        console.log(creds, "c");
+       
 
         const user = await prisma.user.findFirst({
           where: { email: creds.email },
         });
 
+	console.log(user, "================user================");
+
         if (!user) {
           throw new Error("user or password is wrong");
         }
 
-        const isValidPassword = await verify(user.password, creds.password);
 
-        if (!isValidPassword) {
+	const [ salt, storedHash ] = user.password.split(".");
+	const hash = (await scrypt(creds.password, salt, 32)) as Buffer;
+
+
+	console.log(storedHash);
+	console.log(hash.toString("hex"))
+
+
+        if (hash.toString("hex") !== storedHash) {
           throw new Error("user or password is wrong");
         }
 
