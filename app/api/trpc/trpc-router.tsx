@@ -42,15 +42,15 @@ export const appRouter = t.router({
         )
         .mutation(async ({ input, ctx }) => {
             try {
-	       console.log("is this even running");
-               const { email, password } = input;
+                console.log("is this even running");
+                const { email, password } = input;
 
                 const exists = await (ctx as any).prisma.User.findFirst({
                     where: { email },
                 });
-		
-		console.log("after calling the api ")
-		console.log(exists);
+
+                console.log("after calling the api ");
+                console.log(exists);
 
                 if (exists) {
                     throw new TRPCError({
@@ -59,14 +59,13 @@ export const appRouter = t.router({
                     });
                 }
 
-
                 const _LifeGoalDocuments = [];
 
-		console.log("abefo")
-		
-		const salt = randomBytes(8).toString("hex")
-		const hash = (await scrypt(password, salt, 32)) as Buffer;
-		const hashedPassword = `${salt}.${hash.toString("hex")}`
+                console.log("abefo");
+
+                const salt = randomBytes(8).toString("hex");
+                const hash = (await scrypt(password, salt, 32)) as Buffer;
+                const hashedPassword = `${salt}.${hash.toString("hex")}`;
 
                 const result = await (ctx as any).prisma.User.create({
                     data: { email, password: hashedPassword },
@@ -84,10 +83,9 @@ export const appRouter = t.router({
                     data: _LifeGoalDocuments,
                 });
 
-                
-		console.log("=======end=============");		
+                console.log("=======end=============");
 
-		return {
+                return {
                     status: 201,
                     message: "Account created successfully",
                     result: result.email,
@@ -111,7 +109,7 @@ export const appRouter = t.router({
                 newEmailPassFiled: z.string().min(4).max(12),
             })
         )
-                .mutation(async ({ input, ctx }) => {
+        .mutation(async ({ input, ctx }) => {
             const { newEmail, newEmailPassFiled } = input;
 
             const session = await getServerSession(authOptions);
@@ -122,9 +120,8 @@ export const appRouter = t.router({
                 },
             });
 
-
-	    const [ salt, storedHash ] = user.password.split(".");
-  	    const hash = (await scrypt(newEmailPassFiled, salt, 32)) as Buffer
+            const [salt, storedHash] = user.password.split(".");
+            const hash = (await scrypt(newEmailPassFiled, salt, 32)) as Buffer;
 
             if (hash.toString("hex") !== storedHash) {
                 throw new TRPCError({
@@ -164,9 +161,8 @@ export const appRouter = t.router({
                 },
             });
 
-
-	    const [ salt, storedHash ] = user.password.split(".");
-  	    const hash = (await scrypt(oldPassword, salt, 32)) as Buffer
+            const [salt, storedHash] = user.password.split(".");
+            const hash = (await scrypt(oldPassword, salt, 32)) as Buffer;
 
             if (hash.toString("hex") !== storedHash) {
                 throw new TRPCError({
@@ -175,10 +171,9 @@ export const appRouter = t.router({
                 });
             }
 
-		const _newSalt = randomBytes(8).toString("hex")
-		const _newhHash = (await scrypt(newPassword, salt, 32)) as Buffer;
-		const hashedNewPassword = `${salt}.${hash.toString("hex")}`
-
+            const _newSalt = randomBytes(8).toString("hex");
+            const _newhHash = (await scrypt(newPassword, salt, 32)) as Buffer;
+            const hashedNewPassword = `${salt}.${hash.toString("hex")}`;
 
             const updatePassword = await (ctx as any).prisma.user.update({
                 where: {
@@ -238,11 +233,11 @@ export const appRouter = t.router({
     GET -> All
     PUT -> age, chips
   */
-	
-    test: t.procedure.query( async ({ ctx })=> {
-	return {
-	   test: "hello world"
-	}	
+
+    test: t.procedure.query(async ({ ctx }) => {
+        return {
+            test: "hello world",
+        };
     }),
 
     getLifeGoals: t.procedure.use(isUser).query(async ({ ctx }) => {
@@ -1082,25 +1077,25 @@ export const appRouter = t.router({
                 await (ctx as any).prisma.Priorities.update({
                     where: {
                         id: destinationId,
-                        userId: id
-			},
-			data: {
-index: from,
-}
-});
+                        userId: id,
+                    },
+                    data: {
+                        index: from,
+                    },
+                });
 
-return {
-from,
-to
-};
-} catch(e) {
-	console.log(e);
-throw new TRPCError({
-code: "INTERNAL_SERVER_ERROR",
-message: "something went wrong. please try again late",
-});
-}
-}),
+                return {
+                    from,
+                    to,
+                };
+            } catch (e) {
+                console.log(e);
+                throw new TRPCError({
+                    code: "INTERNAL_SERVER_ERROR",
+                    message: "something went wrong. please try again late",
+                });
+            }
+        }),
 });
 
 export type AppRouter = typeof appRouter;
