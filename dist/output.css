@@ -1360,6 +1360,10 @@ html {
   height: 1px;
 }
 
+.h-\[222px\] {
+  height: 222px;
+}
+
 .h-\[240px\] {
   height: 240px;
 }
@@ -1417,6 +1421,10 @@ html {
   height: 100vh;
 }
 
+.h-\[489px\] {
+  height: 489px;
+}
+
 .max-h-96 {
   max-height: 24rem;
 }
@@ -1455,6 +1463,10 @@ html {
 
 .min-h-\[48px\] {
   min-height: 48px;
+}
+
+.min-h-screen {
+  min-height: 100vh;
 }
 
 .w-0 {
@@ -1561,6 +1573,10 @@ html {
   width: 209px;
 }
 
+.w-\[222px\] {
+  width: 222px;
+}
+
 .w-\[22rem\] {
   width: 22rem;
 }
@@ -1612,6 +1628,10 @@ html {
 
 .w-screen {
   width: 100vw;
+}
+
+.w-\[335px\] {
+  width: 335px;
 }
 
 .min-w-\[100vw\] {
@@ -1692,6 +1712,10 @@ html {
 
 .max-w-screen-2xl {
   max-width: 1320px;
+}
+
+.max-w-\[unset\] {
+  max-width: unset;
 }
 
 .flex-1 {
@@ -3043,6 +3067,11 @@ html {
 
 .bg-no-repeat {
   background-repeat: no-repeat;
+}
+
+.object-contain {
+  -o-object-fit: contain;
+     object-fit: contain;
 }
 
 .object-cover {
@@ -7843,6 +7872,10 @@ textarea {
     height: 100%;
   }
 
+  .lg\:h-\[903px\] {
+    height: 903px;
+  }
+
   .lg\:w-1\/2 {
     width: 50%;
   }
@@ -7897,6 +7930,14 @@ textarea {
 
   .lg\:w-\[88\%\] {
     width: 88%;
+  }
+
+  .lg\:w-\[6\] {
+    width: 6;
+  }
+
+  .lg\:w-\[619px\] {
+    width: 619px;
   }
 
   .lg\:min-w-\[40\%\] {
@@ -8204,6 +8245,10 @@ textarea {
     height: 1000px;
   }
 
+  .xl\:h-\[250px\] {
+    height: 250px;
+  }
+
   .xl\:h-\[725px\] {
     height: 725px;
   }
@@ -8246,6 +8291,10 @@ textarea {
 
   .xl\:w-\[1096px\] {
     width: 1096px;
+  }
+
+  .xl\:w-\[250px\] {
+    width: 250px;
   }
 
   .xl\:w-\[320px\] {
@@ -8636,6 +8685,10 @@ textarea {
     height: 117px;
   }
 
+  .\33xl\:h-\[296px\] {
+    height: 296px;
+  }
+
   .\33xl\:h-\[299px\] {
     height: 299px;
   }
@@ -8662,6 +8715,10 @@ textarea {
 
   .\33xl\:w-\[1548px\] {
     width: 1548px;
+  }
+
+  .\33xl\:w-\[295px\] {
+    width: 295px;
   }
 
   .\33xl\:w-\[320px\] {

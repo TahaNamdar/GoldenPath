@@ -7,12 +7,6 @@ import Shadow from "@/public/assets/layout/circleShadow.svg";
 import SmShadow from "@/public/assets/layout/smBannerShadow.svg";
 import MainShape from "@/public/assets/layout/mainShape.svg";
 import MainShapeMd from "@/public/assets/layout/mainShapeMd.svg";
-import Avatar1 from "@/public/assets/layout/parham.svg";
-import Avatar2 from "@/public/assets/layout/avatar2.svg";
-import LgAvatar1 from "@/public/assets/layout/lgAvatar1.svg";
-import LgAvatar2 from "@/public/assets/layout/lgAvatar2.svg";
-import MdAvatar1 from "@/public/assets/layout/mdAvatar1.svg";
-import MdAvatar2 from "@/public/assets/layout/mdAvatar2.svg";
 import FooterLogo from "@/public/assets/layout/footerLogo.svg";
 import FooterLogoSm from "@/public/assets/layout/footerLogoSm.svg";
 import WhiteStar from "@/public/assets/layout/whiteStar.svg";
@@ -48,19 +42,12 @@ export default function Home() {
             <Shadow />
           </div>
           <div className="w-full md:w-full lg:w-[100%] xl:w-7/12 2xl:w-[50%] 3xl:w-7/12 relative h-[600px] sm:h-[600px] lg:h-[700px] xl:h-full  ">
-            <div className="hidden lg:block absolute  left-1/2 transform -translate-x-1/2 md:left-1/2 md:transform md:-translate-x-1/2 lg:left-1/2 lg:transform lg:-translate-x-1/2 md:top-[14%] lg:top-[10%] xl:transform-none xl:left-[unset] md:right-[unset] xl:right-[40px] 3xl:right-[80px]">
+            <div className=" absolute  left-1/2 transform -translate-x-1/2 md:left-1/2 md:transform md:-translate-x-1/2 lg:left-1/2 lg:transform lg:-translate-x-1/2 top-[10%] md:top-[14%] lg:top-[10%] xl:transform-none xl:left-[unset] md:right-[unset] xl:right-[40px] 3xl:right-[80px]">
               <img
-                src="/assets/layout/sculpture.png"
+                src="/assets/layout/theman.png"
                 width={619}
                 height={903}
-              />
-            </div>
-            <div className="block lg:hidden absolute  left-1/2 transform -translate-x-1/2 md:left-1/2 md:transform md:-translate-x-1/2 lg:left-1/2 lg:transform lg:-translate-x-1/2 top-[10%] xl:transform-none xl:left-[unset]  xl:right-[111px]">
-              <img
-                src="/assets/layout/smSculputre.png"
-                width={335}
-                height={489}
-                style={{ maxWidth: "unset" }}
+                className="w-[335px] h-[489px] lg:w-[619px] lg:h-[903px] max-w-[unset]"
               />
             </div>
           </div>
@@ -267,23 +254,19 @@ export default function Home() {
               <div className="flex justify-end">
                 <div className="bg-layoutColor overflow-x-scroll 2xl:overflow-hidden w-[85%] xl:w-[94%] 3xl:w-[88%]  rounded-l-[55px] border-t-[2px] border-b-[2px] border-l-[2px] border-white md:h-[441px] 3xl:h-[550px] flex items-center 3xl:justify-center">
                   <div className="pt-[45px] pb-[45px] pl-[45px] 3xl:pl-0 md:flex md:items-center">
-                    <div className="mb-[45px] md:mb-[unset] xl:hidden md:mr-[73px] 3xl:hidden">
-                      <Avatar1 />
+                    <div className="mb-[45px] md:mb-[unset] md:mr-[73px]">
+                      <img
+                        src="/assets/layout/Parham.png"
+                        alt="parham"
+                        className="w-[222px] h-[222px] xl:w-[250px] xl:h-[250px] 3xl:w-[295px] 3xl:h-[296px] object-contain"
+                      />
                     </div>
-                    <div className="xl:hidden 3xl:hidden">
-                      <Avatar2 />
-                    </div>{" "}
-                    <div className="mb-[45px] md:mb-[unset] md:mr-[73px] hidden 3xl:block">
-                      <LgAvatar1 />
-                    </div>
-                    <div className="hidden 3xl:block">
-                      <LgAvatar2 />
-                    </div>{" "}
-                    <div className="mb-[45px] hidden  xl:block 3xl:hidden md:mb-[unset] md:mr-[73px]  ">
-                      <MdAvatar1 />
-                    </div>
-                    <div className="hidden xl:block 3xl:hidden ">
-                      <MdAvatar2 />
+                    <div>
+                      <img
+                        src="/assets/layout/photoAvatar.png"
+                        alt="parham"
+                        className="w-[222px] h-[222px] xl:w-[250px] xl:h-[250px] 3xl:w-[295px] 3xl:h-[296px] object-contain"
+                      />
                     </div>
                   </div>
                 </div>
