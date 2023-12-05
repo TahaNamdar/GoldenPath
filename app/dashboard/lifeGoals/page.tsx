@@ -32,16 +32,30 @@ export default function LifeGoals() {
 
   const { days, years } = getAge(userData?.birthday);
 
-  const limit = years + 7;
-
   const fetchLifeGoals = trpc.getLifeGoals.useQuery();
 
   const { data: lifeData, isSuccess, isLoading } = fetchLifeGoals;
 
   useEffect(() => {
+    if (years) {
+      const element = document.getElementById(`chips-${years - 8}`);
+      const chipsWrapper = document.getElementById("chipsWrapper");
+
+      console.log(element, "elem");
+      console.log(chipsWrapper, "wrapper");
+
+      if (element && chipsWrapper) {
+        const y = element.getBoundingClientRect().top + chipsWrapper.scrollTop;
+        chipsWrapper.scroll({
+          top: y,
+        });
+      }
+    }
+  }, [years]);
+
+  useEffect(() => {
     if (isSuccess) {
-      const result = lifeData.slice(0, limit);
-      dispatch(setLifeGoals(result));
+      dispatch(setLifeGoals(lifeData));
     }
   }, [isSuccess]);
 
@@ -51,10 +65,7 @@ export default function LifeGoals() {
 
   const chipsFromAgeArray = [];
 
-  const fromAge = years - 5;
-  const toAge = years + 5;
-
-  for (let i = 0; i < limit; i++) {
+  for (let i = 0; i < lifeData.length; i++) {
     chipsFromAgeArray.push(
       <Chip
         key={i}
@@ -104,7 +115,7 @@ export default function LifeGoals() {
     <div className=" bg-CharlestonGreen lg:bg-darkGunmetal lg:flex md:p-1">
       <SideBar />
 
-      <div className="flex-1  bg-CharlestonGreen rounded-md lg:pl-[3.7rem] lg:pr-[4.6rem] h-screen xl:h-auto">
+      <div className="flex-1  bg-CharlestonGreen rounded-md lg:pl-[3.7rem] lg:pr-[4.6rem] h-screen lg:h-[100%] xl:h-auto 3xl:h-screen overflow-y-auto  scroll-bar">
         <div className="lg:flex items-center justify-between mb-[1rem] lg:mb-[3.7rem] mt-[4.5rem] pl-[2rem] pr-[2rem]">
           <div className="lg:mb-[2rem]">
             <p className="text-3xl mb-[1.4rem]  md:text-4xl text-white font-medium md:mb-2">
@@ -136,7 +147,7 @@ export default function LifeGoals() {
           </div>
         </div>
         {/* tags input component */}
-        <main className="mb-[4rem]">
+        <main className="mb-[4rem] ">
           <div className="bg-darkGunmetal pr-[3.8rem] pl-[2.3rem] lg:pl-[3.8rem] lg:rounded-t-[1.4rem]">
             <div className="text-white text-2xl pt-[2rem] pb-[1.9rem]  lg:text-[1.8rem] flex ">
               <p className="mr-[2.2rem] lg:mr-[4.7rem]">Age</p>
@@ -144,7 +155,10 @@ export default function LifeGoals() {
             </div>
           </div>
           {/* chips */}
-          <div className="bg-Crayola pl-[2rem]  lg:pr-[3.8rem] lg:pl-[3.8rem] lg:rounded-b-[1.4rem] ">
+          <div
+            className="bg-Crayola pl-[2rem]  lg:pr-[3.8rem] lg:pl-[3.8rem] lg:rounded-b-[1.4rem] overflow-y-auto h-[79vh] scroll-bar"
+            id="chipsWrapper"
+          >
             <section className="pt-[2rem] sm:pr-[2rem] pb-[2rem] ">
               {years === 0 ? (
                 <p className="text-white text-xl">

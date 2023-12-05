@@ -1372,6 +1372,10 @@ html {
   height: 370px;
 }
 
+.h-\[489px\] {
+  height: 489px;
+}
+
 .h-\[58px\] {
   height: 58px;
 }
@@ -1400,6 +1404,10 @@ html {
   height: 74px;
 }
 
+.h-\[79vh\] {
+  height: 79vh;
+}
+
 .h-\[91\%\] {
   height: 91%;
 }
@@ -1419,10 +1427,6 @@ html {
 
 .h-screen {
   height: 100vh;
-}
-
-.h-\[489px\] {
-  height: 489px;
 }
 
 .max-h-96 {
@@ -1589,6 +1593,10 @@ html {
   width: 30rem;
 }
 
+.w-\[335px\] {
+  width: 335px;
+}
+
 .w-\[390px\] {
   width: 390px;
 }
@@ -1628,10 +1636,6 @@ html {
 
 .w-screen {
   width: 100vw;
-}
-
-.w-\[335px\] {
-  width: 335px;
 }
 
 .min-w-\[100vw\] {
@@ -1702,6 +1706,10 @@ html {
   max-width: 95%;
 }
 
+.max-w-\[unset\] {
+  max-width: unset;
+}
+
 .max-w-full {
   max-width: 100%;
 }
@@ -1712,10 +1720,6 @@ html {
 
 .max-w-screen-2xl {
   max-width: 1320px;
-}
-
-.max-w-\[unset\] {
-  max-width: unset;
 }
 
 .flex-1 {
@@ -4651,13 +4655,13 @@ textarea {
 }
 
 .scroll-bar::-webkit-scrollbar {
-  width: 3px;
+  width: 1px;
 }
 
 .scroll-bar::-webkit-scrollbar-thumb {
   background-color: #31353e;
   border-radius: 6px;
-  border: 3px solid #555;
+  border: 1px solid #555;
 }
 
 .scroll-bar::-webkit-scrollbar-thumb:hover {
@@ -4665,6 +4669,25 @@ textarea {
 }
 
 .scroll-bar::-webkit-scrollbar-track {
+  background-color: #31353e;
+  border-radius: 6px;
+}
+
+::-webkit-scrollbar {
+  width: 1px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #31353e;
+  border-radius: 6px;
+  border: 1px solid #555;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #555;
+}
+
+::-webkit-scrollbar-track {
   background-color: #31353e;
   border-radius: 6px;
 }
@@ -7852,6 +7875,10 @@ textarea {
     display: none;
   }
 
+  .lg\:h-\[100\%\] {
+    height: 100%;
+  }
+
   .lg\:h-\[190px\] {
     height: 190px;
   }
@@ -7868,12 +7895,12 @@ textarea {
     height: 890px;
   }
 
-  .lg\:h-full {
-    height: 100%;
-  }
-
   .lg\:h-\[903px\] {
     height: 903px;
+  }
+
+  .lg\:h-full {
+    height: 100%;
   }
 
   .lg\:w-1\/2 {
@@ -7928,16 +7955,12 @@ textarea {
     width: 60.6rem;
   }
 
-  .lg\:w-\[88\%\] {
-    width: 88%;
-  }
-
-  .lg\:w-\[6\] {
-    width: 6;
-  }
-
   .lg\:w-\[619px\] {
     width: 619px;
+  }
+
+  .lg\:w-\[88\%\] {
+    width: 88%;
   }
 
   .lg\:min-w-\[40\%\] {
@@ -8155,10 +8178,6 @@ textarea {
 
   .xl\:right-\[-3\%\] {
     right: -3%;
-  }
-
-  .xl\:right-\[111px\] {
-    right: 111px;
   }
 
   .xl\:right-\[40px\] {
@@ -8699,6 +8718,10 @@ textarea {
 
   .\33xl\:h-\[970px\] {
     height: 970px;
+  }
+
+  .\33xl\:h-screen {
+    height: 100vh;
   }
 
   .\33xl\:w-5\/12 {
