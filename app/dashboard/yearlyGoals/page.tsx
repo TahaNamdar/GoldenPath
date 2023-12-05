@@ -1,53 +1,153 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import DragSvg from "@/public/assets/Drag.svg";
 import SideBar from "@/app/components/sideBar/sideBar";
 import GoldenEditor from "@/app/components/goldenEditor/goldenEditor";
+import { ReactSortable } from "react-sortablejs";
+import { v4 as uuidv4 } from "uuid";
+import { trpc } from "@/utils/trpc";
+import { toast } from "react-toastify";
+import {
+  Notion,
+  Priority,
+  onFavoriteAdd,
+  onFavoriteRemove,
+  onFavoriteUpdate,
+} from "@/type";
 
 export default function YearlyGoals() {
+  const { data: notions, isLoading, error } = trpc.getNotions.useQuery();
+  const { data: priorities, isLoading: isPrioritiesLoading } =
+    trpc.getPriorities.useQuery();
+  const createNotionCard = trpc.createNotion.useMutation();
+
+  const createPriority = trpc.createPriority.useMutation();
+  const removePriority = trpc.removePriority.useMutation();
+  const updatePriority = trpc.updatePriority.useMutation();
+  const updateNotionsIndex = trpc.updateNotionIndex.useMutation();
+  const updatePrioritiesIndex = trpc.updatePrioritiesIndex.useMutation();
+
+  const [notionsList, setNotionsList] = useState<Notion[]>([]);
+  const [prioritiesList, setPriorities] = useState<Priority[]>([]);
+
   const [isShown, setIsShown] = useState<boolean>(false);
 
-  const [priorities, setPriorities] = useState<{ id: any; text: string }[]>([]);
+  const onFavoriteAdd: onFavoriteAdd = ({ notionId, taskId, value }) => {
+    createPriority.mutate(
+      { notionId, taskId, value },
+      {
+        onSuccess: (res) => {
+          if (prioritiesList.length > 5) return;
+          const { id, userId, index } = res;
+          const newPriority: Priority = {
+            id,
+            userId,
+            notionId,
+            taskId,
+            value,
+            index,
+          };
+          setPriorities((_prev) => {
+            return [..._prev, newPriority];
+          });
+        },
+      }
+    );
+  };
+  const onFavoriteRemove: onFavoriteRemove = ({ taskId }) => {
+    const priority = prioritiesList.filter(
+      (priority) => priority.taskId === taskId
+    );
 
-  const favoriteHandler = (id: any, text: string, isFavorite: boolean) => {
-    const priorityCard = { id, text, isFavorite };
+    if (!priority) return;
 
-    if (priorities.length > 6) return;
+    const { id } = priority[0];
 
-    if (!isFavorite) {
-      setPriorities((prevPriorities) => {
-        const doesCardExist = prevPriorities.find((item) => item.id === id);
-        const doesCardExistText = prevPriorities.find(
-          (item) => item.text === text
-        );
-
-        if (doesCardExist || doesCardExistText) return prevPriorities;
-
-        return [...prevPriorities, priorityCard];
-      });
-    } else {
-      setPriorities((prevPriorities: any) => {
-        const filtered = prevPriorities.filter((item: any) => item.id !== id);
-        return filtered;
-      });
-    }
+    removePriority.mutate(
+      {
+        priorityId: id,
+      },
+      {
+        onSuccess: () => {
+          setPriorities((_prev) => {
+            const filteredPriority = _prev.filter(
+              (_priority) => _priority.id !== id
+            );
+            return [...filteredPriority];
+          });
+        },
+      }
+    );
   };
 
-  const [componentInstances, setComponentInstances] = useState([
-    <GoldenEditor key={Date.now()} onFavoriteHandler={favoriteHandler} />,
-  ]);
+  const onFavoriteUpdate: onFavoriteUpdate = ({ taskId, value }) => {
+    updatePriority.mutate(
+      {
+        taskId,
+        value,
+      },
+      {
+        onSuccess: () => {
+          setPriorities((_prev) => {
+            const modifiedValues = _prev.map((_priority) => {
+              if (_priority.taskId === taskId) {
+                _priority.value = value;
+              }
+              return _priority;
+            });
+
+            return [...modifiedValues];
+          });
+        },
+      }
+    );
+  };
 
   const handleAddComponent = () => {
-    const newComponentInstances = [
-      ...componentInstances,
-      <GoldenEditor key={Date.now()} onFavoriteHandler={favoriteHandler} />,
-    ];
-    setComponentInstances(newComponentInstances);
+    createNotionCard.mutate(
+      { title: "" },
+      {
+        onSuccess: (res: Notion) => {
+          setNotionsList((notions) => {
+            return [...notions, res];
+          });
+        },
+        onError: (err: any) => {
+          toast.error(
+            "Something's went wrong. Cannot create a Dimention right now. "
+          );
+          console.error(err);
+        },
+      }
+    );
   };
 
+  useEffect(() => {
+    if (!notions || notions.length === 0) {
+      setNotionsList([]);
+    } else {
+      // we sort arrays based on their index on the database
+      const sortedNotions = (notions as Notion[]).sort(
+        (a, b) => a.index - b.index
+      );
+      setNotionsList(sortedNotions);
+    }
+  }, [notions]);
+
+  useEffect(() => {
+    if (!notions || notions.length === 0) {
+      setPriorities([]);
+    } else {
+      const prioritiesSorted = (priorities as Priority[]).sort(
+        (a, b) => a.index - b.index
+      );
+      setPriorities(prioritiesSorted.slice(0, 6));
+    }
+  }, [priorities]);
+
   return (
-    <div className="bg-CharlestonGreen lg:bg-darkGunmetal lg:flex md:p-1">
+    <div className="bg-CharlestonGreen lg:bg-darkGunmetal lg:flex md:p-1 min-h-screen">
       {/* SideBar */}
       <SideBar />
       {/* Yearly Goals */}
@@ -100,11 +200,38 @@ export default function YearlyGoals() {
             top to bottom.try to keep 3~5 items here
           </p>
 
-          <div className="md:flex md:flex-wrap">
-            {priorities &&
-              priorities.map((item, index) => {
+          <ReactSortable
+            onEnd={(e) => {
+              const from = e.oldIndex as number;
+              const to = e.newIndex as number;
+
+              const { id: sourceId } = prioritiesList[from];
+              const { id: destinationId } = prioritiesList[to];
+
+              updatePrioritiesIndex.mutate({
+                destinationId,
+                sourceId,
+                from,
+                to,
+              });
+            }}
+            list={prioritiesList}
+            setList={setPriorities}
+            animation={200}
+            className="md:flex md:flex-wrap"
+          >
+            {isPrioritiesLoading ? (
+              <p className="text-[16px] text-white">fetching data...</p>
+            ) : prioritiesList.length === 0 ? (
+              <p className="text-[16px] text-placeholder">
+                Add a task to your favorite to see them here
+              </p>
+            ) : (
+              prioritiesList &&
+              prioritiesList.length &&
+              prioritiesList.map((item, index) => {
                 return (
-                  <div className="md:w-1/2" key={index}>
+                  <div className="md:w-1/2 cursor-grab" key={item.taskId}>
                     <div
                       className="flex items-center mb-[1.6rem]"
                       onMouseEnter={() => setIsShown(true)}
@@ -123,15 +250,16 @@ export default function YearlyGoals() {
                             <div className="w-[1.1rem]"></div>
                           )}
                           <p className="text-gold font-normal text-[1.3rem] md:text-2xl pt-[1.3rem] ml-[2.1rem] pb-[1.3rem] sm:pr-[16rem] md:pt-[1.8rem] md:ml-[1.7rem] md:pb-[1.5rem] md:pr-[0.4rem] lg:pt-[2rem] lg:ml-[2.1rem] lg:pb-[2.1rem] lg:pr-[0]">
-                            {item.text}
+                            {item.value}
                           </p>
                         </div>
                       </div>
                     </div>
                   </div>
                 );
-              })}
-          </div>
+              })
+            )}
+          </ReactSortable>
         </div>
         {/* Activities */}
         <div className="md:flex items-center justify-between mb-[1.6rem] mt-[4.5rem]">
@@ -147,21 +275,58 @@ export default function YearlyGoals() {
         </div>
         {/* notion */}
 
-        <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 3xl:grid-cols-4 gap-4">
-          {componentInstances.map((Component, index) => (
-            <div key={index}>{Component}</div>
-          ))}
-          <div
-            className="bg-Crayola cursor-pointer rounded-[14px] p-10 text-white w-full  lg:w-11/12 h-[160px] lg:h-[190px] 3xl:mr-[20px] lg:mb-[20px]"
-            onClick={handleAddComponent}
-          >
-            <p className="text-editor text-[20px]  mb-[6px]">Add Dimension</p>
-            <p className="text-editor text-[16px]">
-              Tap here to add a new dimension, such as University, Health,
-              Bussiness etc...
-            </p>
+        {isLoading ? (
+          <p className="text-[16px] text-white">fetching data...</p>
+        ) : (
+          <div>
+            <ReactSortable
+              onEnd={(e) => {
+                const from = e.oldIndex as number;
+                const to = e.newIndex as number;
+
+                const { id: sourceId } = notionsList[from];
+                const { id: destinationId } = notionsList[to];
+
+                updateNotionsIndex.mutate({
+                  destinationId,
+                  sourceId,
+                  from,
+                  to,
+                });
+              }}
+              list={notionsList}
+              setList={setNotionsList}
+              animation={200}
+              className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 3xl:grid-cols-4 gap-4"
+            >
+              {/* render notion cards here */}
+              {notionsList.map((notion: Notion) => {
+                return (
+                  <GoldenEditor
+                    data={notion}
+                    key={notion.id}
+                    onFavoriteAdd={onFavoriteAdd}
+                    onFavoriteRemove={onFavoriteRemove}
+                    onFavoriteUpdate={onFavoriteUpdate}
+                  />
+                );
+              })}
+
+              <div
+                className="bg-Crayola cursor-pointer rounded-[14px] mb-[9rem] md:mb-[unset] p-10 text-white w-full  lg:w-11/12 h-[160px] lg:h-[190px] 3xl:mr-[20px] lg:mb-[20px]"
+                onClick={handleAddComponent}
+              >
+                <p className="text-editor text-[20px]  mb-[6px]">
+                  Add Dimension
+                </p>
+                <p className="text-editor text-[16px]">
+                  Tap here to add a new dimension, such as University, Health,
+                  Bussiness etc...
+                </p>
+              </div>
+            </ReactSortable>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );

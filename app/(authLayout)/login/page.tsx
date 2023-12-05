@@ -30,7 +30,7 @@ const schema = yup
       .string()
       .required("No password provided.")
       .min(4, "Password is too short - should be 8 chars minimum."),
-    // .matches(/[a-zA-Z]/, "Password can only contain Latin letters."),
+    validation: yup.string(),
   })
   .required();
 
@@ -38,6 +38,7 @@ export default function Login() {
   const {
     register,
     handleSubmit,
+    setError,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
@@ -77,23 +78,18 @@ export default function Login() {
       router.push("/dashboard");
       showToastSuccess();
     } else {
-      showToastError();
+      setError("validation", {
+        type: "custom",
+        message: "Incorrect Password",
+      });
     }
   };
 
-  const showToastError = () => {
-    //create a function to display a success message
-    toast.error("user name or password is wrong", {
-      position: "top-right",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "dark",
-    });
+  const signInGoogleHandler = async () => {
+    const res = await signIn("google");
+    console.log(res, "res");
   };
+
   const showToastSuccess = () => {
     //create a function to display a success message
     toast.success("Redirecting to dashboard ...", {
@@ -116,7 +112,7 @@ export default function Login() {
 
       <div className="bg-Crayola  block sm:flex sm:flex-row-reverse sm:overflow-hidden ">
         <div className="w-full overflow-auto h-screen z-50 lg:w-[60.6rem] xl:w-[80rem] bg-darkGunmetal  pr-[2rem] pl-[2rem] flex flex-col justify-center md:pr-[10rem] md:pl-[10rem]  xl:pr-[12.2rem] xl:pl-[12.2rem]">
-          <p className="text-white text-center text-[2.4rem] md:text-[3.2rem] xl:text-[4.8rem] mb-[9rem]  md:mb-[4.7rem] md: xl:mb-[11.1rem] pt-[18rem] lg:pt-[22.4rem]">
+          <p className="text-white text-center text-[2.4rem] md:text-[3.2rem] xl:text-[4.8rem] mb-[9rem]  md:mb-[4.7rem] md: xl:mb-[11.1rem] lg:pt-[22.4rem]">
             Login
           </p>
           <form onSubmit={handleSubmit(submit)}>
@@ -152,18 +148,24 @@ export default function Login() {
                 {errors.password?.message}
               </p>
             </div>
-            <div className="flex justify-between items-center mb-[9rem] md:mb-[7.8rem] xl:mb-[9rem]">
-              <p className="text-white text-[10px] lg:text-base ">
-                You Don't Have An Account ?{" "}
-                <Link
-                  href="/register"
-                  className="cursor-pointer text-chipColor"
-                >
-                  Register Here
-                </Link>
-              </p>
-              <p className="text-white text-[10px] lg:text-base cursor-pointer ">
-                Forget Password ?
+            <div className="mb-[8rem] md:mb-[7.4rem] xl:mb-[8rem]">
+              <div className="flex justify-between items-center ">
+                <p className="text-white text-[10px] lg:text-base ">
+                  You Don't Have An Account ?{" "}
+                  <Link
+                    href="/register"
+                    className="cursor-pointer text-chipColor"
+                  >
+                    Register Here
+                  </Link>
+                </p>
+
+                <p className="text-white text-[10px] lg:text-base cursor-pointer ">
+                  Forget Password ?
+                </p>
+              </div>
+              <p className="text-danger mt-6 text-[14px]">
+                {errors.validation?.message}
               </p>
             </div>
             <div className="text-right mb-[3.9rem]">
@@ -183,7 +185,7 @@ export default function Login() {
           </div>
           <div className="text-right mb-[3.9rem]">
             <button
-              onClick={() => signIn()}
+              onClick={() => signInGoogleHandler()}
               className="flex items-center justify-center rounded-[1.4rem] border-[1px] border-white w-full text-center text-white  text-2xl md:text-3xl pl-[10rem] pr-[10rem] pt-[1.2rem] pb-[1.2rem] md:pl-[11rem] md:pr-[11rem] md:pt-[1.8rem] md:pb-[1.8rem]"
             >
               <Image src={GoogleLogo} alt="google icon" className="mr-[12px]" />

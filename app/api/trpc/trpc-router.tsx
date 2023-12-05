@@ -6,9 +6,31 @@ import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { verify } from "argon2";
 import { trpc } from "@/utils/trpc";
+import { Notion, NotionTask } from "@/type";
+import { v4 as uuidv4 } from "uuid";
+import { getLargestIndex } from "@/utils/getLargestIndex";
 
 const t = initTRPC.create({
     transformer: superjson,
+<<<<<<< HEAD
+=======
+});
+
+const isUser = t.middleware(async (opts: any) => {
+    const session = await getServerSession(authOptions);
+    const { id } = session as any;
+
+    const { ctx, next } = opts;
+
+    if (!id) {
+        throw new TRPCError({ code: "UNAUTHORIZED" });
+    }
+    return next({
+        ctx: {
+            ...ctx,
+        },
+    });
+>>>>>>> 270a8bfd395936acebf6b471cf24af1d093b26b5
 });
 
 export const appRouter = t.router({
@@ -71,6 +93,10 @@ export const appRouter = t.router({
 
     // change email
     changeEmail: t.procedure
+<<<<<<< HEAD
+=======
+        .use(isUser)
+>>>>>>> 270a8bfd395936acebf6b471cf24af1d093b26b5
         .input(
             z.object({
                 newEmail: z.string(),
@@ -110,6 +136,10 @@ export const appRouter = t.router({
     //change password
 
     changePassword: t.procedure
+<<<<<<< HEAD
+=======
+        .use(isUser)
+>>>>>>> 270a8bfd395936acebf6b471cf24af1d093b26b5
         .input(
             z.object({
                 oldPassword: z.string().min(8),
@@ -151,6 +181,10 @@ export const appRouter = t.router({
     //change birthday
 
     changeBirthday: t.procedure
+<<<<<<< HEAD
+=======
+        .use(isUser)
+>>>>>>> 270a8bfd395936acebf6b471cf24af1d093b26b5
         .input(
             z.object({
                 birthday: date(),
@@ -179,7 +213,11 @@ export const appRouter = t.router({
 
     //get user by id
 
+<<<<<<< HEAD
     getOneUser: t.procedure.query(async ({ ctx }) => {
+=======
+    getOneUser: t.procedure.use(isUser).query(async ({ ctx }) => {
+>>>>>>> 270a8bfd395936acebf6b471cf24af1d093b26b5
         const session = await getServerSession(authOptions);
 
         return (ctx as any).prisma.user.findUnique({
@@ -196,11 +234,18 @@ export const appRouter = t.router({
     PUT -> age, chips
   */
 
+<<<<<<< HEAD
     getLifeGoals: t.procedure.query(async ({ ctx }) => {
         try {
             const session = await getServerSession(authOptions);
             const id = (session as any).id;
             console.log(id);
+=======
+    getLifeGoals: t.procedure.use(isUser).query(async ({ ctx }) => {
+        try {
+            const session = await getServerSession(authOptions);
+            const id = (session as any).id;
+>>>>>>> 270a8bfd395936acebf6b471cf24af1d093b26b5
             const lifeGoals = await (ctx as any).prisma.LifeGoals.findMany({
                 where: {
                     user: {
@@ -219,6 +264,10 @@ export const appRouter = t.router({
     }),
 
     createLifeGoal: t.procedure
+<<<<<<< HEAD
+=======
+        .use(isUser)
+>>>>>>> 270a8bfd395936acebf6b471cf24af1d093b26b5
         .input(
             z.object({
                 age: z.number(),
@@ -251,6 +300,10 @@ export const appRouter = t.router({
         }),
 
     updateChips: t.procedure
+<<<<<<< HEAD
+=======
+        .use(isUser)
+>>>>>>> 270a8bfd395936acebf6b471cf24af1d093b26b5
         .input(
             z.object({
                 age: z.number(),
@@ -305,6 +358,10 @@ export const appRouter = t.router({
         }),
 
     deleteChips: t.procedure
+<<<<<<< HEAD
+=======
+        .use(isUser)
+>>>>>>> 270a8bfd395936acebf6b471cf24af1d093b26b5
         .input(
             z.object({
                 age: z.number(),
@@ -353,21 +410,36 @@ export const appRouter = t.router({
         }),
 
     updateChipIndex: t.procedure
+<<<<<<< HEAD
         .input(
             z.object({
                 source_id: z.number(),
                 destination_id: z.number(),
                 destination_index: z.number(),
                 item_id: z.number(),
+=======
+        .use(isUser)
+        .input(
+            z.object({
+                source_id: z.string(),
+                destination_id: z.string(),
+                destination_index: z.number(),
+                item_id: z.string(),
+>>>>>>> 270a8bfd395936acebf6b471cf24af1d093b26b5
             })
         )
         .mutation(async ({ input, ctx }) => {
             const { source_id, destination_id, destination_index, item_id } = input;
+<<<<<<< HEAD
+=======
+
+>>>>>>> 270a8bfd395936acebf6b471cf24af1d093b26b5
             const session = await getServerSession(authOptions);
             const id = (session as any).id;
 
             try {
                 // 1. find the given item by its ID
+<<<<<<< HEAD
                 const item = await(ctx as any).prisma.LifeGoals.findUnique({
                     where: {
                         id: source_id,
@@ -387,11 +459,30 @@ export const appRouter = t.router({
                         user: {
                             id,
                         },
+=======
+                const item = await (ctx as any).prisma.LifeGoals.findUnique({
+                    where: {
+                        id: source_id,
+                        userId: id,
+                    },
+                });
+
+                const source_chips = [...item.Chips];
+
+                // 2. remove the item from source
+                await (ctx as any).prisma.LifeGoals.updateMany({
+                    where: {
+                        id: source_id,
+>>>>>>> 270a8bfd395936acebf6b471cf24af1d093b26b5
                         userId: id,
                     },
                     data: {
                         Chips: {
+<<<<<<< HEAD
                             set: item.filter((val: any) => val.id !== item_id),
+=======
+                            set: item.Chips.filter((val: any) => val?.id !== item_id),
+>>>>>>> 270a8bfd395936acebf6b471cf24af1d093b26b5
                         },
                     },
                 });
@@ -400,23 +491,35 @@ export const appRouter = t.router({
                 const lifeGoalDocument = await (ctx as any).prisma.LifeGoals.findUnique({
                     where: {
                         id: destination_id,
+<<<<<<< HEAD
                         user: {
                             id,
                         },
+=======
+>>>>>>> 270a8bfd395936acebf6b471cf24af1d093b26b5
                         userId: id,
                     },
                 });
 
                 // 5. add the item to destination Document in given index
                 const chips = [...lifeGoalDocument.Chips];
+<<<<<<< HEAD
                 chips.splice(destination_index, 0, item);
+=======
+
+                const chip = source_chips.filter((_item: any) => _item.id === item_id);
+                chips.splice(destination_index, 0, chip[0]);
+>>>>>>> 270a8bfd395936acebf6b471cf24af1d093b26b5
 
                 await (ctx as any).prisma.LifeGoals.update({
                     where: {
                         id: destination_id,
+<<<<<<< HEAD
                         user: {
                             id,
                         },
+=======
+>>>>>>> 270a8bfd395936acebf6b471cf24af1d093b26b5
                         userId: id,
                     },
                     data: {
@@ -434,6 +537,7 @@ export const appRouter = t.router({
             }
         }),
 
+<<<<<<< HEAD
     /*
         getAllNotions
         createNotion
@@ -445,13 +549,24 @@ export const appRouter = t.router({
             const session = await getServerSession(authOptions);
             const id = (session as any).id;
             const lifeGoals = await (ctx as any).prisma.YearlyGoals.findMany({
+=======
+    getNotions: t.procedure.use(isUser).query(async ({ ctx }) => {
+        try {
+            const session = await getServerSession(authOptions);
+            const id = (session as any).id;
+            const yearlyGoals = await (ctx as any).prisma.YearlyGoals.findMany({
+>>>>>>> 270a8bfd395936acebf6b471cf24af1d093b26b5
                 where: {
                     user: {
                         id,
                     },
                 },
             });
+<<<<<<< HEAD
             return lifeGoals;
+=======
+            return yearlyGoals;
+>>>>>>> 270a8bfd395936acebf6b471cf24af1d093b26b5
         } catch (e) {
             console.log(e);
             throw new TRPCError({
@@ -462,6 +577,10 @@ export const appRouter = t.router({
     }),
 
     createNotion: t.procedure
+<<<<<<< HEAD
+=======
+        .use(isUser)
+>>>>>>> 270a8bfd395936acebf6b471cf24af1d093b26b5
         .input(
             z.object({
                 title: z.string(),
@@ -474,6 +593,7 @@ export const appRouter = t.router({
             const id = (session as any).id;
 
             try {
+<<<<<<< HEAD
                 const createResult = await (ctx as any).prisma.YearlyGoals.create({
                     where: {
                         user: {
@@ -530,6 +650,18 @@ export const appRouter = t.router({
                                 is_checked: false,
                             },
                         },
+=======
+                const notions = await (ctx as any).prisma.YearlyGoals.findMany({});
+
+                const largestIndex = getLargestIndex(notions);
+
+                const createResult = await (ctx as any).prisma.YearlyGoals.create({
+                    data: {
+                        userId: id,
+                        title,
+                        Tasks: [],
+                        index: largestIndex + 1,
+>>>>>>> 270a8bfd395936acebf6b471cf24af1d093b26b5
                     },
                 });
 
@@ -543,6 +675,576 @@ export const appRouter = t.router({
                 });
             }
         }),
+<<<<<<< HEAD
+=======
+
+    updateNotionTitle: t.procedure
+        .use(isUser)
+        .input(
+            z.object({
+                id: z.string(),
+                title: z.string(),
+            })
+        )
+        .mutation(async ({ input, ctx }) => {
+            const { id: notionId, title } = input;
+
+            const session = await getServerSession(authOptions);
+            const id = (session as any).id;
+
+            try {
+                const updateResult = await (ctx as any).prisma.YearlyGoals.update({
+                    where: {
+                        id: notionId,
+                        userId: id,
+                    },
+                    data: {
+                        title,
+                    },
+                });
+
+                return updateResult;
+            } catch (e) {
+                console.log(e);
+
+                throw new TRPCError({
+                    code: "INTERNAL_SERVER_ERROR",
+                    message: "something went wrong. please try again late",
+                });
+            }
+        }),
+
+    createTask: t.procedure
+        .use(isUser)
+        .input(
+            z.object({
+                notionId: z.string(),
+                value: z.string(),
+                is_sub: z.boolean(),
+            })
+        )
+        .mutation(async ({ input, ctx }) => {
+            const { notionId, value, is_sub } = input;
+
+            const session = await getServerSession(authOptions);
+            const id = (session as any).id;
+
+            try {
+                const generateUniqueTaskId = uuidv4();
+                await (ctx as any).prisma.YearlyGoals.update({
+                    where: {
+                        id: notionId,
+                        userId: id,
+                    },
+                    data: {
+                        Tasks: {
+                            push: {
+                                id: generateUniqueTaskId,
+                                value,
+                                isFavorite: false,
+                                subTask: is_sub,
+                                checked: false,
+                                visible: false,
+                            },
+                        },
+                    },
+                });
+
+                return {
+                    id: generateUniqueTaskId,
+                };
+            } catch (e) {
+                console.log(e);
+
+                throw new TRPCError({
+                    code: "INTERNAL_SERVER_ERROR",
+                    message: "something went wrong. please try again late",
+                });
+            }
+        }),
+
+    deleteTask: t.procedure
+        .use(isUser)
+        .input(
+            z.object({
+                notion_id: z.string(),
+                task_id: z.string(),
+            })
+        )
+        .mutation(async ({ input, ctx }) => {
+            const { notion_id, task_id } = input;
+
+            const session = await getServerSession(authOptions);
+            const id = (session as any).id;
+
+            try {
+                const notion = await (ctx as any).prisma.YearlyGoals.findUnique({
+                    where: {
+                        id: notion_id,
+                        userId: id,
+                    },
+                });
+
+                const tasks = notion.Tasks as NotionTask[];
+                const filteredTasks = tasks.filter((task) => task.id !== task_id);
+
+                const updateResult = await (ctx as any).prisma.YearlyGoals.update({
+                    where: {
+                        id: notion_id,
+                        userId: id,
+                    },
+                    data: {
+                        Tasks: {
+                            set: filteredTasks,
+                        },
+                    },
+                });
+
+                return updateResult;
+            } catch (e) {
+                console.log(e);
+
+                throw new TRPCError({
+                    code: "INTERNAL_SERVER_ERROR",
+                    message: "something went wrong. please try again late",
+                });
+            }
+        }),
+
+    updateTaskChecked: t.procedure
+        .use(isUser)
+        .input(
+            z.object({
+                notion_id: z.string(),
+                task_id: z.string(),
+                status: z.boolean(),
+            })
+        )
+        .mutation(async ({ input, ctx }) => {
+            const { notion_id, task_id, status } = input;
+
+            const session = await getServerSession(authOptions);
+            const id = (session as any).id;
+
+            try {
+                const notion = await (ctx as any).prisma.YearlyGoals.findUnique({
+                    where: {
+                        id: notion_id,
+                        userId: id,
+                    },
+                });
+
+                const modifiedTask = notion.Tasks.map((task: NotionTask) => {
+                    if (task.id === task_id) {
+                        task.checked = status;
+                    }
+                    return task;
+                });
+
+                const updateResult = await (ctx as any).prisma.YearlyGoals.update({
+                    where: {
+                        id: notion_id,
+                        userId: id,
+                    },
+                    data: {
+                        Tasks: {
+                            set: modifiedTask,
+                        },
+                    },
+                });
+
+                return updateResult;
+            } catch (e) {
+                console.log(e);
+
+                throw new TRPCError({
+                    code: "INTERNAL_SERVER_ERROR",
+                    message: "something went wrong. please try again late",
+                });
+            }
+        }),
+
+    updateFavoriteStatus: t.procedure
+        .use(isUser)
+        .input(
+            z.object({
+                notion_id: z.string(),
+                task_id: z.string(),
+                status: z.boolean(),
+            })
+        )
+        .mutation(async ({ input, ctx }) => {
+            const { notion_id, task_id, status } = input;
+
+            const session = await getServerSession(authOptions);
+            const id = (session as any).id;
+
+            try {
+                const notion = await (ctx as any).prisma.YearlyGoals.findUnique({
+                    where: {
+                        id: notion_id,
+                        userId: id,
+                    },
+                });
+
+                const modifiedTask = notion.Tasks.map((task: NotionTask) => {
+                    if (task.id === task_id) {
+                        task.isFavorite = status;
+                    }
+                    return task;
+                });
+
+                const updateResult = await (ctx as any).prisma.YearlyGoals.update({
+                    where: {
+                        id: notion_id,
+                        userId: id,
+                    },
+                    data: {
+                        Tasks: {
+                            set: modifiedTask,
+                        },
+                    },
+                });
+
+                return updateResult;
+            } catch (e) {
+                console.log(e);
+
+                throw new TRPCError({
+                    code: "INTERNAL_SERVER_ERROR",
+                    message: "something went wrong. please try again late",
+                });
+            }
+        }),
+
+    updateTaskValue: t.procedure
+        .use(isUser)
+        .input(
+            z.object({
+                notion_id: z.string(),
+                task_id: z.string(),
+                value: z.string(),
+            })
+        )
+        .mutation(async ({ input, ctx }) => {
+            const { notion_id, task_id, value } = input;
+
+            const session = await getServerSession(authOptions);
+            const id = (session as any).id;
+
+            try {
+                const notion = await (ctx as any).prisma.YearlyGoals.findUnique({
+                    where: {
+                        id: notion_id,
+                        userId: id,
+                    },
+                });
+
+                const modifiedTask = notion.Tasks.map((task: NotionTask) => {
+                    if (task.id === task_id) {
+                        task.value = value;
+                    }
+                    return task;
+                });
+
+                const updateResult = await (ctx as any).prisma.YearlyGoals.update({
+                    where: {
+                        id: notion_id,
+                        userId: id,
+                    },
+                    data: {
+                        Tasks: {
+                            set: modifiedTask,
+                        },
+                    },
+                });
+
+                return updateResult;
+            } catch (e) {
+                console.log(e);
+
+                throw new TRPCError({
+                    code: "INTERNAL_SERVER_ERROR",
+                    message: "something went wrong. please try again late",
+                });
+            }
+        }),
+
+    getPriorities: t.procedure.use(isUser).query(async ({ ctx }) => {
+        try {
+            const session = await getServerSession(authOptions);
+            const id = (session as any).id;
+            const priorities = await (ctx as any).prisma.Priorities.findMany({
+                where: {
+                    userId: id,
+                },
+            });
+
+            return priorities;
+        } catch (e) {
+            console.log(e);
+            throw new TRPCError({
+                code: "INTERNAL_SERVER_ERROR",
+                message: "something went wrong. please try again late",
+            });
+        }
+    }),
+
+    createPriority: t.procedure
+        .use(isUser)
+        .input(
+            z.object({
+                notionId: z.string(),
+                taskId: z.string(),
+                value: z.string(),
+            })
+        )
+        .mutation(async ({ input, ctx }) => {
+            try {
+                const { notionId, taskId, value } = input;
+                const session = await getServerSession(authOptions);
+                const id = (session as any).id;
+
+                const priorities = await (ctx as any).prisma.Priorities.findMany({});
+
+                const largestIndex = getLargestIndex(priorities);
+
+                const priority = await (ctx as any).prisma.Priorities.create({
+                    data: {
+                        notionId,
+                        taskId,
+                        value,
+                        userId: id,
+                        index: largestIndex + 1,
+                    },
+                });
+
+                return priority;
+            } catch (e) {
+                console.log(e);
+                throw new TRPCError({
+                    code: "INTERNAL_SERVER_ERROR",
+                    message: "something went wrong. please try again late",
+                });
+            }
+        }),
+
+    removePriority: t.procedure
+        .use(isUser)
+        .input(
+            z.object({
+                priorityId: z.string(),
+            })
+        )
+        .mutation(async ({ input, ctx }) => {
+            try {
+                const { priorityId } = input;
+                const session = await getServerSession(authOptions);
+                const id = (session as any).id;
+
+                await (ctx as any).prisma.Priorities.delete({
+                    where: {
+                        id: priorityId,
+                        userId: id,
+                    },
+                });
+            } catch (e) {
+                console.log(e);
+                throw new TRPCError({
+                    code: "INTERNAL_SERVER_ERROR",
+                    message: "something went wrong. please try again late",
+                });
+            }
+        }),
+
+    updatePriority: t.procedure
+        .use(isUser)
+        .input(
+            z.object({
+                taskId: z.string(),
+                value: z.string(),
+            })
+        )
+        .mutation(async ({ input, ctx }) => {
+            try {
+                const { taskId, value } = input;
+                const session = await getServerSession(authOptions);
+                const id = (session as any).id;
+
+                await (ctx as any).prisma.Priorities.updateMany({
+                    where: {
+                        taskId,
+                        userId: id,
+                    },
+                    data: {
+                        value,
+                    },
+                });
+            } catch (e) {
+                console.log(e);
+                throw new TRPCError({
+                    code: "INTERNAL_SERVER_ERROR",
+                    message: "something went wrong. please try again late",
+                });
+            }
+        }),
+
+    updateNotionIndex: t.procedure
+        .use(isUser)
+        .input(
+            z.object({
+                from: z.number(),
+                to: z.number(),
+                sourceId: z.string(),
+                destinationId: z.string(),
+            })
+        )
+        .mutation(async ({ input, ctx }) => {
+            try {
+                const { from, to, sourceId, destinationId } = input;
+                const session = await getServerSession(authOptions);
+                const id = (session as any).id;
+
+                /*
+                    1. get the source item
+                    2. get the destination item
+
+                    ( handle swap index )
+                    3. set to -> source item
+                    4. set from -> destination item
+
+                */
+
+                await (ctx as any).prisma.YearlyGoals.update({
+                    where: {
+                        id: sourceId,
+                        userId: id,
+                    },
+                    data: {
+                        index: to,
+                    },
+                });
+
+                await (ctx as any).prisma.YearlyGoals.update({
+                    where: {
+                        id: destinationId,
+                        userId: id,
+                    },
+                    data: {
+                        index: from,
+                    },
+                });
+
+                // just something to return
+                return {
+                    from,
+                    to,
+                };
+            } catch (e) {
+                console.log(e);
+                throw new TRPCError({
+                    code: "INTERNAL_SERVER_ERROR",
+                    message: "something went wrong. please try again late",
+                });
+            }
+        }),
+
+    updateNotionTasksIndex: t.procedure
+        .use(isUser)
+        .input(
+            z.object({
+                notionId: z.string(),
+                tasks: z.any(),
+            })
+        )
+        .mutation(async ({ input, ctx }) => {
+            try {
+                const { notionId, tasks } = input;
+                const session = await getServerSession(authOptions);
+                const id = (session as any).id;
+
+                const result = await (ctx as any).prisma.YearlyGoals.update({
+                    where: {
+                        id: notionId,
+                        userId: id,
+                    },
+                    data: {
+                        Tasks: {
+                            set: tasks,
+                        },
+                    },
+                });
+
+                return result;
+            } catch (e) {
+                console.log(e);
+                throw new TRPCError({
+                    code: "INTERNAL_SERVER_ERROR",
+                    message: "something went wrong. please try again late",
+                });
+            }
+        }),
+
+    updatePrioritiesIndex: t.procedure
+        .use(isUser)
+        .input(
+            z.object({
+                from: z.number(),
+                to: z.number(),
+                sourceId: z.string(),
+                destinationId: z.string(),
+            })
+        )
+        .mutation(async ({ input, ctx }) => {
+            try {
+                const { from, to, sourceId, destinationId } = input;
+                const session = await getServerSession(authOptions);
+                const id = (session as any).id;
+
+                /*
+                    1. get the source item
+                    2. get the destination item
+
+                    ( handle swap index )
+                    3. set to -> source item
+                    4. set from -> destination item
+
+                */
+
+                await (ctx as any).prisma.Priorities.update({
+                    where: {
+                        id: sourceId,
+                        userId: id,
+                    },
+                    data: {
+                        index: to,
+                    },
+                });
+
+                await (ctx as any).prisma.Priorities.update({
+                    where: {
+                        id: destinationId,
+                        userId: id,
+                    },
+                    data: {
+                        index: from,
+                    },
+                });
+
+                // just something to return
+                return {
+                    from,
+                    to,
+                };
+            } catch (e) {
+                console.log(e);
+                throw new TRPCError({
+                    code: "INTERNAL_SERVER_ERROR",
+                    message: "something went wrong. please try again late",
+                });
+            }
+        }),
+>>>>>>> 270a8bfd395936acebf6b471cf24af1d093b26b5
 });
 
 export type AppRouter = typeof appRouter;

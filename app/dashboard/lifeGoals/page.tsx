@@ -8,12 +8,7 @@ import { trpc } from "@/utils/trpc";
 import moment from "moment";
 import { RootState } from "@/app/Redux/store/store";
 import { useSelector } from "react-redux";
-import {
-  setLifeGoals,
-  reorderChips,
-  removeFromSourceValue,
-  addToDestinationValue,
-} from "@/app/Redux/featrues/chipSlice";
+import { setLifeGoals, reorderChips } from "@/app/Redux/featrues/chipSlice";
 import { useDispatch } from "react-redux";
 import Loading from "@/app/components/loading/Loading";
 
@@ -23,6 +18,7 @@ export default function LifeGoals() {
   const state = useSelector((state: RootState) => state.chip); // Assuming "chip" is the slice name
 
   const fetchOneUser = trpc.getOneUser.useQuery();
+  const updateChipIndexMutation = trpc.updateChipIndex.useMutation();
 
   const { data: userData } = fetchOneUser;
 
@@ -36,16 +32,30 @@ export default function LifeGoals() {
 
   const { days, years } = getAge(userData?.birthday);
 
-  const limit = years + 7;
-
   const fetchLifeGoals = trpc.getLifeGoals.useQuery();
 
   const { data: lifeData, isSuccess, isLoading } = fetchLifeGoals;
 
   useEffect(() => {
+    if (years) {
+      const element = document.getElementById(`chips-${years - 8}`);
+      const chipsWrapper = document.getElementById("chipsWrapper");
+
+      console.log(element, "elem");
+      console.log(chipsWrapper, "wrapper");
+
+      if (element && chipsWrapper) {
+        const y = element.getBoundingClientRect().top + chipsWrapper.scrollTop;
+        chipsWrapper.scroll({
+          top: y,
+        });
+      }
+    }
+  }, [years]);
+
+  useEffect(() => {
     if (isSuccess) {
-      const result = lifeData.slice(0, limit);
-      dispatch(setLifeGoals(result));
+      dispatch(setLifeGoals(lifeData));
     }
   }, [isSuccess]);
 
@@ -55,7 +65,7 @@ export default function LifeGoals() {
 
   const chipsFromAgeArray = [];
 
-  for (let i = 0; i < limit; i++) {
+  for (let i = 0; i < lifeData.length; i++) {
     chipsFromAgeArray.push(
       <Chip
         key={i}
@@ -64,7 +74,6 @@ export default function LifeGoals() {
         age={years}
         index={i}
         chips={state[i + 1]}
-        rows={state[i + 1]}
       />
     );
   }
@@ -72,59 +81,41 @@ export default function LifeGoals() {
   const onDragEnd = (result: any) => {
     const { source, destination, draggableId } = result;
 
-    // 1. get destination age
     const destinationAge = destination.droppableId.split("-")[1];
-    // 2. get source age
     const sourceAge = source.droppableId.split("-")[1];
-    // 3. get destination value
-    const destinationValues = state[destinationAge];
-    // 4. get source value
+
+    const destinationId = state[destinationAge].id;
     const sourceValues = state[sourceAge];
 
-    const sourceValue = sourceValues.find(
+    const item = sourceValues.Chips.find(
       (item: any) => item.id === draggableId
     );
 
     if (!destination) return;
-
-    //active age
-    const activeAge = source.droppableId.split("-")[1];
     //sorting in local age
-    if (source.droppableId === destination.droppableId) {
-      dispatch(
-        reorderChips({
-          age: activeAge,
-          sourceIndex: source.index,
-          destinationIndex: destination.index,
-        })
-      );
-    }
 
-    //drag and drop between ages
-    if (source.droppableId !== destination.droppableId) {
-      // 5. remove sourceValue from sourceValues
-      dispatch(
-        removeFromSourceValue({
-          sourceValue: sourceValue,
-          sourceValues: sourceValues,
-        })
-      );
-      // 6. add sourceValue to destinationValues
-      dispatch(
-        addToDestinationValue({
-          destinationAge: destinationAge,
-          sourceValue: sourceValue,
-          destinationValues: destinationValues,
-        })
-      );
-    }
+    updateChipIndexMutation.mutate({
+      source_id: sourceValues.id,
+      destination_id: destinationId,
+      destination_index: destination.index,
+      item_id: draggableId,
+    });
+
+    dispatch(
+      reorderChips({
+        source_age: sourceAge,
+        destination_age: destinationAge,
+        source_index: source.index,
+        destination_index: destination.index,
+      })
+    );
   };
 
   return (
     <div className=" bg-CharlestonGreen lg:bg-darkGunmetal lg:flex md:p-1">
       <SideBar />
 
-      <div className="flex-1  bg-CharlestonGreen rounded-md lg:pl-[3.7rem] lg:pr-[4.6rem] h-screen xl:h-auto">
+      <div className="flex-1  bg-CharlestonGreen rounded-md lg:pl-[3.7rem] lg:pr-[4.6rem] h-screen lg:h-[100%] xl:h-auto 3xl:h-screen overflow-y-auto  scroll-bar">
         <div className="lg:flex items-center justify-between mb-[1rem] lg:mb-[3.7rem] mt-[4.5rem] pl-[2rem] pr-[2rem]">
           <div className="lg:mb-[2rem]">
             <p className="text-3xl mb-[1.4rem]  md:text-4xl text-white font-medium md:mb-2">
@@ -156,7 +147,7 @@ export default function LifeGoals() {
           </div>
         </div>
         {/* tags input component */}
-        <main className="mb-[4rem]">
+        <main className="mb-[4rem] ">
           <div className="bg-darkGunmetal pr-[3.8rem] pl-[2.3rem] lg:pl-[3.8rem] lg:rounded-t-[1.4rem]">
             <div className="text-white text-2xl pt-[2rem] pb-[1.9rem]  lg:text-[1.8rem] flex ">
               <p className="mr-[2.2rem] lg:mr-[4.7rem]">Age</p>
@@ -164,11 +155,20 @@ export default function LifeGoals() {
             </div>
           </div>
           {/* chips */}
-          <div className="bg-Crayola pl-[2rem]  lg:pr-[3.8rem] lg:pl-[3.8rem] lg:rounded-b-[1.4rem] ">
+          <div
+            className="bg-Crayola pl-[2rem]  lg:pr-[3.8rem] lg:pl-[3.8rem] lg:rounded-b-[1.4rem] overflow-y-auto h-[79vh] scroll-bar"
+            id="chipsWrapper"
+          >
             <section className="pt-[2rem] sm:pr-[2rem] pb-[2rem] ">
-              <DragDropContext onDragEnd={onDragEnd}>
-                {chipsFromAgeArray}
-              </DragDropContext>
+              {years === 0 ? (
+                <p className="text-white text-xl">
+                  You Should Set Your Birthday From Setting At First
+                </p>
+              ) : (
+                <DragDropContext onDragEnd={onDragEnd}>
+                  {chipsFromAgeArray}
+                </DragDropContext>
+              )}
             </section>
           </div>
         </main>

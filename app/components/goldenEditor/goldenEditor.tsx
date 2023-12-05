@@ -1,419 +1,270 @@
 "use client";
 
-import React, { useState, useRef, useEffect, ChangeEvent } from "react";
+import React, {
+  useState,
+  useRef,
+  useEffect,
+  ChangeEvent,
+  useDeferredValue,
+} from "react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-import GoldenRate from "@/public/assets/layout/RatingGold.svg";
-import Rate from "@/public/assets/layout/Rating.svg";
-import DragIcon from "@/public/assets/layout/dragIcon.svg";
-
-import { v4 as uuidv4 } from "uuid";
-
-type Tasks = {
-  id: any;
-  value: string;
-  checked: boolean;
-  isFavorite: boolean;
-  visible: boolean;
-  subTask: boolean;
-};
-
-interface Input {
-  id: any;
-  title: string;
-  tasks: Tasks[];
-}
-
-
-// 1. set blur on title => create notion with title as props 
-
+import { trpc } from "@/utils/trpc";
+import { useDebouncedCallback } from "use-debounce";
+import TaskCard from "./TaskCard";
+import {
+  Notion,
+  NotionTask,
+  onFavoriteAdd,
+  onFavoriteRemove,
+  onFavoriteUpdate,
+} from "@/type";
+import TextareaAutosize from "react-textarea-autosize";
 
 const GoldenEditor = ({
-  onFavoriteHandler,
+  data,
+  onFavoriteAdd,
+  onFavoriteRemove,
+  onFavoriteUpdate,
 }: {
-  onFavoriteHandler: (id: any, text: string, isFavorite: boolean) => void;
+  data: Notion;
+  onFavoriteAdd: onFavoriteAdd;
+  onFavoriteRemove: onFavoriteRemove;
+  onFavoriteUpdate: onFavoriteUpdate;
 }) => {
-  const uniqueId = uuidv4();
-  const ID = uuidv4();
+  const addTaskRef = useRef<HTMLTextAreaElement>(null);
 
-  const [inputs, setInputs] = useState<Input[]>([
-    {
-      id: uniqueId,
-      title: "",
-      tasks: [
-        {
-          id: ID,
-          value: "",
-          checked: false,
-          isFavorite: false,
-          visible: false,
-          subTask: false,
-        },
-      ],
+  // copy notion prop
+  const [notion, setNotion] = useState<Notion>({ ...data });
+  const [title, setTitle] = useState<string>(notion.title);
+  const [isSubTask, setIsSubTask] = useState(false);
+
+  const updateTitleMutation = trpc.updateNotionTitle.useMutation();
+  const { mutate: createNewTask, isLoading: isCreatingNewTask } =
+    trpc.createTask.useMutation();
+  const updateNotionTaskIndex = trpc.updateNotionTasksIndex.useMutation();
+
+  const updateTitleMutationDebounced = useDebouncedCallback(
+    (id: string, title: string) => {
+      updateTitleMutation.mutate({ id, title });
     },
-  ]); // Initial
-  const newInputRef = useRef<HTMLInputElement>(null);
+    500
+  );
 
-  const [backSpace, setBackSpace] = useState<boolean>(false);
-  const [focusOnTitle, setFocusOnTitle] = useState<boolean>(false);
+  const titleOnChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const _title = e.target.value;
+    const _id = notion.id;
 
-  useEffect(() => {
-    if (focusOnTitle) return;
-    if (!backSpace) {
-      if (newInputRef.current) {
-        newInputRef.current.focus();
-      }
-    }
-  }, [inputs, backSpace, focusOnTitle]); // Focus the new input whenever inputs change
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFocusOnTitle(true);
-    setInputs((prevInputs) => {
-      return prevInputs.map((input) => {
-        return {
-          ...input,
-          title: e.target.value,
-        };
-      });
-    });
+    setTitle(e.target.value);
+    updateTitleMutationDebounced(_id, _title);
   };
 
-  const handleKeyDown = (e: any, ID: number) => {
-    setFocusOnTitle(false);
+  const reorder = (
+    list: NotionTask[],
+    startIndex: number,
+    endIndex: number
+  ) => {
+    const _arr = [...list];
+    const [removed] = _arr.splice(startIndex, 1);
+    _arr.splice(endIndex, 0, removed);
 
-    const currentInput = inputs.map((input) => {
-      const findInput = input.tasks.find((item: any) => item.id === ID);
-      return findInput;
-    });
+    return _arr;
+  };
 
-    const inputLengthValueHandler = inputs.flatMap((input) => input.tasks);
+  const getSubtasks = (tasks: NotionTask[], index: number) => {
+    if (tasks[index].subTask) return [];
 
+    const subTasks: NotionTask[] = [];
+    for (let i = index + 1; i < tasks.length; i++) {
+      const task = tasks[i];
+
+      if (!task.subTask) {
+        break;
+      }
+
+      subTasks.push(task);
+    }
+
+    return subTasks;
+  };
+
+  const handleDragDrop = (result: any) => {
+    if (!result.destination) return;
+
+    const tasks = [...notion.Tasks];
+    const sourceIndex: number = result.source.index;
+    const destinationIndex: number = result.destination.index;
+    const draggedTask = tasks[sourceIndex];
+
+    let reOrderedTasks = reorder(
+      tasks,
+      result.source.index,
+      result.destination.index
+    );
+
+    // 1. if the given task has sub tasks, they need to be dragged too
+    const subTasks = getSubtasks(tasks, sourceIndex);
+
+    console.log(reOrderedTasks);
+    console.log({ sourceIndex, destinationIndex });
+
+    draggedTask.subTask = false;
+
+    // 2. if a task drops before a sub-task it becomes a sub task
     if (
-      e.key === "Enter" &&
-      !e.shiftKey &&
-      inputLengthValueHandler.length < 5
+      subTasks.length === 0 &&
+      (tasks[destinationIndex + 1]?.subTask || tasks[destinationIndex].subTask)
     ) {
-      e.preventDefault(); // Prevent the default behavior (submitting the form)
+      draggedTask.subTask = true;
+    }
 
-      setBackSpace(false);
-
-      currentInput.map((item) => {
-        if (item?.value.trim() !== "") {
-          setInputs((prevInputs) => {
-            return prevInputs.map((item) => {
-              return {
-                ...item,
-                tasks: [
-                  ...item.tasks,
-                  {
-                    id: uniqueId,
-                    value: "",
-                    checked: false,
-                    isFavorite: false,
-                    visible: false,
-                    subTask: false,
-                  },
-                ],
-              };
-            });
-          });
+    // reorder subtasks if there is any
+    if (subTasks.length) {
+      let temp_index = 1;
+      subTasks.forEach((task) => {
+        if (destinationIndex < sourceIndex) {
+          reOrderedTasks = reorder(
+            reOrderedTasks,
+            result.source.index + temp_index,
+            result.destination.index + temp_index
+          );
+          temp_index += 1;
+        } else {
+          reOrderedTasks = reorder(
+            reOrderedTasks,
+            result.source.index,
+            result.destination.index
+          );
         }
       });
     }
 
-    if (e.key === "Tab" && e.target.value !== "") {
-      e.preventDefault(); // Prevent default behavior
+    updateNotionTaskIndex.mutate({
+      notionId: notion.id,
+      tasks: reOrderedTasks,
+    });
 
-      setInputs((prevInputs) => {
-        return prevInputs.map((item) => {
-          return {
-            ...item,
-            tasks: item.tasks.map((task) => {
-              if (task.id === ID && task.value.trim() !== "") {
-                return {
-                  ...task,
-                  subTask: !task.subTask,
-                };
-              }
-              return task;
-            }),
-          };
-        });
-      });
-    }
+    setNotion((prev) => {
+      return {
+        ...prev,
+        Tasks: [...reOrderedTasks],
+      };
+    });
+  };
 
-    if (e.key === "Backspace" && e.target.value == "") {
-      setInputs((prevInputs) => {
-        return prevInputs.map((item) => {
-          return {
-            ...item,
-            tasks: item.tasks.map((task) => {
-              if (task.id === ID) {
-                return {
-                  ...task,
-                  subTask: false,
-                };
-              }
-              return task;
-            }),
-          };
-        });
-      });
-
-      const updatedInputs = inputs.map((input) => {
-        const updatedTasks = input.tasks.filter((task) => task.id !== ID);
-        return {
-          ...input,
-          tasks: updatedTasks,
-        };
-      });
-
-      inputs.map((input) => {
-        input.tasks.map((_, index) => {
-          if (index == 0) return;
-          else {
-            setInputs(updatedInputs);
-          }
-        });
-      });
-    }
-
+  const onNewDimensionHandler = (
+    e: React.KeyboardEvent<HTMLTextAreaElement>
+  ) => {
     if (e.key === "Backspace") {
-      setBackSpace(true);
+      if (!isSubTask) return;
+      setIsSubTask(false);
     }
+
+    if (e.key === "Tab") {
+      if (isSubTask) return;
+      e.preventDefault();
+      setIsSubTask(true);
+    }
+
+    if (e.key !== "Enter") return;
+
+    const value = e.currentTarget.value;
+    createNewTask(
+      {
+        is_sub: isSubTask,
+        notionId: notion.id,
+        value,
+      },
+      {
+        onSuccess: (res) => {
+          const { id } = res;
+          setNotion((_notion) => {
+            const newTask = {
+              id,
+              checked: false,
+              isFavorite: false,
+              subTask: isSubTask,
+              value,
+              visible: false,
+            };
+            return {
+              ..._notion,
+              Tasks: [..._notion.Tasks, newTask],
+            };
+          });
+
+          addTaskRef.current!.value = "";
+          addTaskRef.current!.focus();
+        },
+      }
+    );
   };
 
-  const handleChecked = (id: number) => {
-    setInputs((prevInputs) => {
-      return prevInputs.map((item) => {
-        return {
-          ...item,
-          tasks: item.tasks.map((task) => {
-            if (task.id === id && task.value.trim() !== "") {
-              return {
-                ...task,
-                checked: !task.checked,
-              };
-            }
-            return task;
-          }),
-        };
-      });
+  const onTaskRemoved = (taskId: string) => {
+    setNotion((_notion) => {
+      const filterTasks = notion.Tasks.filter((task) => task.id !== taskId);
+      return {
+        ..._notion,
+        Tasks: [...filterTasks],
+      };
     });
-  };
-
-  const handleVisibleShow = (id: number) => {
-    setInputs((prevInputs) => {
-      return prevInputs.map((item) => {
-        return {
-          ...item,
-          tasks: item.tasks.map((task) => {
-            if (task.id === id) {
-              return {
-                ...task,
-                visible: true,
-              };
-            }
-            return task;
-          }),
-        };
-      });
-    });
-  };
-
-  const handleVisibleHide = (id: number) => {
-    setInputs((prevInputs: any) => {
-      return prevInputs.map((item: any) => {
-        return {
-          ...item,
-          tasks: item.tasks.map((task: any) => {
-            if (task.id === id) {
-              return {
-                ...task,
-                visible: false,
-              };
-            }
-            return task;
-          }),
-        };
-      });
-    });
-  };
-
-  const favoriteHandler = (id: number) => {
-    setInputs((prevInputs) => {
-      return prevInputs.map((item) => {
-        return {
-          ...item,
-          tasks: item.tasks.map((task) => {
-            if (task.id === id && task.value.trim() !== "") {
-              onFavoriteHandler(task.id, task.value, task.isFavorite);
-              return {
-                ...task,
-                isFavorite: !task.isFavorite,
-              };
-            }
-            return task;
-          }),
-        };
-      });
-    });
-  };
-
-  const handleDragDrop = (results: any) => {
-    const { source, destination, type } = results;
-
-    if (!destination) return;
-    if (
-      source.draggableId === destination.droppableId &&
-      source.index === destination.index
-    )
-      return;
-
-    // Handle group reordering
-    if (type === "group") {
-      const newArray = inputs.flatMap((input) => input.tasks);
-      const reorderedStores = [...newArray];
-
-      const sourceIndex = source.index;
-      const destinationIndex = destination.index;
-
-      const [removedStore] = reorderedStores.splice(sourceIndex, 1);
-      reorderedStores.splice(destinationIndex, 0, removedStore);
-
-      setInputs((prevInputs: any) => {
-        return prevInputs.map((item: any) => {
-          return {
-            ...item,
-            tasks: reorderedStores,
-          };
-        });
-      });
-    }
-  };
-
-  const getClassName = (input: any) => {
-    let className = "";
-
-    if (input.isFavorite === true) {
-      className += "text-gold ";
-    }
-
-    if (input.checked) {
-      className +=
-        "line-through placeholder-editor text-editor text-[16px] w-[90%] bg-transparent outline-none mr-[6px] ";
-    } else {
-      className +=
-        "placeholder-white bg-transparent  outline-none text-[16px] w-[90%] mr-[6px] ";
-    }
-
-    if (input.subTask === true) {
-      className += "pl-[20px]";
-    } else {
-      className += "pl-[0px]";
-    }
-
-    return className;
   };
 
   return (
-    <div className="bg-Crayola rounded-[14px] p-10 text-white w-full lg:w-11/12 h-[240px] 3xl:h-[299px]  mb-[20px]">
+    <div className="bg-Crayola rounded-[14px] p-10 text-white w-full lg:w-11/12 h-[240px] 3xl:h-[299px]  mb-[20px] cursor-grab">
       <input
         type="text"
-        placeholder="title"
-        className="placeholder-white bg-transparent outline-none text-3xl mb-[6px]"
-        onChange={handleInputChange}
+        value={title}
+        placeholder="Choose Title"
+        className="placeholder-placeholder bg-transparent outline-none text-3xl mb-[6px]"
+        onChange={titleOnChangeHandler}
       />
+
       <DragDropContext onDragEnd={handleDragDrop}>
-        <Droppable droppableId="Editor" type="group">
+        <Droppable droppableId={notion.id} type="group">
           {(provided) => (
-            <div {...provided.droppableProps} ref={provided.innerRef}>
-              {inputs.map((item: any) =>
-                item.tasks.map((input: any, index: number) => {
-                  return (
-                    <Draggable
-                      draggableId={input.id.toString()}
-                      key={input.id}
-                      index={index}
-                    >
-                      {(provided) => {
-                        const isVisible = input.visible; // Assuming input.visible controls visibility
-                        return (
-                          <div
-                            key={input.id}
-                            className="flex items-center mb-3  p-2"
-                            {...provided.dragHandleProps}
-                            {...provided.draggableProps}
-                            ref={provided.innerRef}
-                            onMouseEnter={() => handleVisibleShow(input.id)}
-                            onMouseLeave={() => handleVisibleHide(input.id)}
-                          >
-                            <div
-                              className={`${
-                                isVisible ? "md:visible" : "hidden"
-                              } mr-[10px]`}
-                            >
-                              <DragIcon />
-                            </div>
+            <div
+              className="h-[91%] overflow-auto scroll-bar"
+              {...provided.droppableProps}
+              ref={provided.innerRef}
+            >
+              {notion.Tasks.map((task: NotionTask, index: number) => {
+                return (
+                  <Draggable draggableId={task.id} key={task.id} index={index}>
+                    {(provided) => {
+                      return (
+                        <div
+                          key={task.id}
+                          className="flex items-center mb-3"
+                          {...provided.dragHandleProps}
+                          {...provided.draggableProps}
+                          ref={provided.innerRef}
+                        >
+                          <TaskCard
+                            onTaskRemoved={onTaskRemoved}
+                            notionId={notion.id}
+                            data={task}
+                            onFavoriteAdd={onFavoriteAdd}
+                            onFavoriteRemove={onFavoriteRemove}
+                            onFavoriteUpdate={onFavoriteUpdate}
+                          />
+                        </div>
+                      );
+                    }}
+                  </Draggable>
+                );
+              })}
 
-                            <label
-                              className={` mr-4  containerCheckbox cursor-pointer `}
-                            >
-                              <input
-                                checked={input.checked}
-                                type="checkbox"
-                                onChange={() => handleChecked(input.id)}
-                              />{" "}
-                              <span
-                                className={`${
-                                  isVisible ? "visible" : "hidden"
-                                } checkmark `}
-                              ></span>
-                            </label>
-
-                            <input
-                              tabIndex={index}
-                              type="text"
-                              ref={
-                                index === inputs.length - 1 ? newInputRef : null
-                              }
-                              value={input.value}
-                              placeholder="text"
-                              onChange={(e: ChangeEvent<HTMLInputElement>) => {
-                                setInputs((prevInputs) => {
-                                  return prevInputs.map((item) => {
-                                    return {
-                                      ...item,
-                                      tasks: item.tasks.map((task) => {
-                                        if (task.id === input.id) {
-                                          return {
-                                            ...task,
-                                            value: e.target.value,
-                                          };
-                                        }
-                                        return task;
-                                      }),
-                                    };
-                                  });
-                                });
-                              }}
-                              onKeyDown={(e) => handleKeyDown(e, input.id)}
-                              className={getClassName(input)}
-                            />
-                            <div
-                              className={`${isVisible ? "visible" : "hidden"}`}
-                              onClick={() => favoriteHandler(input.id)}
-                            >
-                              <div className="cursor-pointer">
-                                {input.isFavorite ? <GoldenRate /> : <Rate />}
-                              </div>
-                            </div>
-                          </div>
-                        );
-                      }}
-                    </Draggable>
-                  );
-                })
-              )}
+              <TextareaAutosize
+                ref={addTaskRef}
+                placeholder="Write New Dimension"
+                style={{
+                  whiteSpace: "pre-wrap",
+                  resize: "none",
+                  paddingLeft: `${isSubTask ? "50px" : "21px"}`,
+                }}
+                className="placeholder-placeholder bg-transparent overflow-hidden  outline-none text-[14px] w-[90%] mr-[6px]"
+                onKeyDown={onNewDimensionHandler}
+              />
             </div>
           )}
         </Droppable>
