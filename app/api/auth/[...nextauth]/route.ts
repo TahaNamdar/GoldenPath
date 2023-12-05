@@ -77,6 +77,36 @@ export const authOptions: NextAuthOptions = {
   },
 
   callbacks: {
+    //...
+    async signIn({ user, account, profile, email, credentials }) {
+      console.log(user, "user");
+      console.log(account, "acc");
+      console.log(profile, "profile");
+      console.log(email, "email");
+      console.log(credentials, "cred");
+
+      if (user.email) {
+        const exists = await prisma.user.findFirst({
+          where: { email: user.email },
+        });
+        if (!exists) {
+          const result = await prisma.user.create({
+            data: { email: user.email, password: "", isSocialMedia: true },
+          });
+        }
+      }
+
+      const isAllowedToSignIn = true;
+      if (isAllowedToSignIn) {
+        return true;
+      } else {
+        // Return false to display a default error message
+        return false;
+        // Or you can return a URL to redirect to:
+        // return '/unauthorized'
+      }
+    },
+
     jwt: async ({ token, user }) => {
       if (user) {
         token.id = user.id;
@@ -94,8 +124,6 @@ export const authOptions: NextAuthOptions = {
       return session;
     },
   },
-
-  //...
 };
 
 const handler = NextAuth(authOptions);
