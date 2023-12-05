@@ -19,6 +19,7 @@ import * as yup from "yup";
 import { useRouter } from "next/navigation";
 import { ToastContainer, toast } from "react-toastify";
 import Link from "next/link";
+import { useSession } from "next-auth/react";
 
 const schema = yup
   .object({
@@ -35,6 +36,15 @@ const schema = yup
   .required();
 
 export default function Login() {
+  const session = useSession();
+  const router = useRouter();
+
+  // useEffect(() => {
+  //   if (session) {
+  //     router.push("/dashboard");
+  //   }
+  // }, []);
+
   const {
     register,
     handleSubmit,
@@ -43,8 +53,6 @@ export default function Login() {
   } = useForm({
     resolver: yupResolver(schema),
   });
-
-  const router = useRouter();
 
   const [isXlScreen, setIsXlScreen] = useState(false);
 

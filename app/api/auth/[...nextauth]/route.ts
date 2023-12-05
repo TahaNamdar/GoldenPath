@@ -35,6 +35,10 @@ export const authOptions: NextAuthOptions = {
           throw new Error("user or password is wrong");
         }
 
+        if (user.isSocialMedia) {
+          throw new Error("you should login with socialMedia account");
+        }
+
         const isValidPassword = await verify(user.password, creds.password);
 
         if (!isValidPassword) {
@@ -89,9 +93,24 @@ export const authOptions: NextAuthOptions = {
         const exists = await prisma.user.findFirst({
           where: { email: user.email },
         });
+
         if (!exists) {
           const result = await prisma.user.create({
             data: { email: user.email, password: "", isSocialMedia: true },
+          });
+
+          const _LifeGoalDocuments = [];
+
+          for (let i = 1; i <= 100; i++) {
+            _LifeGoalDocuments.push({
+              userId: result.id,
+              age: i,
+              Chips: [],
+            });
+          }
+
+          await prisma.lifeGoals.createMany({
+            data: _LifeGoalDocuments,
           });
         }
       }

@@ -65,6 +65,8 @@ export default function LifeGoals() {
 
   const chipsFromAgeArray = [];
 
+  console.log(lifeData, "life");
+
   for (let i = 0; i < lifeData.length; i++) {
     chipsFromAgeArray.push(
       <Chip
