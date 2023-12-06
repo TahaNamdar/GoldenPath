@@ -1,5 +1,6 @@
 import React from "react";
 import GoldenFooter from "@/public/assets/layout/goldenFooter.svg";
+import Link from "next/link";
 
 export default function Footer() {
   return (
@@ -8,11 +9,21 @@ export default function Footer() {
         <div className="md:w-[80%] lg:w-[60%] xl:w-1/2 2xl:w-[40%]   flex flex-row-reverse justify-around pt-[60px]">
           <div>
             <p className="text-white text-[24px] mb-[18px]">SOCIAL</p>
-            <p className="text-footerColor text-[20px] mb-[18px]">Youtube</p>
-            <p className="text-footerColor text-[20px] mb-[18px]">LinkedIn</p>
-            <p className="text-footerColor text-[20px] mb-[18px]">Instagram</p>
-            <p className="text-footerColor text-[20px] mb-[18px]">Twitter</p>
-            <p className="text-footerColor text-[20px] mb-[18px]">Tiktok</p>
+            <p className="text-footerColor text-[20px] mb-[18px] cursor-pointer">
+              Youtube
+            </p>
+            <p className="text-footerColor text-[20px] mb-[18px] cursor-pointer">
+              LinkedIn
+            </p>
+            <p className="text-footerColor text-[20px] mb-[18px] cursor-pointer">
+              Instagram
+            </p>
+            <p className="text-footerColor text-[20px] mb-[18px] cursor-pointer">
+              Twitter
+            </p>
+            <p className="text-footerColor text-[20px] mb-[18px] cursor-pointer">
+              Tiktok
+            </p>
           </div>
           <div>
             <div className="mb-[38px] flex justify-center">

@@ -19,6 +19,7 @@ import * as yup from "yup";
 import { useRouter } from "next/navigation";
 import { ToastContainer, toast } from "react-toastify";
 import Link from "next/link";
+import { useSession } from "next-auth/react";
 
 const schema = yup
   .object({
@@ -35,6 +36,15 @@ const schema = yup
   .required();
 
 export default function Login() {
+  const session = useSession();
+  const router = useRouter();
+
+  // useEffect(() => {
+  //   if (session) {
+  //     router.push("/dashboard");
+  //   }
+  // }, []);
+
   const {
     register,
     handleSubmit,
@@ -43,8 +53,6 @@ export default function Login() {
   } = useForm({
     resolver: yupResolver(schema),
   });
-
-  const router = useRouter();
 
   const [isXlScreen, setIsXlScreen] = useState(false);
 
@@ -83,6 +91,11 @@ export default function Login() {
         message: "Incorrect Password",
       });
     }
+  };
+
+  const signInGoogleHandler = async () => {
+    const res = await signIn("google");
+    console.log(res, "res");
   };
 
   const showToastSuccess = () => {
@@ -180,7 +193,7 @@ export default function Login() {
           </div>
           <div className="text-right mb-[3.9rem]">
             <button
-              onClick={() => signIn("google")}
+              onClick={() => signInGoogleHandler()}
               className="flex items-center justify-center rounded-[1.4rem] border-[1px] border-white w-full text-center text-white  text-2xl md:text-3xl pl-[10rem] pr-[10rem] pt-[1.2rem] pb-[1.2rem] md:pl-[11rem] md:pr-[11rem] md:pt-[1.8rem] md:pb-[1.8rem]"
             >
               <Image src={GoogleLogo} alt="google icon" className="mr-[12px]" />

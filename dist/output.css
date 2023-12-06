@@ -1360,12 +1360,20 @@ html {
   height: 1px;
 }
 
+.h-\[222px\] {
+  height: 222px;
+}
+
 .h-\[240px\] {
   height: 240px;
 }
 
 .h-\[370px\] {
   height: 370px;
+}
+
+.h-\[489px\] {
+  height: 489px;
 }
 
 .h-\[58px\] {
@@ -1394,6 +1402,10 @@ html {
 
 .h-\[74px\] {
   height: 74px;
+}
+
+.h-\[79vh\] {
+  height: 79vh;
 }
 
 .h-\[91\%\] {
@@ -1455,6 +1467,10 @@ html {
 
 .min-h-\[48px\] {
   min-height: 48px;
+}
+
+.min-h-screen {
+  min-height: 100vh;
 }
 
 .w-0 {
@@ -1561,6 +1577,10 @@ html {
   width: 209px;
 }
 
+.w-\[222px\] {
+  width: 222px;
+}
+
 .w-\[22rem\] {
   width: 22rem;
 }
@@ -1571,6 +1591,10 @@ html {
 
 .w-\[30rem\] {
   width: 30rem;
+}
+
+.w-\[335px\] {
+  width: 335px;
 }
 
 .w-\[390px\] {
@@ -1680,6 +1704,10 @@ html {
 
 .max-w-\[95\%\] {
   max-width: 95%;
+}
+
+.max-w-\[unset\] {
+  max-width: unset;
 }
 
 .max-w-full {
@@ -3043,6 +3071,11 @@ html {
 
 .bg-no-repeat {
   background-repeat: no-repeat;
+}
+
+.object-contain {
+  -o-object-fit: contain;
+     object-fit: contain;
 }
 
 .object-cover {
@@ -4622,13 +4655,13 @@ textarea {
 }
 
 .scroll-bar::-webkit-scrollbar {
-  width: 3px;
+  width: 1px;
 }
 
 .scroll-bar::-webkit-scrollbar-thumb {
   background-color: #31353e;
   border-radius: 6px;
-  border: 3px solid #555;
+  border: 1px solid #555;
 }
 
 .scroll-bar::-webkit-scrollbar-thumb:hover {
@@ -4636,6 +4669,25 @@ textarea {
 }
 
 .scroll-bar::-webkit-scrollbar-track {
+  background-color: #31353e;
+  border-radius: 6px;
+}
+
+::-webkit-scrollbar {
+  width: 1px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #31353e;
+  border-radius: 6px;
+  border: 1px solid #555;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #555;
+}
+
+::-webkit-scrollbar-track {
   background-color: #31353e;
   border-radius: 6px;
 }
@@ -7823,6 +7875,10 @@ textarea {
     display: none;
   }
 
+  .lg\:h-\[100\%\] {
+    height: 100%;
+  }
+
   .lg\:h-\[190px\] {
     height: 190px;
   }
@@ -7837,6 +7893,10 @@ textarea {
 
   .lg\:h-\[890px\] {
     height: 890px;
+  }
+
+  .lg\:h-\[903px\] {
+    height: 903px;
   }
 
   .lg\:h-full {
@@ -7893,6 +7953,10 @@ textarea {
 
   .lg\:w-\[60\.6rem\] {
     width: 60.6rem;
+  }
+
+  .lg\:w-\[619px\] {
+    width: 619px;
   }
 
   .lg\:w-\[88\%\] {
@@ -8116,10 +8180,6 @@ textarea {
     right: -3%;
   }
 
-  .xl\:right-\[111px\] {
-    right: 111px;
-  }
-
   .xl\:right-\[40px\] {
     right: 40px;
   }
@@ -8204,6 +8264,10 @@ textarea {
     height: 1000px;
   }
 
+  .xl\:h-\[250px\] {
+    height: 250px;
+  }
+
   .xl\:h-\[725px\] {
     height: 725px;
   }
@@ -8246,6 +8310,10 @@ textarea {
 
   .xl\:w-\[1096px\] {
     width: 1096px;
+  }
+
+  .xl\:w-\[250px\] {
+    width: 250px;
   }
 
   .xl\:w-\[320px\] {
@@ -8636,6 +8704,10 @@ textarea {
     height: 117px;
   }
 
+  .\33xl\:h-\[296px\] {
+    height: 296px;
+  }
+
   .\33xl\:h-\[299px\] {
     height: 299px;
   }
@@ -8646,6 +8718,10 @@ textarea {
 
   .\33xl\:h-\[970px\] {
     height: 970px;
+  }
+
+  .\33xl\:h-screen {
+    height: 100vh;
   }
 
   .\33xl\:w-5\/12 {
@@ -8662,6 +8738,10 @@ textarea {
 
   .\33xl\:w-\[1548px\] {
     width: 1548px;
+  }
+
+  .\33xl\:w-\[295px\] {
+    width: 295px;
   }
 
   .\33xl\:w-\[320px\] {
