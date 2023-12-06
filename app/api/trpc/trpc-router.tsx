@@ -42,15 +42,11 @@ export const appRouter = t.router({
         )
         .mutation(async ({ input, ctx }) => {
             try {
-                console.log("is this even running");
                 const { email, password } = input;
 
                 const exists = await (ctx as any).prisma.User.findFirst({
                     where: { email },
                 });
-
-                console.log("after calling the api ");
-                console.log(exists);
 
                 if (exists) {
                     throw new TRPCError({
@@ -60,8 +56,6 @@ export const appRouter = t.router({
                 }
 
                 const _LifeGoalDocuments = [];
-
-                console.log("abefo");
 
                 const salt = randomBytes(8).toString("hex");
                 const hash = (await scrypt(password, salt, 32)) as Buffer;
@@ -82,8 +76,6 @@ export const appRouter = t.router({
                 await (ctx as any).prisma.LifeGoals.createMany({
                     data: _LifeGoalDocuments,
                 });
-
-                console.log("=======end=============");
 
                 return {
                     status: 201,
@@ -110,34 +102,43 @@ export const appRouter = t.router({
             })
         )
         .mutation(async ({ input, ctx }) => {
-            const { newEmail, newEmailPassFiled } = input;
+            try {
+                const { newEmail, newEmailPassFiled } = input;
 
-            const session = await getServerSession(authOptions);
+                const session = await getServerSession(authOptions);
 
-            const user = await (ctx as any).prisma.user.findUnique({
-                where: {
-                    id: (session as any).id,
-                },
-            });
+                const user = await (ctx as any).prisma.user.findUnique({
+                    where: {
+                        id: (session as any).id,
+                    },
+                });
 
-            const [salt, storedHash] = user.password.split(".");
-            const hash = (await scrypt(newEmailPassFiled, salt, 32)) as Buffer;
+                const [salt, storedHash] = user.password.split(".");
+                const hash = (await scrypt(newEmailPassFiled, salt, 32)) as Buffer;
 
-            if (hash.toString("hex") !== storedHash) {
+                if (hash.toString("hex") !== storedHash) {
+                    throw new TRPCError({
+                        code: "CONFLICT",
+                        message: "username or password is wrong!",
+                    });
+                }
+
+                const updateUser = await (ctx as any).prisma.user.update({
+                    where: {
+                        id: (session as any).id,
+                    },
+                    data: {
+                        email: newEmail,
+                    },
+                });
+            } catch (e) {
+                console.log(e);
+
                 throw new TRPCError({
-                    code: "CONFLICT",
-                    message: "username or password is wrong!",
+                    code: "INTERNAL_SERVER_ERROR",
+                    message: "something went wrong. please try again late",
                 });
             }
-
-            const updateUser = await (ctx as any).prisma.user.update({
-                where: {
-                    id: (session as any).id,
-                },
-                data: {
-                    email: newEmail,
-                },
-            });
         }),
 
     //change password
@@ -151,38 +152,49 @@ export const appRouter = t.router({
             })
         )
         .mutation(async ({ input, ctx }) => {
-            const { oldPassword, newPassword } = input;
+            try {
+                const { oldPassword, newPassword } = input;
 
-            const session = await getServerSession(authOptions);
+                const session = await getServerSession(authOptions);
 
-            const user = await (ctx as any).prisma.user.findUnique({
-                where: {
-                    id: (session as any).id,
-                },
-            });
+                const user = await (ctx as any).prisma.user.findUnique({
+                    where: {
+                        id: (session as any).id,
+                    },
+                });
 
-            const [salt, storedHash] = user.password.split(".");
-            const hash = (await scrypt(oldPassword, salt, 32)) as Buffer;
+                const [salt, storedHash] = user.password.split(".");
+                const hash = (await scrypt(oldPassword, salt, 32)) as Buffer;
 
-            if (hash.toString("hex") !== storedHash) {
+                if (hash.toString("hex") !== storedHash) {
+                    throw new TRPCError({
+                        code: "CONFLICT",
+                        message: "password is wrong",
+                    });
+                }
+
+                const _newSalt = randomBytes(8).toString("hex");
+                const _newhHash = (await scrypt(newPassword, salt, 32)) as Buffer;
+                const hashedNewPassword = `${_newSalt}.${_newhHash.toString("hex")}`;
+
+                const updatePassword = await (ctx as any).prisma.user.update({
+                    where: {
+                        id: (session as any).id,
+                    },
+                    data: {
+                        password: hashedNewPassword,
+                    },
+                });
+
+                return updatePassword;
+            } catch (e) {
+                console.log(e);
+
                 throw new TRPCError({
-                    code: "CONFLICT",
-                    message: "password is wrong",
+                    code: "INTERNAL_SERVER_ERROR",
+                    message: "something went wrong. please try again late",
                 });
             }
-
-            const _newSalt = randomBytes(8).toString("hex");
-            const _newhHash = (await scrypt(newPassword, salt, 32)) as Buffer;
-            const hashedNewPassword = `${salt}.${hash.toString("hex")}`;
-
-            const updatePassword = await (ctx as any).prisma.user.update({
-                where: {
-                    id: (session as any).id,
-                },
-                data: {
-                    password: hashedNewPassword,
-                },
-            });
         }),
 
     //change birthday
@@ -195,24 +207,35 @@ export const appRouter = t.router({
             })
         )
         .mutation(async ({ input, ctx }) => {
-            const { birthday } = input;
+            try {
+                const { birthday } = input;
 
-            const session = await getServerSession(authOptions);
+                const session = await getServerSession(authOptions);
 
-            const user = await (ctx as any).prisma.user.findUnique({
-                where: {
-                    id: (session as any).id,
-                },
-            });
+                const user = await (ctx as any).prisma.user.findUnique({
+                    where: {
+                        id: (session as any).id,
+                    },
+                });
 
-            const updateBirthday = await (ctx as any).prisma.user.update({
-                where: {
-                    id: (session as any).id,
-                },
-                data: {
-                    birthday: birthday,
-                },
-            });
+                const updateBirthday = await (ctx as any).prisma.user.update({
+                    where: {
+                        id: (session as any).id,
+                    },
+                    data: {
+                        birthday: birthday,
+                    },
+                });
+
+                return updateBirthday;
+            } catch (e) {
+                console.log(e);
+
+                throw new TRPCError({
+                    code: "INTERNAL_SERVER_ERROR",
+                    message: "something went wrong. please try again late",
+                });
+            }
         }),
 
     //get user by id

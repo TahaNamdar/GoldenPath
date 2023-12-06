@@ -15,19 +15,19 @@ import NextAuth from "next-auth";
 const prisma = new PrismaClient();
 
 export const authOptions: NextAuthOptions = {
-  secret: process.env.NEXTAUTH_SECRET,
-  providers: [
-    Credentials({
-      name: "SignIn",
-      credentials: {
-        email: {
-          label: "Email",
-          type: "email",
-          placeholder: "golden@gmail.com",
-        },
-        password: { label: "Password", type: "password" },
-      },
-      authorize: async (credentials, request) => {
+    secret: process.env.NEXTAUTH_SECRET,
+    providers: [
+        Credentials({
+            name: "SignIn",
+            credentials: {
+                email: {
+                    label: "Email",
+                    type: "email",
+                    placeholder: "golden@gmail.com",
+                },
+                password: { label: "Password", type: "password" },
+            },
+            authorize: async (credentials, request) => {
                 const creds = await loginSchema.parseAsync(credentials);
 
                 const user = await prisma.user.findFirst({
@@ -54,93 +54,101 @@ export const authOptions: NextAuthOptions = {
                     password: user.password,
                 };
             },
-    }),
+        }),
 
-    GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID as string,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
-      authorization: {
-        params: {
-          prompt: "consent",
-          access_type: "offline",
-          response_type: "code",
+        GoogleProvider({
+            clientId: process.env.GOOGLE_CLIENT_ID as string,
+            clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
+            authorization: {
+                params: {
+                    prompt: "consent",
+                    access_type: "offline",
+                    response_type: "code",
+                },
+            },
+        }),
+
+        // FacebookProvider({
+        //   clientId: process.env.FACEBOOK_CLIENT_ID,
+        //   clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
+        // }),
+    ],
+    // ...
+
+    jwt: {
+        secret: "super-secret",
+        maxAge: 15 * 24 * 30 * 60, // 15 days
+    },
+    session: {
+        strategy: "jwt",
+    },
+
+    callbacks: {
+        //...
+        async signIn({ user, account, profile, email, credentials }) {
+            console.log({ user, account, profile, email, credentials });
+
+            if(account?.provider === "credential") {
+              return true;
+            }
+
+            // it will be anything other than login with user pass
+            // if (user.email) {
+            //   const exists = await prisma.user.findFirst({
+            //     where: { email: user.email },
+            //   });
+
+            //   if (!exists) {
+            //     const result = await prisma.user.create({
+            //       data: { email: user.email, password: "", isSocialMedia: true },
+            //     });
+
+            //     const _LifeGoalDocuments = [];
+
+            //     for (let i = 1; i <= 100; i++) {
+            //       _LifeGoalDocuments.push({
+            //         userId: result.id,
+            //         age: i,
+            //         Chips: [],
+            //       });
+            //     }
+
+            //     await prisma.lifeGoals.createMany({
+            //       data: _LifeGoalDocuments,
+            //     });
+            //   }
+            // }
+
+            // const isAllowedToSignIn = true;
+            // if (isAllowedToSignIn) {
+            //   return true;
+            // } else {
+            //   // Return false to display a default error message
+            //   return false;
+            //   // Or you can return a URL to redirect to:
+            //   // return '/unauthorized'
+            // }
+
+            return true;
         },
-      },
-    }),
 
-    // FacebookProvider({
-    //   clientId: process.env.FACEBOOK_CLIENT_ID,
-    //   clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
-    // }),
-  ],
-  // ...
+        jwt: async ({ token, user }) => {
+            if (user) {
+                token.id = user.id;
+                token.email = user.email;
+            }
 
-  jwt: {
-    secret: "super-secret",
-    maxAge: 15 * 24 * 30 * 60, // 15 days
-  },
-  session: {
-    strategy: "jwt",
-  },
+            return token;
+        },
 
-  callbacks: {
-    //...
-    async signIn({ user, account, profile, email, credentials }) {
+        session: async ({ session, token }) => {
+            if (token) {
+                (session as any).id = token.id;
+            }
 
-      if (user.email) {
-        const exists = await prisma.user.findFirst({
-          where: { email: user.email },
-        });
-
-        if (!exists) {
-          const result = await prisma.user.create({
-            data: { email: user.email, password: "", isSocialMedia: true },
-          });
-
-          const _LifeGoalDocuments = [];
-
-          for (let i = 1; i <= 100; i++) {
-            _LifeGoalDocuments.push({
-              userId: result.id,
-              age: i,
-              Chips: [],
-            });
-          }
-
-          await prisma.lifeGoals.createMany({
-            data: _LifeGoalDocuments,
-          });
-        }
-      }
-
-      const isAllowedToSignIn = true;
-      if (isAllowedToSignIn) {
-        return true;
-      } else {
-        // Return false to display a default error message
-        return false;
-        // Or you can return a URL to redirect to:
-        // return '/unauthorized'
-      }
+            return session;
+        },
     },
-
-    jwt: async ({ token, user }) => {
-      if (user) {
-        token.id = user.id;
-        token.email = user.email;
-      }
-
-      return token;
-    },
-
-    session: async ({ session, token }) => {
-      if (token) {
-        (session as any).id = token.id;
-      }
-
-      return session;
-    },
-  },
 };
 
 const handler = NextAuth(authOptions);

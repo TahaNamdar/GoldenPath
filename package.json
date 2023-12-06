@@ -7,12 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-<<<<<<< HEAD
     "sync:db": "npx prisma db push",
-    "postinstall": "patch-package && npx prisma generate"
-=======
+    "postinstall": "patch-package && npx prisma generate",
     "sync:db": "npx prisma db push"
->>>>>>> 70a10e476acba237907c5541dc9a848ad5117304
   },
   "dependencies": {
     "@emotion/react": "^11.11.1",
