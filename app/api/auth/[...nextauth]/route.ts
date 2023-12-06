@@ -2,7 +2,10 @@ import { NextAuthOptions } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
 // import FacebookProvider from "next-auth/providers/facebook";
-import { verify } from "argon2";
+import { scrypt as _scrypt } from "crypto";
+import { promisify } from "util";
+
+const scrypt = promisify(_scrypt);
 import { PrismaClient } from "@prisma/client";
 import { loginSchema } from "../../../common/validation/auth";
 
@@ -25,32 +28,32 @@ export const authOptions: NextAuthOptions = {
         password: { label: "Password", type: "password" },
       },
       authorize: async (credentials, request) => {
-        const creds = await loginSchema.parseAsync(credentials);
+                const creds = await loginSchema.parseAsync(credentials);
 
-        const user = await prisma.user.findFirst({
-          where: { email: creds.email },
-        });
+                const user = await prisma.user.findFirst({
+                    where: { email: creds.email },
+                });
 
-        if (!user) {
-          throw new Error("user or password is wrong");
-        }
+                if (!user) {
+                    throw new Error("user or password is wrong");
+                }
 
-        if (user.isSocialMedia) {
-          throw new Error("you should login with socialMedia account");
-        }
+                const [salt, storedHash] = user.password.split(".");
+                const hash = (await scrypt(creds.password, salt, 32)) as Buffer;
 
-        const isValidPassword = await verify(user.password, creds.password);
+                console.log(storedHash);
+                console.log(hash.toString("hex"));
 
-        if (!isValidPassword) {
-          throw new Error("user or password is wrong");
-        }
+                if (hash.toString("hex") !== storedHash) {
+                    throw new Error("user or password is wrong");
+                }
 
-        return {
-          id: user.id,
-          email: user.email,
-          password: user.password,
-        };
-      },
+                return {
+                    id: user.id,
+                    email: user.email,
+                    password: user.password,
+                };
+            },
     }),
 
     GoogleProvider({
@@ -83,11 +86,6 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     //...
     async signIn({ user, account, profile, email, credentials }) {
-      console.log(user, "user");
-      console.log(account, "acc");
-      console.log(profile, "profile");
-      console.log(email, "email");
-      console.log(credentials, "cred");
 
       if (user.email) {
         const exists = await prisma.user.findFirst({
