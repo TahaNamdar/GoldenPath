@@ -12,7 +12,8 @@ const handler = (request: Request) => {
     async createContext(context: any) {
       const prisma = new PrismaClient();
       const session = await getServerSession(authOptions);
-
+	
+      console.log("api is running")
 
       return {
         req: request,

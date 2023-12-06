@@ -1,7 +1,8 @@
 // @type {import('next').NextConfig}
 
 module.exports = {
-    webpack(config) {
+	output: "standalone",
+	webpack(config) {
         config.module.rules.push({
             test: /\.svg$/i,
             issuer: /\.[jt]sx?$/,
