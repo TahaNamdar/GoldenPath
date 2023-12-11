@@ -174,7 +174,7 @@ export const appRouter = t.router({
                 }
 
                 const _newSalt = randomBytes(8).toString("hex");
-                const _newhHash = (await scrypt(newPassword, salt, 32)) as Buffer;
+                const _newhHash = (await scrypt(newPassword, _newSalt, 32)) as Buffer;
                 const hashedNewPassword = `${_newSalt}.${_newhHash.toString("hex")}`;
 
                 const updatePassword = await (ctx as any).prisma.user.update({
