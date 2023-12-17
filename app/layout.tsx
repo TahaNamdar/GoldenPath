@@ -8,56 +8,49 @@ import SessionProvider from "./SessionProvider";
 import localFont from "@next/font/local";
 import { Providers } from "@/utils/globalRedux";
 import ActionSizeProvider from "@/utils/actionSize";
- 
+import { ToastContainer } from "react-toastify";
+
 export const metadata: Metadata = {
-  title: "Golden Path ",
-  description: "Golden Path Website ",
-  icons: {
-    icon: "/assets/logo.svg",
-  },
+    title: "Golden Path ",
+    description: "Golden Path Website ",
+    icons: {
+        icon: "/assets/logo.svg",
+    },
 };
 
 const TOMMY = localFont({
-  src: [
-    {
-      path: "../public/font/MADE TOMMY Thin_PERSONAL USE.otf",
-      weight: "300",
-    },
-    {
-      path: "../public/font/MADE TOMMY Regular_PERSONAL USE.otf",
-      weight: "400",
-    },
-    {
-      path: "../public/font/MADE TOMMY Medium_PERSONAL USE.otf",
-      weight: "500",
-    },
-  ],
-  variable: "--font-TOMMY",
+    src: [
+        {
+            path: "../public/font/MADE TOMMY Thin_PERSONAL USE.otf",
+            weight: "300",
+        },
+        {
+            path: "../public/font/MADE TOMMY Regular_PERSONAL USE.otf",
+            weight: "400",
+        },
+        {
+            path: "../public/font/MADE TOMMY Medium_PERSONAL USE.otf",
+            weight: "500",
+        },
+    ],
+    variable: "--font-TOMMY",
 });
 
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+    const session = await getServerSession(authOptions);
 
-
-export default async function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  const session = await getServerSession(authOptions);
-
-  return (
-    <html lang="en">
-      <Providers>
-          <body
-            className={`${TOMMY.variable} font-sans`}
-            suppressHydrationWarning={true}
-          >
-            <ActionSizeProvider>
-              <TrpcProvider>
-                <SessionProvider session={session}>{children}</SessionProvider>
-              </TrpcProvider>
-            </ActionSizeProvider>
-          </body>
-      </Providers>
-    </html>
-  );
+    return (
+        <html lang="en">
+            <Providers>
+                <body className={`${TOMMY.variable} font-sans`} suppressHydrationWarning={true}>
+                    <ToastContainer theme="colored" />
+                    <ActionSizeProvider>
+                        <TrpcProvider>
+                            <SessionProvider session={session}>{children}</SessionProvider>
+                        </TrpcProvider>
+                    </ActionSizeProvider>
+                </body>
+            </Providers>
+        </html>
+    );
 }

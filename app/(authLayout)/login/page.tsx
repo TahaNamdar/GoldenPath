@@ -114,9 +114,6 @@ export default function Login() {
 
   return (
     <div>
-      <ToastContainer
-        toastStyle={{ backgroundColor: "#1D212A", fontSize: "14px" }}
-      />
 
       <div className="bg-Crayola  block sm:flex sm:flex-row-reverse sm:overflow-hidden ">
         <div className="w-full overflow-auto h-screen z-50 lg:w-[60.6rem] xl:w-[80rem] bg-darkGunmetal  pr-[2rem] pl-[2rem] flex flex-col justify-center md:pr-[10rem] md:pl-[10rem]  xl:pr-[12.2rem] xl:pl-[12.2rem]">

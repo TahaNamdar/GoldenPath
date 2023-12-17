@@ -13,7 +13,6 @@ const handler = (request: Request) => {
       const prisma = new PrismaClient();
       const session = await getServerSession(authOptions);
 	
-      console.log("api is running")
 
       return {
         req: request,
