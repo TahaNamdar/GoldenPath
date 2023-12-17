@@ -18,6 +18,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { ToastContainer, toast } from "react-toastify";
 import { useRouter } from "next/navigation";
+import { signIn } from "next-auth/react";
 
 const schema = yup
   .object({
@@ -73,6 +74,16 @@ export default function Register() {
   const submit = (data: any) => {
     const { email, password } = data;
     mutation.mutate({ email, password });
+  };
+
+  const signInGoogleHandler = async () => {
+    const res = await signIn("google");
+    console.log(res, "google");
+  };
+
+  const signInFaceBookHandler = async () => {
+    const res = await signIn("facebook");
+    console.log(res, "facebook");
   };
 
   const showToastSuccess = () => {
@@ -167,13 +178,19 @@ export default function Register() {
             </div>
           </div>
           <div className="text-right mb-[3.9rem]">
-            <button className="flex items-center justify-center rounded-[1.4rem] border-[1px] border-white w-full text-center text-white  text-2xl md:text-3xl pl-[10rem] pr-[10rem] pt-[1.2rem] pb-[1.2rem] md:pl-[11rem] md:pr-[11rem] md:pt-[1.8rem] md:pb-[1.8rem]">
+            <button
+              onClick={() => signInGoogleHandler()}
+              className="flex items-center justify-center rounded-[1.4rem] border-[1px] border-white w-full text-center text-white  text-2xl md:text-3xl pl-[10rem] pr-[10rem] pt-[1.2rem] pb-[1.2rem] md:pl-[11rem] md:pr-[11rem] md:pt-[1.8rem] md:pb-[1.8rem]"
+            >
               <Image src={GoogleLogo} alt="google icon" className="mr-[12px]" />
               Google
             </button>
           </div>{" "}
           <div className="text-right mb-[3.9rem]">
-            <button className="flex items-center justify-center rounded-[1.4rem] border-[1px] border-white w-full text-center text-white  text-2xl md:text-3xl pl-[10rem] pr-[10rem] pt-[1.2rem] pb-[1.2rem] md:pl-[11rem] md:pr-[11rem] md:pt-[1.8rem] md:pb-[1.8rem]">
+            <button
+              onClick={() => signInFaceBookHandler()}
+              className="flex items-center justify-center rounded-[1.4rem] border-[1px] border-white w-full text-center text-white  text-2xl md:text-3xl pl-[10rem] pr-[10rem] pt-[1.2rem] pb-[1.2rem] md:pl-[11rem] md:pr-[11rem] md:pt-[1.8rem] md:pb-[1.8rem]"
+            >
               <Image
                 src={FaceBookLogo}
                 alt="google icon"

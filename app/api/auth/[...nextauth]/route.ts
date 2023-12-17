@@ -1,7 +1,7 @@
 import { NextAuthOptions } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
-// import FacebookProvider from "next-auth/providers/facebook";
+import FacebookProvider from "next-auth/providers/facebook";
 import { scrypt as _scrypt } from "crypto";
 import { promisify } from "util";
 
@@ -65,10 +65,10 @@ export const authOptions: NextAuthOptions = {
       },
     }),
 
-    // FacebookProvider({
-    //   clientId: process.env.FACEBOOK_CLIENT_ID,
-    //   clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
-    // }),
+    FacebookProvider({
+      clientId: process.env.FACEBOOK_CLIENT_ID as string,
+      clientSecret: process.env.FACEBOOK_CLIENT_SECRET as string,
+    }),
   ],
   // ...
 
