@@ -11,9 +11,12 @@ import { useSelector } from "react-redux";
 import { setLifeGoals, reorderChips } from "@/app/Redux/featrues/chipSlice";
 import { useDispatch } from "react-redux";
 import Loading from "@/app/components/loading/Loading";
+import { useRouter } from "next/navigation";
 
 export default function LifeGoals() {
   const dispatch = useDispatch();
+
+  const router = useRouter();
 
   const state = useSelector((state: RootState) => state.chip); // Assuming "chip" is the slice name
 
@@ -117,7 +120,7 @@ export default function LifeGoals() {
     <div className=" bg-CharlestonGreen lg:bg-darkGunmetal lg:flex md:p-1">
       <SideBar />
 
-      <div className="flex-1  bg-CharlestonGreen rounded-md lg:pl-[3.7rem] lg:pr-[4.6rem] h-screen lg:h-[100%] xl:h-auto 3xl:h-screen overflow-y-auto  scroll-bar">
+      <div className="flex-1  bg-CharlestonGreen rounded-md lg:pl-[3.7rem] lg:pr-[4.6rem] h-screen lg:h-[100%] xl:h-auto 3xl:h-screen overflow-hidden  scroll-bar">
         <div className="lg:flex items-center justify-between mb-[1rem] lg:mb-[3.7rem] mt-[4.5rem] pl-[2rem] pr-[2rem]">
           <div className="lg:mb-[2rem]">
             <p className="text-3xl mb-[1.4rem]  md:text-4xl text-white font-medium md:mb-2">
@@ -136,14 +139,21 @@ export default function LifeGoals() {
               top to bottom.try to keep 3~5 items here
             </p>
 
-            <a className="text-base text-white cursor-pointer underline">
+            <a
+              href="https://www.youtube.com/"
+              target="_blank"
+              className="text-base text-white cursor-pointer underline"
+            >
               {" "}
               Tutorial
             </a>
           </div>
           {/* lg */}
           <div className="hidden lg:flex">
-            <button className="border border-white text-sm md:text-base rounded-sm text-white ml-[1.6rem] pt-[1.2rem] pb-[1.2rem] pr-[2.3rem] pl-[2.3rem]">
+            <button
+              onClick={() => router.push("https://www.youtube.com/")}
+              className="border border-white text-sm md:text-base rounded-sm text-white ml-[1.6rem] pt-[1.2rem] pb-[1.2rem] pr-[2.3rem] pl-[2.3rem]"
+            >
               Tutorial
             </button>
           </div>
