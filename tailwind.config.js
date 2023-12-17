@@ -13,7 +13,12 @@ module.exports = withMT({
     screens: {
       "3xl": "1600px",
       "4xl": "1900px",
+      "5xl": "1960px",
       "1sm": "440px",
+    },
+
+    scale: {
+      180: "1.8",
     },
 
     colors: {

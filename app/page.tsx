@@ -29,10 +29,10 @@ export default function Home() {
         {/* first section */}
         <div className="relative mb-[50px] bg-banner bg-cover bg-[url('../public/assets/layout/wallpaper.png')] h-auto md:h-auto  xl:overflow-hidden lg:h-[890px] xl:h-[1000px] 2xl:h-screen w-full md:flex md:flex-row-reverse xl:flex xl:flex-row-reverse">
           <Navbar />
-          <div className="absolute hidden xl:block bottom-[-10%] 2xl:bottom-[-20%] 3xl:bottom-[-8%] lg:translate-x-[-9%] xl:translate-x-[-24%] 2xl:translate-x-[-18%] 3xl:translate-x-0  overflow-x-hidden w-full xl:overflow-x-[unset]">
+          <div className="absolute hidden xl:block bottom-[-10%] 2xl:bottom-[-20%] 3xl:bottom-[-8%] lg:translate-x-[-9%] xl:translate-x-[-24%] 2xl:translate-x-[-18%] 3xl:translate-x-0  overflow-x-hidden w-full xl:overflow-x-[unset] 5xl:scale-x-150">
             <Shape1 />
           </div>
-          <div className="absolute hidden xl:block bottom-[-12%] 2xl:bottom-[-22%] 3xl:bottom-[-10%] 4xl:w-full 4xl:scale-x-150  4xl:scale-y-100  overflow-x-hidden  xl:overflow-x-[unset]">
+          <div className="absolute hidden xl:block bottom-[-12%] 2xl:bottom-[-22%] 3xl:bottom-[-10%] 4xl:w-full 4xl:scale-x-150  4xl:scale-y-100 5xl:scale-x-180  overflow-x-hidden  xl:overflow-x-[unset]">
             <MainShape />
           </div>{" "}
           <section className="absolute w-full bg-banner h-[160px] bottom-[-9%] xl:hidden">
