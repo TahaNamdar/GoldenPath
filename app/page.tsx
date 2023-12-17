@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Shape1 from "@/public/assets/layout/homeShape1.svg";
 import ShadowShapeMd from "@/public/assets/layout/shadowShapeMd.svg";
 import Shadow from "@/public/assets/layout/circleShadow.svg";
@@ -14,8 +14,15 @@ import GoldStar from "@/public/assets/layout/goldStar.svg";
 import BlueStar from "@/public/assets/layout/blueStar.svg";
 import Footer from "@/app/components/footer/footer";
 import Navbar from "@/app/components/navbar/navbar";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
+  const router = useRouter();
+
+  const routeHandler = () => {
+    router.push("/register");
+  };
+
   return (
     <main className="bg-homeColor h-screen overflow-auto overflow-x-hidden">
       <section>
@@ -25,7 +32,7 @@ export default function Home() {
           <div className="absolute hidden xl:block bottom-[-10%] 2xl:bottom-[-20%] 3xl:bottom-[-8%] lg:translate-x-[-9%] xl:translate-x-[-24%] 2xl:translate-x-[-18%] 3xl:translate-x-0  overflow-x-hidden w-full xl:overflow-x-[unset]">
             <Shape1 />
           </div>
-          <div className="absolute hidden xl:block bottom-[-12%] 2xl:bottom-[-22%] 3xl:bottom-[-10%]  overflow-x-hidden  xl:overflow-x-[unset]">
+          <div className="absolute hidden xl:block bottom-[-12%] 2xl:bottom-[-22%] 3xl:bottom-[-10%] 4xl:w-full 4xl:scale-x-150  4xl:scale-y-100  overflow-x-hidden  xl:overflow-x-[unset]">
             <MainShape />
           </div>{" "}
           <section className="absolute w-full bg-banner h-[160px] bottom-[-9%] xl:hidden">
@@ -71,7 +78,10 @@ export default function Home() {
                 Achieve Your Goals.
               </p>
               <div className="bg-gradient-to-r  w-[209px] p-[1px] flex justify-center rounded-[14px] from-[#ffffff1c] to-[#ffffff] ">
-                <div className=" font-normal bg-banner text-white flex justify-center cursor-pointer z-30 text-[16px] pb-[18px] pt-[18px] pr-[70px] pl-[70px] rounded-[14px]  ">
+                <div
+                  onClick={routeHandler}
+                  className=" font-normal bg-banner text-white flex justify-center cursor-pointer z-30 text-[16px] pb-[18px] pt-[18px] pr-[70px] pl-[70px] rounded-[14px]  "
+                >
                   Get Start
                 </div>
               </div>
@@ -296,7 +306,10 @@ export default function Home() {
                   change your life.
                 </p>
                 <div className="flex justify-center">
-                  <div className="pt-[27px] pb-[27px] pr-[46px] pl-[46px] w-[262px] font-light  text-customYellow text-[20px] mb-[166px] border-customYellow border-[1px] rounded-[20px] cursor-pointer ">
+                  <div
+                    onClick={routeHandler}
+                    className="pt-[27px] pb-[27px] pr-[46px] pl-[46px] w-[262px] font-light  text-customYellow text-[20px] mb-[166px] border-customYellow border-[1px] rounded-[20px] cursor-pointer"
+                  >
                     join now
                   </div>
                 </div>

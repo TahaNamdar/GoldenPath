@@ -93,12 +93,14 @@ export default function SideBar() {
   const changeBirthdayMutation = trpc.changeBirthday.useMutation();
 
   const { isSuccess } = changeBirthdayMutation;
+  const { isSuccess: isPassSuccess } = changePasswordMutation;
+  const { isSuccess: isEmailSuccess } = changeEmailMutation;
 
   useEffect(() => {
-    if (isSuccess) {
+    if (isSuccess || isEmailSuccess || isPassSuccess) {
       location.reload();
     }
-  }, [isSuccess]);
+  }, [isSuccess, isEmailSuccess, isPassSuccess]);
 
   const changeEmailHandler: SubmitHandler<FormValues> = (data) => {
     const { newEmail, newEmailPassFiled } = data;
@@ -307,7 +309,7 @@ export default function SideBar() {
                 </Link>
 
                 <Link
-                  href={"/aboutUs"}
+                  href={"#"}
                   className="flex ml-[-5.6rem] pt-[21px] pb-[21px] items-center cursor-pointer text-white font-normal text-3xl md:pl-[3.8rem] "
                 >
                   <div className="md:mr-[1.5rem] ml-[2.4rem]">

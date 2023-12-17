@@ -1,5 +1,5 @@
 /*
-! tailwindcss v3.3.5 | MIT License | https://tailwindcss.com
+! tailwindcss v3.3.3 | MIT License | https://tailwindcss.com
 */
 
 /*
@@ -581,6 +581,12 @@ html {
 @media (min-width: 1600px) {
   .container {
     max-width: 1600px;
+  }
+}
+
+@media (min-width: 1900px) {
+  .container {
+    max-width: 1900px;
   }
 }
 
@@ -1501,10 +1507,6 @@ html {
   width: 3rem;
 }
 
-.w-2\/12 {
-  width: 16.666667%;
-}
-
 .w-2\/5 {
   width: 40%;
 }
@@ -1515,6 +1517,10 @@ html {
 
 .w-3\.5 {
   width: 0.875rem;
+}
+
+.w-3\/12 {
+  width: 25%;
 }
 
 .w-3\/4 {
@@ -3487,6 +3493,10 @@ html {
   padding-top: 0.125rem;
 }
 
+.pt-1 {
+  padding-top: 0.25rem;
+}
+
 .pt-10 {
   padding-top: 2.5rem;
 }
@@ -3661,6 +3671,10 @@ html {
 
 .text-\[11px\] {
   font-size: 11px;
+}
+
+.text-\[13px\] {
+  font-size: 13px;
 }
 
 .text-\[14px\] {
@@ -7523,6 +7537,10 @@ textarea {
     width: 50%;
   }
 
+  .md\:w-2\/12 {
+    width: 16.666667%;
+  }
+
   .md\:w-2\/3 {
     width: 66.666667%;
   }
@@ -7732,6 +7750,10 @@ textarea {
     padding-top: 3.2rem;
   }
 
+  .md\:pt-\[unset\] {
+    padding-top: unset;
+  }
+
   .md\:text-2xl {
     font-size: 1.6rem;
   }
@@ -7861,6 +7883,10 @@ textarea {
 
   .lg\:mt-\[-22\%\] {
     margin-top: -22%;
+  }
+
+  .lg\:mt-\[-4px\] {
+    margin-top: -4px;
   }
 
   .lg\:block {
@@ -8130,6 +8156,10 @@ textarea {
 
   .lg\:text-\[1\.8rem\] {
     font-size: 1.8rem;
+  }
+
+  .lg\:text-\[17px\] {
+    font-size: 17px;
   }
 
   .lg\:text-\[20px\] {
@@ -8855,6 +8885,27 @@ textarea {
 
   .\33xl\:text-\[72px\] {
     font-size: 72px;
+  }
+}
+
+@media (min-width: 1900px) {
+  .\34xl\:w-full {
+    width: 100%;
+  }
+
+  .\34xl\:scale-x-125 {
+    --tw-scale-x: 1.25;
+    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+  }
+
+  .\34xl\:scale-y-100 {
+    --tw-scale-y: 1;
+    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+  }
+
+  .\34xl\:scale-x-150 {
+    --tw-scale-x: 1.5;
+    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
   }
 }
 
