@@ -763,6 +763,15 @@ export const appRouter = t.router({
                     return task;
                 });
 
+                const priorities = await (ctx as any).prisma.Priorities.findMany({});
+
+                if (priorities.length > 5 && status === true) {
+                    throw new TRPCError({
+                        code: "INTERNAL_SERVER_ERROR",
+                        message: "Cannot add more than 6 priorities",
+                    });
+                }
+
                 const updateResult = await (ctx as any).prisma.YearlyGoals.update({
                     where: {
                         id: notion_id,
@@ -875,6 +884,13 @@ export const appRouter = t.router({
                 const id = (session as any).id;
 
                 const priorities = await (ctx as any).prisma.Priorities.findMany({});
+
+                if (priorities.length > 5) {
+                    throw new TRPCError({
+                        code: "INTERNAL_SERVER_ERROR",
+                        message: "Cannot add more than 6 priorities",
+                    });
+                }
 
                 const largestIndex = getLargestIndex(priorities);
 
