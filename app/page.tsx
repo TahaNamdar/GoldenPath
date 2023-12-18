@@ -262,9 +262,9 @@ export default function Home() {
             </section>
             <section className="lg:w-1/2">
               <div className="flex justify-end">
-                <div className="bg-layoutColor overflow-x-scroll 2xl:overflow-hidden w-[85%] xl:w-[94%] 3xl:w-[88%]  rounded-l-[55px] border-t-[2px] border-b-[2px] border-l-[2px] border-white md:h-[441px] 3xl:h-[550px] flex items-center 3xl:justify-center">
-                  <div className="pt-[45px] pb-[45px] pl-[45px] 3xl:pl-0 md:flex md:items-center">
-                    <div className="mb-[45px] md:mb-[unset] md:mr-[73px]">
+                <div className="bg-layoutColor 2xl:overflow-hidden w-[85%] xl:w-[94%] 3xl:w-[88%]  rounded-l-[55px] border-t-[2px] border-b-[2px] border-l-[2px] border-white md:h-[441px] 3xl:h-[550px] flex justify-center items-center 3xl:justify-center ">
+                  <div className="pt-[45px] pb-[45px] lg:pl-[45px] lg:pr-[45px] 3xl:pr-0 3xl:pl-0 md:flex md:items-center">
+                    <div className="mb-[45px] md:mb-[unset] md:mr-[73px] lg:mr-[50px]">
                       <img
                         src="/assets/layout/Parham.png"
                         alt="parham"
