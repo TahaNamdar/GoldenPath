@@ -121,7 +121,6 @@ export const authOptions: NextAuthOptions = {
 
           return true;
         } catch (e) {
-          console.log(e);
           return false;
         }
       }
@@ -130,7 +129,6 @@ export const authOptions: NextAuthOptions = {
     },
 
     jwt: async ({ token, user }) => {
-      console.log(user, "user");
 
       if (user) {
         token.id = user.id;

@@ -104,9 +104,6 @@ const GoldenEditor = ({
     // 1. if the given task has sub tasks, they need to be dragged too
     const subTasks = getSubtasks(tasks, sourceIndex);
 
-    console.log(reOrderedTasks);
-    console.log({ sourceIndex, destinationIndex });
-
     draggedTask.subTask = false;
 
     // 2. if a task drops before a sub-task it becomes a sub task

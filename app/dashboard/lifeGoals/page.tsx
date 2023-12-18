@@ -44,9 +44,6 @@ export default function LifeGoals() {
       const element = document.getElementById(`chips-${years - 8}`);
       const chipsWrapper = document.getElementById("chipsWrapper");
 
-      console.log(element, "elem");
-      console.log(chipsWrapper, "wrapper");
-
       if (element && chipsWrapper) {
         const y = element.getBoundingClientRect().top + chipsWrapper.scrollTop;
         chipsWrapper.scroll({
@@ -67,8 +64,6 @@ export default function LifeGoals() {
   }
 
   const chipsFromAgeArray = [];
-
-  console.log(lifeData, "life");
 
   for (let i = 0; i < lifeData.length; i++) {
     chipsFromAgeArray.push(

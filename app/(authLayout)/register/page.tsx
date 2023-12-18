@@ -78,12 +78,10 @@ export default function Register() {
 
   const signInGoogleHandler = async () => {
     const res = await signIn("google");
-    console.log(res, "google");
   };
 
   const signInFaceBookHandler = async () => {
     const res = await signIn("facebook");
-    console.log(res, "facebook");
   };
 
   const showToastSuccess = () => {
