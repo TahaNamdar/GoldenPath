@@ -1,0 +1,32 @@
+version: "3"
+services:
+    app:
+        image: goldenapp
+        build:
+          context: ./
+          target: production
+          dockerfile: Dockerfile
+        volumes:
+          - .:/app
+          - /app/node_modules
+          - /app/.next
+        ports:
+          - "4000:4000"
+        env_file:
+          - .env
+
+    mongodb:
+        image: "bitnami/mongodb:latest"
+        ports:
+          - "27017:27017"
+        environment:
+            - MONGODB_ADVERTISED_HOSTNAME=95.217.250.148
+            - MONGODB_REPLICA_SET_MODE=primary
+            - MONGODB_ROOT_USER=taha
+            - MONGODB_ROOT_PASSWORD=taha
+            - MONGODB_REPLICA_SET_KEY=replicasetkey123
+        volumes:
+            - "mongo-db:/bitnami/mongodb"
+
+volumes:
+    mongo-db:

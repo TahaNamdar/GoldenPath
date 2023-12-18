@@ -1,18 +1,46 @@
 import React from "react";
 import GoldenFooter from "@/public/assets/layout/goldenFooter.svg";
+import { useRouter } from "next/navigation";
 
 export default function Footer() {
+  const router = useRouter();
+
   return (
     <footer>
       <div className="hidden md:block bg-[url('../public/assets/layout/footer.png')] bg-layoutColor h-[370px] w-full relative bg-auto bg-no-repeat">
-        <div className="md:w-[80%] lg:w-[60%] xl:w-1/2 2xl:w-[40%]   flex flex-row-reverse justify-around pt-[60px]">
+        <div className="md:w-[80%] lg:w-[60%] xl:w-1/2 2xl:w-[40%] 4xl:w-[32%]   flex flex-row-reverse justify-around pt-[60px]">
           <div>
             <p className="text-white text-[24px] mb-[18px]">SOCIAL</p>
-            <p className="text-footerColor text-[20px] mb-[18px]">Youtube</p>
-            <p className="text-footerColor text-[20px] mb-[18px]">LinkedIn</p>
-            <p className="text-footerColor text-[20px] mb-[18px]">Instagram</p>
-            <p className="text-footerColor text-[20px] mb-[18px]">Twitter</p>
-            <p className="text-footerColor text-[20px] mb-[18px]">Tiktok</p>
+            <p
+              onClick={() => router.push("https://youtube.com/")}
+              className="text-footerColor text-[20px] mb-[18px] cursor-pointer"
+            >
+              Youtube
+            </p>
+            <p
+              onClick={() => router.push("https://www.linkedin.com/")}
+              className="text-footerColor text-[20px] mb-[18px] cursor-pointer"
+            >
+              LinkedIn
+            </p>
+            <p
+              onClick={() => router.push("https://www.instagram.com/")}
+              className="text-footerColor text-[20px] mb-[18px] cursor-pointer"
+            >
+              Instagram
+            </p>
+            <p
+              onClick={() => router.push("https://twitter.com/?lang=en")}
+              className="text-footerColor text-[20px] mb-[18px] cursor-pointer"
+            >
+              Twitter
+            </p>
+            <p
+              onClick={() => router.push("https://www.tiktok.com/en/")}
+              className="text-footerColor text-[20px] mb-[18px] cursor-pointer"
+            >
+              Tiktok
+            </p>
           </div>
           <div>
             <div className="mb-[38px] flex justify-center">

@@ -1,8 +1,11 @@
 import { NextAuthOptions } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
-// import FacebookProvider from "next-auth/providers/facebook";
-import { verify } from "argon2";
+import FacebookProvider from "next-auth/providers/facebook";
+import { scrypt as _scrypt } from "crypto";
+import { promisify } from "util";
+
+const scrypt = promisify(_scrypt);
 import { PrismaClient } from "@prisma/client";
 import { loginSchema } from "../../../common/validation/auth";
 
@@ -27,8 +30,6 @@ export const authOptions: NextAuthOptions = {
       authorize: async (credentials, request) => {
         const creds = await loginSchema.parseAsync(credentials);
 
-        console.log(creds, "c");
-
         const user = await prisma.user.findFirst({
           where: { email: creds.email },
         });
@@ -37,9 +38,10 @@ export const authOptions: NextAuthOptions = {
           throw new Error("user or password is wrong");
         }
 
-        const isValidPassword = await verify(user.password, creds.password);
+        const [salt, storedHash] = user.password.split(".");
+        const hash = (await scrypt(creds.password, salt, 32)) as Buffer;
 
-        if (!isValidPassword) {
+        if (hash.toString("hex") !== storedHash) {
           throw new Error("user or password is wrong");
         }
 
@@ -50,6 +52,7 @@ export const authOptions: NextAuthOptions = {
         };
       },
     }),
+
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID as string,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
@@ -61,10 +64,11 @@ export const authOptions: NextAuthOptions = {
         },
       },
     }),
-    // FacebookProvider({
-    //   clientId: process.env.FACEBOOK_CLIENT_ID,
-    //   clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
-    // }),
+
+    FacebookProvider({
+      clientId: process.env.FACEBOOK_CLIENT_ID as string,
+      clientSecret: process.env.FACEBOOK_CLIENT_SECRET as string,
+    }),
   ],
   // ...
 
@@ -77,7 +81,55 @@ export const authOptions: NextAuthOptions = {
   },
 
   callbacks: {
+    //...
+    async signIn({ user, account, profile, email, credentials }) {
+      if (account?.provider === "credential") {
+        return true;
+      }
+
+      // it will be anything other than login with user pass
+      if (user.email) {
+        try {
+          const exists = await prisma.user.findFirst({
+            where: { email: user.email },
+          });
+
+          if (exists) {
+            user.id = exists.id;
+            return true;
+          }
+
+          const result = await prisma.user.create({
+            data: { email: user.email, password: "", isSocialMedia: true },
+          });
+
+          user.id = result.id;
+
+          const _LifeGoalDocuments = [];
+
+          for (let i = 1; i <= 100; i++) {
+            _LifeGoalDocuments.push({
+              userId: result.id,
+              age: i,
+              Chips: [],
+            });
+          }
+
+          await prisma.lifeGoals.createMany({
+            data: _LifeGoalDocuments,
+          });
+
+          return true;
+        } catch (e) {
+          return false;
+        }
+      }
+
+      return false;
+    },
+
     jwt: async ({ token, user }) => {
+
       if (user) {
         token.id = user.id;
         token.email = user.email;
@@ -94,8 +146,6 @@ export const authOptions: NextAuthOptions = {
       return session;
     },
   },
-
-  //...
 };
 
 const handler = NextAuth(authOptions);

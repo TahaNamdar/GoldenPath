@@ -57,26 +57,27 @@ function Chip({ age = "", daysLeft = "", counter, index, chips }: Props) {
   };
 
   return (
-    <Droppable
-      droppableId={`ROOT-${counter}`}
-      type="group"
-      direction="horizontal"
-    >
-      {(provided) => (
-        <div
-          {...provided.droppableProps}
-          ref={provided.innerRef}
-          className="flex items-start mb-[1.6rem]"
-        >
+    <div className="flex items-start mb-[1.6rem]" id={`chips-${counter}`}>
+      <div
+        className={`bg-darkGunmetal text-center ${
+          counter >= age ? "text-white" : "text-placeholder"
+        } pr-[1.3rem] pl-[1.3rem] pt-[1.4rem] pb-[1.4rem] lg:pr-[1.7rem] lg:pl-[1.7rem] lg:pt-[1.4rem] lg:pb-[1.4rem] mr-[1.3rem] flex justify-center items-center text-[1.4rem]  lg:text-[1.8rem] rounded-[1.4rem] w-[39px] xl:w-[56px]`}
+      >
+        {counter}
+      </div>
+      {/* chip  */}
+
+      <Droppable
+        droppableId={`ROOT-${counter}`}
+        type="group"
+        direction="horizontal"
+      >
+        {(provided) => (
           <div
-            className={`bg-darkGunmetal text-center ${
-              counter == age ? "text-white" : "text-placeholder"
-            } pr-[1.3rem] pl-[1.3rem] pt-[1.4rem] pb-[1.4rem] lg:pr-[1.7rem] lg:pl-[1.7rem] lg:pt-[1.4rem] lg:pb-[1.4rem] mr-[1.3rem] flex justify-center items-center text-[1.4rem]  lg:text-[1.8rem] rounded-[1.4rem] w-[39px] xl:w-[56px]`}
+            {...provided.droppableProps}
+            ref={provided.innerRef}
+            className="bg-darkGunmetal rounded-[1.4rem] w-4/5 sm:w-full "
           >
-            {counter}
-          </div>
-          {/* chip  */}
-          <div className="bg-darkGunmetal rounded-[1.4rem] w-4/5 sm:w-full ">
             <div className="pt-[1.2rem] pb-[0.8rem] pl-[1.8rem] relative flex">
               <div className="flex items-center flex-wrap w-11/12 lg:w-10/12  ">
                 {chips &&
@@ -116,18 +117,20 @@ function Chip({ age = "", daysLeft = "", counter, index, chips }: Props) {
                   className="pr-[1.8rem] text-[1.4rem] lg:text-[1.8rem] w-[14rem] md:w-[unset] bg-darkGunmetal text-placeholder focus:outline-none placeholder-placeholder mb-[0.6rem] "
                 />
               </div>
-              <div className="hidden text-center md:flex justify-end pr-[0.8rem] md:pr-[2.2rem] md:items-center  w-2/12 lg:ml-[0.6rem]">
+              <div className="flex text-center md:flex justify-end pr-[0.8rem] md:pr-[2.2rem] md:items-center w-3/12  md:w-2/12 lg:ml-[0.6rem]">
                 {counter == age ? (
-                  <p className="text-white ">{daysLeft} left</p>
+                  <p className="text-white pt-1 md:pt-[unset] lg:mt-[-4px] text-[13px] lg:text-[17px]">
+                    {daysLeft} left
+                  </p>
                 ) : (
                   <></>
                 )}
               </div>
             </div>
           </div>
-        </div>
-      )}
-    </Droppable>
+        )}
+      </Droppable>
+    </div>
   );
 }
 
