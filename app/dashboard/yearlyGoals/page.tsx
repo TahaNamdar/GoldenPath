@@ -173,7 +173,7 @@ export default function YearlyGoals() {
         <SideBar />
         {/* Yearly Goals */}
 
-        <div className="flex-1  bg-CharlestonGreen rounded-md pl-[2rem] pr-[2rem] md:pl-[3.7rem] md:pr-[4.6rem] h-auto pb-[60px] lg:pb-[unset]">
+        <div className="flex-1 lg:overflow-y-scroll lg:pl-[33rem]  bg-CharlestonGreen rounded-md pl-[2rem] pr-[2rem] md:pl-[3.7rem] md:pr-[4.6rem] h-auto pb-[60px] lg:pb-[unset]">
           <div className="lg:flex items-center justify-between mb-[3.7rem] mt-[4.5rem]">
             <div>
               <p className="text-3xl mb-[1.4rem]  md:text-4xl text-white font-medium md:mb-2">

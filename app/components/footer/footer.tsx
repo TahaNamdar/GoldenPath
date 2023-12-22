@@ -7,7 +7,7 @@ export default function Footer() {
 
   return (
     <footer>
-      <div className="hidden md:block bg-[url('../public/assets/layout/footer.png')] bg-layoutColor h-[370px] w-full relative bg-auto bg-no-repeat">
+      <div className="hidden md:block bg-[url('../public/assets/layout/footer.png')] bg-layoutColor h-[370px] w-full relative bg-cover bg-no-repeat">
         <div className="md:w-[80%] lg:w-[60%] xl:w-1/2 2xl:w-[40%] 4xl:w-[32%]   flex flex-row-reverse justify-around pt-[60px]">
           <div>
             <p className="text-white text-[24px] mb-[18px]">SOCIAL</p>

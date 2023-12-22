@@ -112,10 +112,10 @@ export default function LifeGoals() {
   };
 
   return (
-    <div className=" bg-CharlestonGreen lg:bg-darkGunmetal lg:flex md:p-1">
+    <div className=" bg-CharlestonGreen lg:bg-darkGunmetal lg:flex md:p-1 h-screen">
       <SideBar />
 
-      <div className="flex-1  bg-CharlestonGreen rounded-md lg:pl-[3.7rem] lg:pr-[4.6rem] h-screen lg:h-[100%] xl:h-auto 3xl:h-screen overflow-hidden  scroll-bar">
+      <div className="flex-1 lg:overflow-y-scroll  lg:pl-[33rem] bg-CharlestonGreen rounded-md lg:pr-[4.6rem] h-screen lg:h-[100%] xl:h-auto overflow-hidden  scroll-bar">
         <div className="lg:flex items-center justify-between mb-[1rem] lg:mb-[3.7rem] mt-[4.5rem] pl-[2rem] pr-[2rem]">
           <div className="lg:mb-[2rem]">
             <p className="text-3xl mb-[1.4rem]  md:text-4xl text-white font-medium md:mb-2">
