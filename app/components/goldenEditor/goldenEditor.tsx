@@ -160,6 +160,11 @@ const GoldenEditor = ({
       setIsSubTask(false);
     }
 
+    if (e.altKey) {
+      e.preventDefault();
+      setIsSubTask(false);
+    }
+
     if (e.key === "Tab") {
       if (isSubTask) return;
       e.preventDefault();
