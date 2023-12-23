@@ -255,17 +255,25 @@ const GoldenEditor = ({
                 );
               })}
 
-              <TextareaAutosize
-                ref={addTaskRef}
-                placeholder="Write New Dimension"
-                style={{
-                  whiteSpace: "pre-wrap",
-                  resize: "none",
-                  paddingLeft: `${isSubTask ? "50px" : "21px"}`,
-                }}
-                className="placeholder-placeholder bg-transparent overflow-hidden  outline-none text-[14px] w-[90%] mr-[6px]"
-                onKeyDown={onNewDimensionHandler}
-              />
+              <section className="flex">
+                <div className="mr-[21px]"></div>
+                <label className={` mr-4 containerCheckbox cursor-pointer `}>
+                  <input type="checkbox" />{" "}
+                  <span className={` checkmark `}></span>
+                </label>
+
+                <TextareaAutosize
+                  ref={addTaskRef}
+                  placeholder="Write New Dimension"
+                  style={{
+                    whiteSpace: "pre-wrap",
+                    resize: "none",
+                    paddingLeft: `${isSubTask ? "12px" : "0px"}`,
+                  }}
+                  className="placeholder-placeholder bg-transparent overflow-hidden  outline-none text-[14px] w-[90%] mr-[6px]"
+                  onKeyDown={onNewDimensionHandler}
+                />
+              </section>
             </div>
           )}
         </Droppable>

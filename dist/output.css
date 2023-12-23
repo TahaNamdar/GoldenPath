@@ -1264,6 +1264,10 @@ html {
   margin-top: 1px;
 }
 
+.mr-\[21px\] {
+  margin-right: 21px;
+}
+
 .box-border {
   box-sizing: border-box;
 }
@@ -3597,6 +3601,18 @@ html {
 
 .pt-px {
   padding-top: 1px;
+}
+
+.pr-\[32px\] {
+  padding-right: 32px;
+}
+
+.pl-\[32px\] {
+  padding-left: 32px;
+}
+
+.pl-\[\] {
+  padding-left: ;
 }
 
 .text-left {
