@@ -70,7 +70,7 @@ export default function Home() {
               <p className="text-white font-medium text-[52px] xl:text-[64px] lg:mt-[-22%] xl:mt-[22%] 2xl:mt-[22%] 3xl:mt-[18%] 3xl:text-[72px]">
                 Take Back The
               </p>
-              <p className="text-customYellow font-medium  text-[52px] xl:text-[64px] 3xl:text-[72px]">
+              <p className="text-customYellow font-medium  text-[52px] xl:text-[64px] 3xl:text-[72px] mt-[-4%]">
                 Control Of Your Life
               </p>
               <p className="text-white text-[20px] font-normal lg:text-[20px] 3xl:text-[24px] pb-[37px] xl:pb-[39px]">

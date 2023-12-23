@@ -151,6 +151,10 @@ const GoldenEditor = ({
   const onNewDimensionHandler = (
     e: React.KeyboardEvent<HTMLTextAreaElement>
   ) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+    }
+
     if (e.key === "Backspace") {
       if (!isSubTask) return;
       setIsSubTask(false);

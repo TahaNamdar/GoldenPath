@@ -293,7 +293,11 @@ export default function SideBar() {
       {/* modal */}
       <MobileSideBar />
       {/* drawer */}
-      <div className="hidden lg:flex lg:flex-col  md:h-screen md:w-[28.6rem] bg-darkGunmetal fixed ">
+      <div
+        className={`hidden lg:flex lg:flex-col  md:h-screen md:w-[28.6rem] bg-darkGunmetal fixed ${
+          openSetting ? "overflow-y-scroll" : "overflow-y-hidden"
+        }`}
+      >
         <div>
           <div className="md:ml-[10rem] md:mr-[12.1rem] md:mt-[4.5rem] md:mb-[6.7rem]">
             <GoldenLogo />

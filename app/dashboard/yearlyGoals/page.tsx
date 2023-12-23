@@ -16,6 +16,7 @@ import {
 } from "@/type";
 import { ToastContainer, toast } from "react-toastify";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function YearlyGoals() {
   const router = useRouter();
@@ -211,18 +212,14 @@ export default function YearlyGoals() {
 
             {/* lg */}
             <div className="hidden lg:flex">
-              <button
-                onClick={() => router.push("https://www.youtube.com/")}
-                className="border border-white text-sm md:text-base rounded-sm text-white pt-[1.2rem] pb-[1.2rem] pr-[2.3rem] pl-[2.3rem]  md:pt-[0.4rem] md:pb-[0.4rem] md:pr-[2.3rem] md:pl-[2.3rem]  "
-              >
+              <button className="border border-white text-sm md:text-base rounded-sm text-white pt-[1.2rem] pb-[1.2rem] pr-[2.3rem] pl-[2.3rem]  md:pt-[0.4rem] md:pb-[0.4rem] md:pr-[2.3rem] md:pl-[2.3rem]  ">
                 26 Y.O Goals
               </button>
-              <button
-                onClick={() => router.push("https://www.youtube.com/")}
-                className="border border-white text-sm md:text-base rounded-sm text-white ml-[1.6rem] pt-[1.2rem] pb-[1.2rem] pr-[2.3rem] pl-[2.3rem]"
-              >
-                Tutorial
-              </button>
+              <Link href="https://www.youtube.com/" target="_blank">
+                <button className="border border-white text-sm md:text-base rounded-sm text-white ml-[1.6rem] pt-[1.2rem] pb-[1.2rem] pr-[2.3rem] pl-[2.3rem]">
+                  Tutorial
+                </button>
+              </Link>
             </div>
           </div>
           {/* Priorities */}

@@ -1248,6 +1248,10 @@ html {
   margin-top: -0.3rem;
 }
 
+.mt-\[-4\%\] {
+  margin-top: -4%;
+}
+
 .mt-\[4\.5rem\] {
   margin-top: 4.5rem;
 }
@@ -1258,10 +1262,6 @@ html {
 
 .mt-px {
   margin-top: 1px;
-}
-
-.mb-\[\] {
-  margin-bottom: ;
 }
 
 .box-border {
@@ -2078,6 +2078,14 @@ html {
 
 .overflow-x-hidden {
   overflow-x: hidden;
+}
+
+.overflow-y-scroll {
+  overflow-y: scroll;
+}
+
+.overscroll-y-none {
+  overscroll-behavior-y: none;
 }
 
 .truncate {
@@ -7463,24 +7471,12 @@ textarea {
     height: 441px;
   }
 
-  .md\:h-\[700px\] {
-    height: 700px;
-  }
-
   .md\:h-auto {
     height: auto;
   }
 
   .md\:h-full {
     height: 100%;
-  }
-
-  .md\:h-\[60px\] {
-    height: 60px;
-  }
-
-  .md\:h-\[600px\] {
-    height: 600px;
   }
 
   .md\:h-screen {
@@ -7650,10 +7646,6 @@ textarea {
 
   .md\:pl-\[3\.8rem\] {
     padding-left: 3.8rem;
-  }
-
-  .md\:pl-\[33rem\] {
-    padding-left: 33rem;
   }
 
   .md\:pl-\[6\.8rem\] {
@@ -8060,6 +8052,10 @@ textarea {
     padding-left: 3.8rem;
   }
 
+  .lg\:pl-\[33rem\] {
+    padding-left: 33rem;
+  }
+
   .lg\:pl-\[45px\] {
     padding-left: 45px;
   }
@@ -8114,10 +8110,6 @@ textarea {
 
   .lg\:pt-\[2rem\] {
     padding-top: 2rem;
-  }
-
-  .lg\:pl-\[33rem\] {
-    padding-left: 33rem;
   }
 
   .lg\:text-left {
@@ -8290,10 +8282,6 @@ textarea {
 
   .xl\:h-full {
     height: 100%;
-  }
-
-  .xl\:h-\[760px\] {
-    height: 760px;
   }
 
   .xl\:w-1\/2 {
@@ -8502,10 +8490,6 @@ textarea {
 
   .\32xl\:h-screen {
     height: 100vh;
-  }
-
-  .\32xl\:h-\[800px\] {
-    height: 800px;
   }
 
   .\32xl\:w-1\/3 {
@@ -8730,10 +8714,6 @@ textarea {
 
   .\33xl\:h-\[970px\] {
     height: 970px;
-  }
-
-  .\33xl\:h-screen {
-    height: 100vh;
   }
 
   .\33xl\:w-5\/12 {
