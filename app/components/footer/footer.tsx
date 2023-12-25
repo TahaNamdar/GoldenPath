@@ -7,9 +7,9 @@ export default function Footer() {
 
   return (
     <footer>
-      <div className="hidden md:block w-full relative bg-layoutColor">
+      <div className="hidden lg:block w-full relative bg-layoutColor">
         <div className="clip h-[380px] footer">
-          <div className="md:w-[80%] lg:w-[60%] xl:w-1/2 2xl:w-[40%] 4xl:w-[32%]   flex flex-row-reverse justify-around pt-[60px]">
+          <div className="lg:w-[60%] xl:w-1/2 2xl:w-[40%] 4xl:w-[32%]   flex flex-row-reverse justify-around pt-[60px]">
             <div>
               <p className="text-white text-[24px] mb-[18px]">SOCIAL</p>
               <p
@@ -57,7 +57,7 @@ export default function Footer() {
           <div className=" md:w-[20%] lg:w-[40%] xl:w-1/2 2xl:w-[60%] "></div>
         </div>
       </div>
-      <div className="block md:hidden bg-[url('../public/assets/layout/smFooter.png')] bg-layoutColor h-[740px] w-full relative bg-cover bg-no-repeat">
+      <div className="block lg:hidden bg-[url('../public/assets/layout/smFooter.png')] bg-layoutColor h-[740px] w-full relative bg-cover bg-no-repeat">
         <div className="text-center pt-[87px]">
           <p className="text-white text-[24px] mb-[18px] font-normal">SOCIAL</p>
           <p className="text-footerColor text-[20px] mb-[18px] font-normal">

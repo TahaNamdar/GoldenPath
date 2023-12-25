@@ -144,10 +144,10 @@ textarea {
 }
 
 .footer {
-  fill: linear-gradient(95deg, #000 0.68%, rgba(0, 0, 0, 0) 96.03%) !important;
-  backdrop-filter: blur(6.003125190734863px);
-}
-
-.scaleX {
-  transform: scaleX(1.1);
+  background: linear-gradient(
+    95deg,
+    #000 0.68%,
+    rgba(0, 0, 0, 0) 96.03%
+  ) !important;
+  backdrop-filter: blur(6.003125190734863px) !important ;
 }

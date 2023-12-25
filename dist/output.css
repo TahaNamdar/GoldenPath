@@ -4688,13 +4688,13 @@ textarea {
 }
 
 .footer {
-  fill: linear-gradient(95deg, #000 0.68%, rgba(0, 0, 0, 0) 96.03%) !important;
-  -webkit-backdrop-filter: blur(6.003125190734863px);
-          backdrop-filter: blur(6.003125190734863px);
-}
-
-.scaleX {
-  transform: scaleX(1.1);
+  background: linear-gradient(
+    95deg,
+    #000 0.68%,
+    rgba(0, 0, 0, 0) 96.03%
+  ) !important;
+  -webkit-backdrop-filter: blur(6.003125190734863px) !important ;
+          backdrop-filter: blur(6.003125190734863px) !important ;
 }
 
 .before\:pointer-events-none::before {
@@ -7536,6 +7536,10 @@ textarea {
     width: 100%;
   }
 
+  .md\:w-\[60\%\] {
+    width: 60%;
+  }
+
   .md\:min-w-\[60\%\] {
     min-width: 60%;
   }
@@ -8804,11 +8808,6 @@ textarea {
 @media (min-width: 1900px) {
   .\34xl\:w-\[32\%\] {
     width: 32%;
-  }
-
-  .\34xl\:scale-x-180 {
-    --tw-scale-x: 1.8;
-    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
   }
 
   .\34xl\:scale-x-\[1\.1\] {
