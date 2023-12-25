@@ -1224,6 +1224,10 @@ html {
   margin-right: 20px;
 }
 
+.mr-\[21px\] {
+  margin-right: 21px;
+}
+
 .mr-\[6px\] {
   margin-right: 6px;
 }
@@ -1262,10 +1266,6 @@ html {
 
 .mt-px {
   margin-top: 1px;
-}
-
-.mr-\[21px\] {
-  margin-right: 21px;
 }
 
 .box-border {
@@ -2084,12 +2084,12 @@ html {
   overflow-x: hidden;
 }
 
-.overflow-y-scroll {
-  overflow-y: scroll;
+.overflow-y-hidden {
+  overflow-y: hidden;
 }
 
-.overscroll-y-none {
-  overscroll-behavior-y: none;
+.overflow-y-scroll {
+  overflow-y: scroll;
 }
 
 .truncate {
@@ -3601,18 +3601,6 @@ html {
 
 .pt-px {
   padding-top: 1px;
-}
-
-.pr-\[32px\] {
-  padding-right: 32px;
-}
-
-.pl-\[32px\] {
-  padding-left: 32px;
-}
-
-.pl-\[\] {
-  padding-left: ;
 }
 
 .text-left {
@@ -8288,6 +8276,10 @@ textarea {
     height: 780px;
   }
 
+  .xl\:h-\[80px\] {
+    height: 80px;
+  }
+
   .xl\:h-\[88px\] {
     height: 88px;
   }
@@ -8298,6 +8290,10 @@ textarea {
 
   .xl\:h-full {
     height: 100%;
+  }
+
+  .xl\:h-\[60px\] {
+    height: 60px;
   }
 
   .xl\:w-1\/2 {
@@ -8326,6 +8322,10 @@ textarea {
 
   .xl\:w-\[250px\] {
     width: 250px;
+  }
+
+  .xl\:w-\[300px\] {
+    width: 300px;
   }
 
   .xl\:w-\[320px\] {
@@ -8358,6 +8358,10 @@ textarea {
 
   .xl\:w-\[94\%\] {
     width: 94%;
+  }
+
+  .xl\:w-\[400px\] {
+    width: 400px;
   }
 
   .xl\:translate-x-\[-20\%\] {
