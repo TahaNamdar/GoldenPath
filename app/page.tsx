@@ -146,7 +146,10 @@ export default function Home() {
                   <img src="/assets/layout/assess.png" />
                 </div>
                 <div className="absolute xl:top-[23%] xl:right-[7%]  xl:w-[320px] xl:h-[60px]">
-                  <img src="/assets/layout/Break.png" />
+                  <img
+                    src="/assets/layout/Break.png"
+                    className="xl:h-[100px] 3xl:h-[unset]"
+                  />
                 </div>
                 <div className="absolute  xl:top-[60%] xl:right-[-3%]  xl:w-[420px] xl:h-[80px]">
                   <img src="/assets/layout/Create.png" />
