@@ -138,3 +138,16 @@ textarea {
   background-color: #31353e;
   border-radius: 6px;
 }
+
+.clip {
+  clip-path: polygon(0 0, 51% 0, 100% 100%, 0% 100%);
+}
+
+.footer {
+  fill: linear-gradient(95deg, #000 0.68%, rgba(0, 0, 0, 0) 96.03%) !important;
+  backdrop-filter: blur(6.003125190734863px);
+}
+
+.scaleX {
+  transform: scaleX(1.1);
+}

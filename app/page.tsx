@@ -1,11 +1,9 @@
 "use client";
 
-import React, { useState } from "react";
-import Shape1 from "@/public/assets/layout/homeShape1.svg";
+import React from "react";
 import ShadowShapeMd from "@/public/assets/layout/shadowShapeMd.svg";
 import Shadow from "@/public/assets/layout/circleShadow.svg";
 import SmShadow from "@/public/assets/layout/smBannerShadow.svg";
-import MainShape from "@/public/assets/layout/mainShape.svg";
 import MainShapeMd from "@/public/assets/layout/mainShapeMd.svg";
 import FooterLogo from "@/public/assets/layout/footerLogo.svg";
 import FooterLogoSm from "@/public/assets/layout/footerLogoSm.svg";
@@ -27,15 +25,10 @@ export default function Home() {
     <main className="bg-homeColor h-screen overflow-auto overflow-x-hidden">
       <section>
         {/* first section */}
-        <div className="relative mb-[50px] bg-banner bg-cover bg-[url('../public/assets/layout/wallpaper.png')] h-auto md:h-auto  xl:overflow-hidden lg:h-[890px] xl:h-[1000px] 2xl:h-screen w-full md:flex md:flex-row-reverse xl:flex xl:flex-row-reverse">
+        <div className="relative mb-[50px] bg-banner bg-cover bg-[url('../public/assets/layout/wallpaper.png')] h-auto md:h-auto  xl:overflow-hidden lg:h-[940px] xl:h-[1000px] 2xl:h-[990px] w-full md:flex md:flex-row-reverse xl:flex xl:flex-row-reverse">
           <Navbar />
-          <div className="absolute hidden xl:block bottom-[-10%] 2xl:bottom-[-20%] 3xl:bottom-[-8%] lg:translate-x-[-9%] xl:translate-x-[-24%] 2xl:translate-x-[-18%] 3xl:translate-x-0  overflow-x-hidden w-full xl:overflow-x-[unset] 5xl:scale-x-150">
-            <Shape1 />
-          </div>
-          <div className="absolute hidden xl:block bottom-[-12%] 2xl:bottom-[-22%] 3xl:bottom-[-10%] 4xl:w-full 4xl:scale-x-150  4xl:scale-y-100 5xl:scale-x-180  overflow-x-hidden  xl:overflow-x-[unset]">
-            <MainShape />
-          </div>{" "}
-          <section className="absolute w-full bg-banner h-[160px] bottom-[-9%] xl:hidden">
+
+          <section className="absolute w-full bg-banner h-[160px] bottom-[-9%] md:hidden">
             <section className="absolute bottom-[-10%]">
               <div className="2xl:hidden bottom-[-10%]  translate-x-[-20%] translate-y-[30%] lg:translate-x-[-9%] xl:translate-x-[-20%] 2xl:translate-x-[-28%] 3xl:translate-x-0  w-full xl:overflow-x-[unset]">
                 <ShadowShapeMd />
@@ -45,6 +38,9 @@ export default function Home() {
               </div>
             </section>
           </section>
+          <div className="absolute hidden md:block md:bottom-[-8%] 2xl:bottom-[-5%] 3xl:bottom-[-8%] 4xl:transform 4xl:scale-x-[1.1]">
+            <img src="/assets/gpShape.png" />
+          </div>
           <div className="absolute right-[-14%] sm:right-[8%]">
             <Shadow />
           </div>
@@ -67,7 +63,7 @@ export default function Home() {
             </div>
 
             <div className="flex justify-center  flex-col h-full ml-[40px] mr-[20px] xl:mr-[unset] xl:ml-[97px]">
-              <p className="text-white font-medium text-[52px] xl:text-[64px] lg:mt-[-22%] xl:mt-[22%] 2xl:mt-[22%] 3xl:mt-[18%] 3xl:text-[72px]">
+              <p className="text-white font-medium text-[52px] xl:text-[64px] lg:mt-[-22%] xl:mt-0 3xl:text-[72px]">
                 Take Back The
               </p>
               <p className="text-customYellow font-medium  text-[52px] xl:text-[64px] 3xl:text-[72px] mt-[-4%]">
