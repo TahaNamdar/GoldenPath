@@ -547,6 +547,38 @@ export const appRouter = t.router({
             }
         }),
 
+    deleteNotion: t.procedure
+        .use(isUser)
+        .input(
+            z.object({
+                id: z.string(),
+            })
+        )
+        .mutation(async ({ input, ctx }) => {
+            const { id: notionId } = input;
+
+            const session = await getServerSession(authOptions);
+            const id = (session as any).id;
+
+            try {
+                const result = await (ctx as any).prisma.YearlyGoals.deleteMany({
+                    where: {
+                        id: notionId,
+                        userId: id,
+                    },
+                });
+
+                return result;
+            } catch (e) {
+                console.log(e);
+
+                throw new TRPCError({
+                    code: "INTERNAL_SERVER_ERROR",
+                    message: "something went wrong. please try again late",
+                });
+            }
+        }),
+
     updateNotionTitle: t.procedure
         .use(isUser)
         .input(
