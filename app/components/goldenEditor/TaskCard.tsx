@@ -31,6 +31,7 @@ export const TaskCard = ({
   const [task, setTask] = useState<NotionTask>({ ...data });
   const [visible, setVisible] = useState(false);
   const [value, setValue] = useState(task.value);
+  const [isSubTask, setIsSubTask] = useState(false);
 
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
 

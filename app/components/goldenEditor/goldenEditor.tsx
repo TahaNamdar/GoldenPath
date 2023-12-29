@@ -163,16 +163,6 @@ const GoldenEditor = ({
       if (!isSubTask) return;
       setIsSubTask(false);
     }
-    // if (e.key === "Backspace" && notion.Tasks.length === 0) {
-    //   deleteNotion(
-    //     { id: notion.id },
-    //     {
-    //       onSuccess: () => {
-    //         onRemoveNotionCard(notion.id);
-    //       },
-    //     }
-    //   );
-    // }
 
     if (e.shiftKey && e.key === "Tab") {
       e.preventDefault();
@@ -239,6 +229,12 @@ const GoldenEditor = ({
         Tasks: [...filterTasks],
       };
     });
+  };
+
+  const deleteCard = (e: any) => {
+    if (e.target.value !== "") return;
+
+    onRemoveNotionCard(notion.id);
   };
 
   const [visible, setVisible] = useState(false);
@@ -335,6 +331,7 @@ const GoldenEditor = ({
                   }}
                   className={`placeholder-placeholder bg-transparent transition-all overflow-hidden  outline-none text-[14px] w-[90%] mr-[6px] }`}
                   onKeyDown={onNewDimensionHandler}
+                  onChange={deleteCard}
                 />
               </section>
             </div>
