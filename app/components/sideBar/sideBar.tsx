@@ -294,7 +294,7 @@ export default function SideBar() {
       <MobileSideBar />
       {/* drawer */}
       <div
-        className={`hidden lg:flex lg:flex-col  md:h-screen md:w-[28.6rem] bg-darkGunmetal fixed ${
+        className={`hidden lg:flex lg:flex-col lg:justify-between  md:h-screen md:w-[28.6rem] bg-darkGunmetal fixed ${
           openSetting ? "overflow-y-scroll" : "overflow-y-hidden"
         }`}
       >
@@ -341,7 +341,7 @@ export default function SideBar() {
                   <div className="md:mr-[1.5rem] ml-[2.4rem]">
                     <Tool />
                   </div>
-                  productivity tool
+                  Productivity Tool
                 </Link>
               </div>
             </div>
@@ -399,7 +399,7 @@ export default function SideBar() {
                 className="ml-[1.5rem] text-3xl text-white"
                 onClick={handleLogOut}
               >
-                logout
+                Logout
               </p>
             </div>
           </div>

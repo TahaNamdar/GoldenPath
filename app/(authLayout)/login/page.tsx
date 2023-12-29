@@ -17,7 +17,6 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useRouter } from "next/navigation";
-import { ToastContainer, toast } from "react-toastify";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 
@@ -38,12 +37,6 @@ const schema = yup
 export default function Login() {
   const session = useSession();
   const router = useRouter();
-
-  // useEffect(() => {
-  //   if (session) {
-  //     router.push("/dashboard");
-  //   }
-  // }, []);
 
   const {
     register,
@@ -84,7 +77,6 @@ export default function Login() {
 
     if (login?.error == null) {
       router.push("/dashboard");
-      showToastSuccess();
     } else {
       setError("validation", {
         type: "custom",
@@ -101,23 +93,8 @@ export default function Login() {
     const res = await signIn("facebook");
   };
 
-  const showToastSuccess = () => {
-    //create a function to display a success message
-    toast.success("Redirecting to dashboard ...", {
-      position: "top-right",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "dark",
-    });
-  };
-
   return (
     <div>
-
       <div className="bg-Crayola  block sm:flex sm:flex-row-reverse sm:overflow-hidden ">
         <div className="w-full overflow-auto h-screen z-50 lg:w-[60.6rem] xl:w-[80rem] bg-darkGunmetal  pr-[2rem] pl-[2rem] flex flex-col justify-center md:pr-[10rem] md:pl-[10rem]  xl:pr-[12.2rem] xl:pl-[12.2rem]">
           <p className="text-white text-center text-[2.4rem] md:text-[3.2rem] xl:text-[4.8rem] mb-[9rem]  md:mb-[4.7rem] md: xl:mb-[11.1rem] lg:pt-[22.4rem]">

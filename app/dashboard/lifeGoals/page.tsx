@@ -115,23 +115,23 @@ export default function LifeGoals() {
     <div className=" bg-CharlestonGreen lg:bg-darkGunmetal lg:flex md:p-1 h-screen">
       <SideBar />
 
-      <div className="flex-1 lg:overflow-y-scroll  lg:pl-[33rem] bg-CharlestonGreen rounded-md lg:pr-[4.6rem] h-screen lg:h-[100%] xl:h-auto overflow-hidden  scroll-bar">
+      <div className="flex-1 lg:overflow-y-scroll  lg:pl-[33rem] bg-CharlestonGreen rounded-none md:rounded-md lg:pr-[4.6rem] h-[96%] lg:h-[100%] xl:h-auto overflow-hidden  scroll-bar">
         <div className="lg:flex items-center justify-between mb-[1rem] lg:mb-[3.7rem] mt-[4.5rem] pl-[2rem] pr-[2rem]">
           <div className="lg:mb-[2rem]">
             <p className="text-3xl mb-[1.4rem]  md:text-4xl text-white font-medium md:mb-2">
               Life Goals{" "}
             </p>
             <p className="hidden lg:block text-lightText text-base font-light">
-              this page is for you to detaily make tasks for your self untill
-              your next birthday
+              This Page Is For You To Detaily Make Tasks For Your Self Untill
+              Your Next Birthday
             </p>{" "}
           </div>
 
           {/* mobile  */}
           <div className="lg:hidden">
             <p className="text-base text-lightText font-light mb-[1rem]	">
-              this is all you need to follow when starting your day. start from
-              top to bottom.try to keep 3~5 items here
+              This Is All You Need To Follow When Starting Your Day. Start From
+              Top To Bottom.Try To Keep 3~5 Items Here
             </p>
 
             <a
@@ -158,7 +158,7 @@ export default function LifeGoals() {
           <div className="bg-darkGunmetal pr-[3.8rem] pl-[2.3rem] lg:pl-[3.8rem] lg:rounded-t-[1.4rem]">
             <div className="text-white text-2xl pt-[2rem] pb-[1.9rem]  lg:text-[1.8rem] flex ">
               <p className="mr-[2.2rem] lg:mr-[4.7rem]">Age</p>
-              <p>achievements</p>
+              <p>Achievements</p>
             </div>
           </div>
           {/* chips */}

@@ -69,7 +69,7 @@ export default function Register() {
 
   const mutation = trpc.signUp.useMutation();
 
-  const { isSuccess, isError } = mutation;
+  const { isSuccess, isError, error } = mutation;
 
   const submit = (data: any) => {
     const { email, password } = data;
@@ -84,24 +84,9 @@ export default function Register() {
     const res = await signIn("facebook");
   };
 
-  const showToastSuccess = () => {
-    //create a function to display a success message
-    toast.success("success - welcome !", {
-      position: "top-right",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "dark",
-    });
-  };
-
   useEffect(() => {
     if (isSuccess) {
       router.push("/login");
-      showToastSuccess();
       reset();
     }
     if (isError) {
@@ -110,7 +95,7 @@ export default function Register() {
         message: "Somethings Wrong ",
       });
     }
-  }, [isSuccess, isError]);
+  }, [isSuccess, isError, error]);
 
   return (
     <div>
