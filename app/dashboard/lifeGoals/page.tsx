@@ -43,7 +43,6 @@ export default function LifeGoals() {
     if (years <= 1) {
       dispatch(openAction());
       dispatch(setModalNameAction("changeBirthday"));
-      console.log("first");
     }
   }, [years]);
 

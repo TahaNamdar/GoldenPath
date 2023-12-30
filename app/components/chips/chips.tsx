@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { Droppable, Draggable } from "react-beautiful-dnd";
 import { useDispatch } from "react-redux";
@@ -40,7 +40,8 @@ function Chip({ age = "", daysLeft = "", counter, index, chips }: Props) {
 
       event.currentTarget.value = "";
     }
-    if (event.key === "Backspace" && event.currentTarget.value === "") {
+
+    if (event.key === "Backspace" && event.currentTarget.value.trim() === "") {
       // Check if Backspace event corresponds to the correct input field
       if (currentAge === event.currentTarget.name) {
         const lastChip = chips.Chips[chips.Chips.length - 1];

@@ -333,16 +333,6 @@ export default function SideBar() {
                   </div>
                   Yearly Goals
                 </Link>
-
-                <Link
-                  href={"#"}
-                  className="flex ml-[-5.6rem] hover:font-medium  pt-[21px] pb-[21px] items-center cursor-pointer text-white font-normal text-3xl md:pl-[3.8rem] "
-                >
-                  <div className="md:mr-[1.5rem] ml-[2.4rem]">
-                    <Tool />
-                  </div>
-                  Productivity Tool
-                </Link>
               </div>
             </div>
           </div>

@@ -166,7 +166,7 @@ export default function Register() {
               Google
             </button>
           </div>{" "}
-          <div className="text-right mb-[3.9rem]">
+          {/* <div className="text-right mb-[3.9rem]">
             <button
               onClick={() => signInFaceBookHandler()}
               className="flex items-center justify-center rounded-[1.4rem] border-[1px] border-white w-full text-center text-white  text-2xl md:text-3xl pl-[10rem] pr-[10rem] pt-[1.2rem] pb-[1.2rem] md:pl-[11rem] md:pr-[11rem] md:pt-[1.8rem] md:pb-[1.8rem]"
@@ -178,7 +178,7 @@ export default function Register() {
               />
               FaceBook
             </button>
-          </div>{" "}
+          </div>{" "} */}
         </div>
         <div className="flex-1 relative hidden lg:block ">
           <div className=" bg-[url('../public/assets/xlLoginShape1.svg')] bg-contain bg-no-repeat fixed h-screen  w-full bottom-0"></div>
