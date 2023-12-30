@@ -12,7 +12,7 @@ import { ToastContainer } from "react-toastify";
 import Script from "next/script";
 
 export const metadata: Metadata = {
-  title: "Golden Path ",
+  title: "Set goals for 2024 and stick to them",
   description: "Golden Path Website ",
   icons: {
     icon: "/assets/faviconG.png",
