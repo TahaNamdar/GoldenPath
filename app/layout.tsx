@@ -9,6 +9,7 @@ import localFont from "@next/font/local";
 import { Providers } from "@/utils/globalRedux";
 import ActionSizeProvider from "@/utils/actionSize";
 import { ToastContainer } from "react-toastify";
+import Script from "next/script";
 
 export const metadata: Metadata = {
   title: "Golden Path ",
@@ -50,6 +51,31 @@ export default async function RootLayout({
           className={`${TOMMY.variable} font-sans`}
           suppressHydrationWarning={true}
         >
+          <Script src="https://www.googletagmanager.com/gtag/js?id=G-QQDYKB1HDQ" />
+
+          <Script
+            dangerouslySetInnerHTML={{
+              __html: `window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+            
+              gtag('config', 'G-QQDYKB1HDQ');`,
+            }}
+          />
+
+          <Script strategy="lazyOnload">
+            {`
+          (function(h,o,t,j,a,r){
+            h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+            h._hjSettings={hjid:3809406,hjsv:6};
+            a=o.getElementsByTagName('head')[0];
+            r=o.createElement('script');r.async=1;
+            r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+            a.appendChild(r);
+          })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+        `}
+          </Script>
+
           <ToastContainer theme="colored" />
           <ActionSizeProvider>
             <TrpcProvider>
