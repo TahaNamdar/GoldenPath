@@ -63,11 +63,11 @@ export default function Home() {
             </div>
 
             <div className="flex justify-center  flex-col h-full ml-[40px] mr-[20px] xl:mr-[unset] xl:ml-[97px]">
-              <p className="text-white font-medium text-[48px] 2xl:text-[62px] 3xl:[62px] lg:mt-[-22%] xl:mt-0">
-                Take Back The
+              <p className="text-customYellow font-medium text-[48px] 2xl:text-[62px] 3xl:[62px] lg:mt-[-22%] xl:mt-0">
+                Set Goals For 2024
               </p>
-              <p className="text-customYellow font-medium  text-[48px] 2xl:text-[62px] 3xl:text-[62px] mt-[-4%] 3xl:mt-[-2%]">
-                Control Of Your Life
+              <p className="text-white font-medium  text-[48px] 2xl:text-[62px] 3xl:text-[62px] mt-[-4%] 3xl:mt-[-2%]">
+                And Stick To Them
               </p>
               <p className="text-white text-[20px] font-normal lg:text-[20px] 3xl:text-[24px] pb-[37px] xl:pb-[39px]">
                 Set Realistic Goals, Break Them Into Tasks, Prioritize Them And
