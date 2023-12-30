@@ -178,6 +178,9 @@ const GoldenEditor = ({
     if (e.key !== "Enter") return;
 
     const value = e.currentTarget.value;
+
+    if (value === "") return;
+
     createNewTask(
       {
         is_sub: isSubTask,
@@ -234,7 +237,11 @@ const GoldenEditor = ({
   // const deleteCard = (e: any) => {
   //   if (e.target.value !== "") return;
 
-  //   onRemoveNotionCard(notion.id);
+  //   console.log("first");
+
+  //   e.preventDefault();
+
+  //   // onRemoveNotionCard(notion.id);
   // };
 
   const [visible, setVisible] = useState(false);
