@@ -50,7 +50,7 @@ export default function Home() {
                 src="/assets/layout/theman.png"
                 width={619}
                 height={903}
-                className="w-[335px] h-[489px] lg:w-[619px] lg:h-[903px] max-w-[unset]"
+                className="w-[335px] h-[489px] lg:w-[540px] lg:h-[778px]  xl:w-[590px] xl:h-[840px] 2xl:w-[619px] 2xl:h-[903px] max-w-[unset]"
               />
             </div>
           </div>
@@ -63,10 +63,10 @@ export default function Home() {
             </div>
 
             <div className="flex justify-center  flex-col h-full ml-[40px] mr-[20px] xl:mr-[unset] xl:ml-[97px]">
-              <p className="text-white font-medium text-[52px] xl:text-[64px] lg:mt-[-22%] xl:mt-0 3xl:text-[72px]">
+              <p className="text-white font-medium text-[48px] 2xl:text-[62px] 3xl:[62px] lg:mt-[-22%] xl:mt-0">
                 Take Back The
               </p>
-              <p className="text-customYellow font-medium  text-[52px] xl:text-[64px] 3xl:text-[72px] mt-[-4%]">
+              <p className="text-customYellow font-medium  text-[48px] 2xl:text-[62px] 3xl:text-[62px] mt-[-4%] 3xl:mt-[-2%]">
                 Control Of Your Life
               </p>
               <p className="text-white text-[20px] font-normal lg:text-[20px] 3xl:text-[24px] pb-[37px] xl:pb-[39px]">
@@ -116,8 +116,8 @@ export default function Home() {
                 </p>
               </div>
             </div>
-            <div className="flex justify-center">
-              <div className=" relative xl:hidden mb-[150px] h-[610px] bg-no-repeat w-[390px] bg-[url('../public/assets/layout/setFrame.png')] bg-cover"></div>{" "}
+            <div className="flex justify-center h-[620px] 2sm:h-[unset]">
+              <div className=" relative xl:hidden mb-[150px] h-[610px] bg-no-repeat w-[390px] bg-[url('../public/assets/layout/setFrame.png')] bg-contain"></div>{" "}
             </div>
             <div className="flex justify-center">
               <div className="bg-[url('../public/assets/layout/lifeGoalsBgLg.png')] 3xl:h-[970px] 3xl:mb-[160px]  3xl:w-[1440px] relative hidden 3xl:block 2xl:mb-[160px] bg-no-repeat">
@@ -168,7 +168,7 @@ export default function Home() {
               </div>
             </div>
             <div className="flex justify-center">
-              <div className=" relative xl:hidden h-[628px] bg-cover bg-no-repeat w-[390px] bg-[url('../public/assets/layout/setFrame2.png')] "></div>{" "}
+              <div className=" relative xl:hidden h-[628px] bg-contain bg-no-repeat w-[390px] bg-[url('../public/assets/layout/setFrame2.png')] "></div>{" "}
             </div>
 
             <div className="flex justify-center">

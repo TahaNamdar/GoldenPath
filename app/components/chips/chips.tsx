@@ -120,7 +120,7 @@ function Chip({ age = "", daysLeft = "", counter, index, chips }: Props) {
               <div className="flex text-center md:flex justify-end pr-[0.8rem] md:pr-[2.2rem] md:items-center w-3/12  md:w-2/12 lg:ml-[0.6rem]">
                 {counter == age ? (
                   <p className="text-white pt-1 md:pt-[unset] lg:mt-[-4px] text-[13px] lg:text-[17px]">
-                    {daysLeft} left
+                    {365 - daysLeft} left
                   </p>
                 ) : (
                   <></>

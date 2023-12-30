@@ -110,6 +110,7 @@ export default function Login() {
                 fontSize="text-2xl lg:text-3xl xl:text-[24px]"
                 register={register}
                 registerName="email"
+                
               >
                 <Email />
               </InputFiled>
@@ -144,10 +145,10 @@ export default function Login() {
                     Register Here
                   </Link>
                 </p>
-
+                {/* 
                 <p className="text-white text-[10px] lg:text-base cursor-pointer ">
                   Forget Password ?
-                </p>
+                </p> */}
               </div>
               <p className="text-danger mt-6 text-[14px]">
                 {errors.validation?.message}

@@ -332,6 +332,7 @@ const GoldenEditor = ({
                   className={`placeholder-placeholder bg-transparent transition-all overflow-hidden  outline-none text-[14px] w-[90%] mr-[6px] }`}
                   onKeyDown={onNewDimensionHandler}
                   onChange={deleteCard}
+                  maxLength={70}
                 />
               </section>
             </div>

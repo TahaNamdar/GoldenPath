@@ -15,6 +15,7 @@ module.exports = withMT({
       "4xl": "1900px",
       "5xl": "1960px",
       "1sm": "440px",
+      "2sm": "400px",
     },
 
     scale: {
@@ -49,6 +50,7 @@ module.exports = withMT({
       copyRightColor: "#ffffff5e",
       smallBox: "#3131318a",
       editor: "#ffffff7d",
+      loginInput: "#5B5B5B",
     },
     fontSize: {
       sm: "1.2rem",

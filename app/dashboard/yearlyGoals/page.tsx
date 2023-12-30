@@ -17,6 +17,7 @@ import {
 import { ToastContainer, toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import moment from "moment";
 
 export default function YearlyGoals() {
   const router = useRouter();
@@ -34,6 +35,20 @@ export default function YearlyGoals() {
 
   const [notionsList, setNotionsList] = useState<Notion[]>([]);
   const [prioritiesList, setPriorities] = useState<Priority[]>([]);
+
+  const fetchOneUser = trpc.getOneUser.useQuery();
+
+  const { data: userData } = fetchOneUser;
+
+  function getAge(dateString: string) {
+    const date = moment(dateString, "YYYY-MM-DD");
+    const years = moment().diff(date, "years");
+
+    const days = moment().diff(date.add(years, "years"), "days", false);
+    return { years, days };
+  }
+
+  const { years } = getAge(userData?.birthday);
 
   const [isShown, setIsShown] = useState<boolean>(false);
 
@@ -205,7 +220,7 @@ export default function YearlyGoals() {
                 target="_blank"
                 className="text-base text-white mr-[1.5rem] cursor-pointer underline"
               >
-                26 Y.O Goals
+                {years && years} Y.O Goals
               </a>
               <a
                 href="https://www.youtube.com/"
@@ -220,7 +235,7 @@ export default function YearlyGoals() {
             {/* lg */}
             <div className="hidden lg:flex">
               <button className="border border-white text-sm md:text-base rounded-sm text-white pt-[1.2rem] pb-[1.2rem] pr-[2.3rem] pl-[2.3rem]  md:pt-[0.4rem] md:pb-[0.4rem] md:pr-[2.3rem] md:pl-[2.3rem]  ">
-                26 Y.O Goals
+                {years && years} Y.O Goals
               </button>
               <Link href="https://www.youtube.com/" target="_blank">
                 <button className="border border-white text-sm md:text-base rounded-sm text-white ml-[1.6rem] pt-[1.2rem] pb-[1.2rem] pr-[2.3rem] pl-[2.3rem]">
@@ -279,7 +294,7 @@ export default function YearlyGoals() {
                         <div className="p-4 text-center bg-darkGunmetal mr-[1rem] rounded-large  pt-[1.1rem] pb-[1.1rem] md:p-[2rem]  pr-[1.1rem] pl-[1.1rem] w-[5.4rem] text-2xl text-white">
                           {index + 1}
                         </div>
-                        <div className="rounded-[1.4rem]  bg-darkGunmetal w-full md:w-9/12 xl:w-10/12 ">
+                        <div className="rounded-[1.4rem]  bg-darkGunmetal w-full md:w-9/12 xl:w- break-all ">
                           <div className="pl-[1rem] md:pl-[2.2rem] flex items-center">
                             {isShown ? (
                               <div>
@@ -288,7 +303,7 @@ export default function YearlyGoals() {
                             ) : (
                               <div className="w-[1.1rem]"></div>
                             )}
-                            <p className="text-gold font-normal text-[1.3rem] md:text-2xl pt-[1.3rem] ml-[2.1rem] pb-[1.3rem] sm:pr-[16rem] md:pt-[1.8rem] md:ml-[1.7rem] md:pb-[1.5rem] md:pr-[0.4rem] lg:pt-[2rem] lg:ml-[2.1rem] lg:pb-[2.1rem] lg:pr-[0]">
+                            <p className="text-gold font-normal text-[1.3rem] md:text-2xl pt-[1.3rem] ml-[2.1rem] pb-[1.3rem]  md:pt-[1.8rem] md:ml-[1.7rem] md:pb-[1.5rem] lg:pt-[2rem] lg:ml-[2.1rem] lg:pb-[2.1rem] pr-[40px]">
                               {item.value}
                             </p>
                           </div>
@@ -335,7 +350,7 @@ export default function YearlyGoals() {
                 }}
                 list={notionsList}
                 setList={setNotionsList}
-                className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 3xl:grid-cols-4 gap-4"
+                className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-3 3xl:grid-cols-4 gap-4"
                 animation={200}
               >
                 {/* render notion cards here */}
@@ -352,18 +367,20 @@ export default function YearlyGoals() {
                   );
                 })}
               </ReactSortable>
-              <div
-                className="bg-Crayola cursor-pointer rounded-[14px] mb-[9rem] md:mb-[unset] p-10 text-white w-full  lg:w-[260px] h-[160px] lg:h-[190px] 3xl:mr-[20px] lg:mb-[20px]"
-                onClick={handleAddComponent}
-                draggable={false}
-              >
-                <p className="text-editor text-[20px]  mb-[6px]">
-                  Add Dimension
-                </p>
-                <p className="text-editor text-[16px]">
-                  Tap Here To Add a New Dimension, Such As University, Health,
-                  Bussiness Etc...
-                </p>
+              <div className="grid lg:w-11/12 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-3 3xl:grid-cols-4 gap-4">
+                <div
+                  className="bg-Crayola   cursor-pointer rounded-[14px] mb-[9rem] md:mb-[unset] p-10 text-white w-full  h-[160px] lg:h-[190px] 3xl:mr-[20px] lg:mb-[20px]"
+                  onClick={handleAddComponent}
+                  draggable={false}
+                >
+                  <p className="text-editor text-[20px]  mb-[6px]">
+                    Add Dimension
+                  </p>
+                  <p className="text-editor text-[16px]">
+                    Tap Here To Add a New Dimension, Such As University, Health,
+                    Bussiness Etc...
+                  </p>
+                </div>
               </div>
             </div>
           )}

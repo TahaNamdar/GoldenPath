@@ -12,6 +12,10 @@ import { setLifeGoals, reorderChips } from "@/app/Redux/featrues/chipSlice";
 import { useDispatch } from "react-redux";
 import Loading from "@/app/components/loading/Loading";
 import { useRouter } from "next/navigation";
+import {
+  openAction,
+  setModalNameAction,
+} from "@/app/Redux/featrues/toggle/toggleSlice";
 
 export default function LifeGoals() {
   const dispatch = useDispatch();
@@ -34,6 +38,14 @@ export default function LifeGoals() {
   }
 
   const { days, years } = getAge(userData?.birthday);
+
+  useEffect(() => {
+    if (years <= 1) {
+      dispatch(openAction());
+      dispatch(setModalNameAction("changeBirthday"));
+      console.log("first");
+    }
+  }, [years]);
 
   const fetchLifeGoals = trpc.getLifeGoals.useQuery();
 

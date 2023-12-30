@@ -312,7 +312,7 @@ export default function SideBar() {
                     pathName == "/dashboard"
                       ? "bg-gradient-to-r from-[#31353E] "
                       : ""
-                  } flex ml-[-5.6rem] pt-[21px] pb-[21px] items-center cursor-pointer text-white font-normal text-3xl md:pl-[3.8rem] `}
+                  } flex ml-[-5.6rem] hover:font-medium pt-[21px] pb-[21px] items-center cursor-pointer text-white font-normal text-3xl md:pl-[3.8rem] `}
                 >
                   <div className="md:mr-[1.5rem] ml-[2.4rem]">
                     <Vector />
@@ -326,7 +326,7 @@ export default function SideBar() {
                     pathName == "/dashboard/yearlyGoals"
                       ? "bg-gradient-to-r from-[#31353E] "
                       : ""
-                  }flex ml-[-5.6rem] pt-[21px] pb-[21px] items-center cursor-pointer text-white font-normal text-3xl md:pl-[3.8rem] `}
+                  }flex ml-[-5.6rem] pt-[21px] hover:font-medium pb-[21px] items-center cursor-pointer text-white font-normal text-3xl md:pl-[3.8rem] `}
                 >
                   <div className="md:mr-[1.5rem] ml-[2.4rem]">
                     <ArcherVector />
@@ -336,7 +336,7 @@ export default function SideBar() {
 
                 <Link
                   href={"#"}
-                  className="flex ml-[-5.6rem] pt-[21px] pb-[21px] items-center cursor-pointer text-white font-normal text-3xl md:pl-[3.8rem] "
+                  className="flex ml-[-5.6rem] hover:font-medium  pt-[21px] pb-[21px] items-center cursor-pointer text-white font-normal text-3xl md:pl-[3.8rem] "
                 >
                   <div className="md:mr-[1.5rem] ml-[2.4rem]">
                     <Tool />
