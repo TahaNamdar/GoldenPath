@@ -797,9 +797,11 @@ export const appRouter = t.router({
           return task;
         });
 
-        const priorities = await (ctx as any).prisma.Priorities.findMany({});
-
-        console.log(priorities, "p");
+        const priorities = await (ctx as any).prisma.Priorities.findMany({
+          where: {
+            userId: id,
+          },
+        });
 
         if (priorities.length > 5 && status === true) {
           throw new TRPCError({

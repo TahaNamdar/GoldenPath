@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { Droppable, Draggable } from "react-beautiful-dnd";
 import { useDispatch } from "react-redux";
@@ -19,6 +19,9 @@ function Chip({ age = "", daysLeft = "", counter, index, chips }: Props) {
   const dispatch = useDispatch();
   const updateChipMutation = trpc.updateChips.useMutation();
   const deleteChipMutation = trpc.deleteChips.useMutation();
+
+  const [counterValue, setCounterValue] = useState(0);
+
 
   const addTags = (event: any) => {
     const currentAge = event.target.name;
@@ -41,7 +44,19 @@ function Chip({ age = "", daysLeft = "", counter, index, chips }: Props) {
       event.currentTarget.value = "";
     }
 
+    setCounterValue(0);
+
     if (event.key === "Backspace" && event.currentTarget.value.trim() === "") {
+      setCounterValue(counterValue + 1);
+    }
+
+    if (
+      event.key === "Backspace" &&
+      event.currentTarget.value.trim() === "" &&
+      counterValue == 1
+    ) {
+      setCounterValue(0);
+
       // Check if Backspace event corresponds to the correct input field
       if (currentAge === event.currentTarget.name) {
         const lastChip = chips.Chips[chips.Chips.length - 1];
