@@ -315,7 +315,12 @@ const GoldenEditor = ({
                 );
               })}
 
-              <section className="flex">
+              <section
+                className="flex transition-all"
+                style={{
+                  ...StyleHandler(),
+                }}
+              >
                 {notion.Tasks.length !== 0 ? (
                   <>
                     <div className="mr-[21px]"></div>
@@ -334,7 +339,6 @@ const GoldenEditor = ({
                   style={{
                     whiteSpace: "pre-wrap",
                     resize: "none",
-                    ...StyleHandler(),
                   }}
                   className={`placeholder-placeholder bg-transparent transition-all overflow-hidden  outline-none text-[14px] w-[90%] mr-[6px] }`}
                   onKeyDown={onNewDimensionHandler}
