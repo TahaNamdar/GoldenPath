@@ -41,6 +41,7 @@ export const TaskCard = ({
     trpc.updateFavoriteStatus.useMutation();
   const { mutate: updateTaskValue } = trpc.updateTaskValue.useMutation();
   const { mutate: deleteTask } = trpc.deleteTask.useMutation();
+  const { mutate: updateTaskSub } = trpc.updateTaskSub.useMutation();
 
   const updateTaskValueDebounced = useDebouncedCallback(
     ({
@@ -167,23 +168,53 @@ export const TaskCard = ({
   };
 
   const preventEnter = (e: any) => {
-    e.preventDefault();
-
     if (e.key === "Tab") {
-      setTask((prevTask) => {
-        return {
-          ...prevTask,
-          subTask: true,
-        };
-      });
-    }
-    if (e.shiftKey && e.key === "Tab") {
-      setTask((prevTask) => {
-        return {
-          ...prevTask,
-          subTask: false,
-        };
-      });
+      e.preventDefault();
+
+      if (e.shiftKey) {
+        // Handle Shift + Tab
+        updateTaskSub(
+          {
+            notion_id: notionId,
+            task_id: task.id,
+            status: false,
+          },
+          {
+            onSuccess: () => {
+              setTask((prevTask) => {
+                return {
+                  ...prevTask,
+                  subTask: false,
+                };
+              });
+            },
+            onError: (error) => {
+              console.log(error, "error");
+            },
+          }
+        );
+      } else {
+        // Handle Tab
+        if (task.subTask) return;
+
+        updateTaskSub(
+          {
+            notion_id: notionId,
+            task_id: task.id,
+            status: true,
+          },
+          {
+            onSuccess: () => {
+              setTask((prevTask) => {
+                return {
+                  ...prevTask,
+                  subTask: true,
+                };
+              });
+            },
+          }
+        );
+      }
     }
   };
 

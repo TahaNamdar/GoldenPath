@@ -767,6 +767,60 @@ export const appRouter = t.router({
       }
     }),
 
+  //update task sub
+  updateTaskSub: t.procedure
+    .use(isUser)
+    .input(
+      z.object({
+        notion_id: z.string(),
+        task_id: z.string(),
+        status: z.boolean(),
+      })
+    )
+    .mutation(async ({ input, ctx }) => {
+      const { notion_id, task_id, status } = input;
+
+      const session = await getServerSession(authOptions);
+      const id = (session as any).id;
+
+      try {
+        const notion = await (ctx as any).prisma.YearlyGoals.findUnique({
+          where: {
+            id: notion_id,
+            userId: id,
+          },
+        });
+
+        const modifiedTask = notion.Tasks.map((task: NotionTask) => {
+          if (task.id === task_id) {
+            task.subTask = status;
+          }
+          return task;
+        });
+
+        const updateResult = await (ctx as any).prisma.YearlyGoals.update({
+          where: {
+            id: notion_id,
+            userId: id,
+          },
+          data: {
+            Tasks: {
+              set: modifiedTask,
+            },
+          },
+        });
+
+        return updateResult;
+      } catch (e) {
+        console.log(e);
+
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "something went wrong. please try again late",
+        });
+      }
+    }),
+
   updateFavoriteStatus: t.procedure
     .use(isUser)
     .input(
