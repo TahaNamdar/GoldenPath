@@ -167,14 +167,31 @@ export const TaskCard = ({
   };
 
   const preventEnter = (e: any) => {
-    if (e.keyCode == 13) {
-      e.preventDefault();
+    e.preventDefault();
+
+    if (e.key === "Tab") {
+      setTask((prevTask) => {
+        return {
+          ...prevTask,
+          subTask: true,
+        };
+      });
+    }
+    if (e.shiftKey && e.key === "Tab") {
+      setTask((prevTask) => {
+        return {
+          ...prevTask,
+          subTask: false,
+        };
+      });
     }
   };
 
   return (
     <div
-      className={`flex flex-1  ${task.subTask ? "pl-[22px]" : null} `}
+      className={`flex flex-1 transition-all ${
+        task.subTask ? "pl-[22px]" : null
+      } `}
       onMouseEnter={onMouseEnterHandler}
       onMouseLeave={onMouseLeaveHandler}
     >
