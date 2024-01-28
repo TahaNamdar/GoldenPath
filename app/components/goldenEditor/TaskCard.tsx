@@ -139,6 +139,8 @@ export const TaskCard = ({
     );
   };
 
+  console.log("first");
+
   const onValueChangeHandler = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const value = e.target.value;
 
