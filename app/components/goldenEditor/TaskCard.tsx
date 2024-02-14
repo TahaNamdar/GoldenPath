@@ -168,6 +168,10 @@ export const TaskCard = ({
   };
 
   const preventEnter = (e: any) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+    }
+
     if (e.key === "Tab") {
       e.preventDefault();
 
